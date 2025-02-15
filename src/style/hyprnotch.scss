@@ -1,0 +1,40 @@
+@use "./colors.scss" as *;
+
+window.hyprnotch {
+  color: transparent;
+  background: transparent;
+}
+
+.hyprnotch-button-hover-area {
+  background: black;
+  margin: 0px;
+  padding-top: 0px;
+  padding-bottom: 24px;
+  border: 0px;
+  min-width: 300px;
+  min-height: 30px;
+  border-radius: 0px 0px 24px 24px;
+  transition: all 250ms;
+}
+
+.hyprnotch-button-hover-area:hover {
+  min-width: 1200px;
+  min-height: 120px;
+  transition: all 250ms;
+}
+
+.normal_notch {
+  background-color: black;
+  color: white;
+}
+
+.expanded_notch {
+  background-color: black;
+  color: white;
+}
+
+.current-time {
+  font-size: 16px;
+  padding-left: 12px;
+  padding-bottom: 6px;
+}
