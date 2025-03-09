@@ -1,0 +1,21 @@
+// https://gitlab.gnome.org/GNOME/gtk/-/blob/gtk-3-24/gtk/theme/Adwaita/_colors-public.scss
+@use "./colors.scss" as *;
+@use "sass:list";
+@use "./hyprnotch.scss" as *;
+@use "../src/view/normal/normal_notch.scss" as *;
+
+window.Bar {
+  color: $primary;
+  font-weight: bold;
+  min-height: 36px;
+  border-radius: 24px;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  > centerbox {
+    background: transparent;
+    border-radius: 0px 0px 24px 24px;
+  }
+}

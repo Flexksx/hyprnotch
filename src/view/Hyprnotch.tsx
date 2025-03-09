@@ -3,9 +3,6 @@ import { bind } from "astal";
 import HoverViewModel from "../viewmodel/HoverViewModel";
 import ExpandedNotch from "./expanded/ExpandedNotch";
 import NormalNotch from "./normal/NormalNotch";
-function negate(value: boolean) {
-  return !value;
-}
 
 export default function Hyprnotch(gdkmonitor: Gdk.Monitor) {
   const hoverViewModel = new HoverViewModel();
