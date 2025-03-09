@@ -19,25 +19,36 @@ export default function Hyprnotch(gdkmonitor: Gdk.Monitor) {
       exclusivity={Astal.Exclusivity.IGNORE}
       application={App}
     >
-      <button
-        onHover={setHovered}
-        onHoverLost={setNotHovered}
-        className="hyprnotch-button-hover-area"
-      >
-        {bind(hoverViewModel.isHovered).as((isNotchHovered) => {
-          if (isNotchHovered) {
-            log(
-              `hyprnotch hovered on monitor ${gdkmonitor.get_manufacturer()}`
-            );
-            return <ExpandedNotch />;
-          } else {
-            log(
-              `hyprnotch on monitor ${gdkmonitor.get_manufacturer()} is unhovered`
-            );
-            return <NormalNotch />;
-          }
-        })}
-      </button>
+      <box>
+        <box
+          className="hyprnotch-side-left-container"
+          child=<box className="hyprnotch-side-left" />
+        />
+        <button
+          onHover={setHovered}
+          onHoverLost={setNotHovered}
+          className="hyprnotch-button-hover-area"
+        >
+          {bind(hoverViewModel.isHovered).as((isNotchHovered) => {
+            if (isNotchHovered) {
+              log(
+                `hyprnotch hovered on monitor ${gdkmonitor.get_manufacturer()}`
+              );
+              return <ExpandedNotch />;
+            } else {
+              log(
+                `hyprnotch on monitor ${gdkmonitor.get_manufacturer()} is unhovered`
+              );
+              return <NormalNotch />;
+            }
+          })}
+        </button>
+
+        <box
+          className="hyprnotch-side-right-container"
+          child=<box className="hyprnotch-side-right" />
+        />
+      </box>
     </window>
   );
 }

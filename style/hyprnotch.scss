@@ -12,15 +12,15 @@ window.hyprnotch {
   padding-bottom: 24px;
   border: 0px;
   min-width: 300px;
-  min-height: 20px;
+  min-height: 30px;
   border-radius: 0px 0px 12px 12px;
-  transition: all 250ms;
+  transition: all 150ms;
 }
 
 .hyprnotch-button-hover-area:hover {
   min-width: 900px;
   min-height: 120px;
-  transition: all 250ms;
+  transition: all 150ms;
   border-radius: 0px 0px 24px 24px;
 }
 
@@ -38,4 +38,33 @@ window.hyprnotch {
   font-size: 16px;
   padding-left: 12px;
   padding-bottom: 6px;
+}
+
+.hyprnotch-side-left-container,
+.hyprnotch-side-right-container {
+  background-color: black;
+}
+
+.hyprnotch-side-left,
+.hyprnotch-side-right {
+  min-width: 30px;
+  min-height: 20px;
+  background: red;
+  transition: min-width 150ms ease-in-out;
+}
+
+.hyprnotch-side-left {
+  border-top-right-radius: 60%;
+}
+
+.hyprnotch-side-right {
+  border-top-left-radius: 60%;
+}
+.hyprnotch-button-hover-area:hover
+  + .hyprnotch-side-left-container
+  .hyprnotch-side-left,
+.hyprnotch-button-hover-area:hover
+  + .hyprnotch-side-right-container
+  .hyprnotch-side-right {
+  min-width: 60px;
 }
