@@ -20,10 +20,6 @@ export default function Hyprnotch(gdkmonitor: Gdk.Monitor) {
       application={App}
     >
       <box>
-        <box
-          className="hyprnotch-side-left-container"
-          child=<box className="hyprnotch-side-left" />
-        />
         <button
           onHover={setHovered}
           onHoverLost={setNotHovered}
@@ -43,11 +39,6 @@ export default function Hyprnotch(gdkmonitor: Gdk.Monitor) {
             }
           })}
         </button>
-
-        <box
-          className="hyprnotch-side-right-container"
-          child=<box className="hyprnotch-side-right" />
-        />
       </box>
     </window>
   );

@@ -12,7 +12,7 @@ window.hyprnotch {
   padding-bottom: 24px;
   border: 0px;
   min-width: 300px;
-  min-height: 30px;
+  min-height: 24px;
   border-radius: 0px 0px 12px 12px;
   transition: all 150ms;
 }
@@ -21,7 +21,7 @@ window.hyprnotch {
   min-width: 900px;
   min-height: 120px;
   transition: all 150ms;
-  border-radius: 0px 0px 24px 24px;
+  border-radius: 0px 0px 36px 36px;
 }
 
 .normal_notch {
@@ -66,5 +66,5 @@ window.hyprnotch {
 .hyprnotch-button-hover-area:hover
   + .hyprnotch-side-right-container
   .hyprnotch-side-right {
-  min-width: 60px;
+  min-width: 120px;
 }

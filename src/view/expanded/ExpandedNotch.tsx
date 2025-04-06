@@ -1,7 +1,9 @@
 import { bind } from "astal";
 import TimeService from "../../service/TimeService";
-import WeatherService from "../../service/WeatherService";
+import WeatherService from "../../weather/service/WeatherService";
+import { WeatherViewModel } from "../../weather/viewmodel/WeatherViewModel";
 
+const weatherViewModel = new WeatherViewModel();
 function Time() {
   return (
     <box className="expanded_notch_time">
@@ -21,13 +23,11 @@ function Time() {
 function Weather() {
   return (
     <box>
-      {bind(WeatherService.getInstance().getWeather()).as((weather) => {
+      {bind(weatherViewModel.getWeatherVariable()).as((weather) => {
         if (weather) {
-          const currentWeather = weather["current"];
-          const condition = currentWeather["condition"]["text"];
-          const currentTemp = currentWeather["temp_c"];
-          const feelsLike = currentWeather["feelslike_c"];
-          return `${condition} now, ${currentTemp}°C, feels like ${feelsLike}°C`;
+          const condition = weather.getConditionText();
+          const currentTemp = weather.getTempCelsius();
+          return `${condition} now, ${currentTemp}°C`;
         } else {
           return "Loading...";
         }
