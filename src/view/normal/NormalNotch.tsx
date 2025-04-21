@@ -1,6 +1,8 @@
 import { bind } from "astal/binding";
 import TimeService from "../../time/service/TimeService";
 import NormalNotchBluetooth from "./bluetooth/BluetoothIndicator";
+import WifiIndicator from "./network/WifiIndicator";
+import MediaIndicator from "./media/MediaIndicator";
 function Time() {
   return (
     <box
@@ -21,15 +23,16 @@ export default function NormalNotch() {
     <centerbox
       className={"normal_notch"}
       startWidget={<Time />}
-      centerWidget={
-        <button
-          label={"Hyprnotch"}
-          onClick={() => {
-            console.log("Hyprnotch clicked");
-          }}
-        />
+      centerWidget={<label label={"Hyprnotch"} />}
+      endWidget={
+        <box
+          children={[
+            <NormalNotchBluetooth />,
+            <WifiIndicator />,
+            <MediaIndicator />,
+          ]}
+        ></box>
       }
-      endWidget={<NormalNotchBluetooth />}
     ></centerbox>
   );
 }

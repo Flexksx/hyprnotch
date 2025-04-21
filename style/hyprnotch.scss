@@ -8,8 +8,8 @@ window.hyprnotch {
 .hyprnotch-button-hover-area {
   background: black;
   margin: 0px;
-  padding-top: 4px;
-  padding-bottom: 10px;
+  padding-top: 2px;
+  padding-bottom: 8px;
   border: 0px;
   min-width: 300px;
   min-height: 20px;
@@ -38,33 +38,4 @@ window.hyprnotch {
   font-size: 16px;
   padding-left: 12px;
   padding-bottom: 6px;
-}
-
-.hyprnotch-side-left-container,
-.hyprnotch-side-right-container {
-  background-color: black;
-}
-
-.hyprnotch-side-left,
-.hyprnotch-side-right {
-  min-width: 30px;
-  min-height: 20px;
-  background: red;
-  transition: min-width 150ms ease-in-out;
-}
-
-.hyprnotch-side-left {
-  border-top-right-radius: 60%;
-}
-
-.hyprnotch-side-right {
-  border-top-left-radius: 60%;
-}
-.hyprnotch-button-hover-area:hover
-  + .hyprnotch-side-left-container
-  .hyprnotch-side-left,
-.hyprnotch-button-hover-area:hover
-  + .hyprnotch-side-right-container
-  .hyprnotch-side-right {
-  min-width: 120px;
 }
