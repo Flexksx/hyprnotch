@@ -1,13 +1,21 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    ags.url = "github:aylur/ags";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    astal = {
+      url = "github:aylur/astal";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    ags = {
+      url = "github:aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
     {
       self,
       nixpkgs,
+      astal,
       ags,
     }:
     let
@@ -15,18 +23,32 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in
     {
-      devShells.${system}.default = pkgs.mkShell {
-        buildInputs = [
-          # includes astal3 astal4 astal-io by default
-          (ags.packages.${system}.default.override {
-            extraPackages = [
-              pkgs.gobject-introspection
-              pkgs.gtksourceview
-              pkgs.webkitgtk
-              pkgs.fzf
-            ];
-          })
+      packages.${system}.default = pkgs.stdenvNoCC.mkDerivation rec {
+        name = "hyprnotch";
+        src = ./.;
+
+        nativeBuildInputs = [
+          ags.packages.${system}.default
+          pkgs.wrapGAppsHook
+          pkgs.gobject-introspection
         ];
+
+        buildInputs = with astal.packages.${system}; [
+          astal3
+          io
+          bluetooth
+          apps
+          battery
+          hyprland
+          mpris
+          network
+
+        ];
+
+        installPhase = ''
+          mkdir -p $out/bin
+          ags bundle app.ts $out/bin/${name}
+        '';
       };
     };
 }

@@ -1,0 +1,22 @@
+.workspaces_bar {
+  min-height: 24px;
+}
+
+.workspaces_bar .workspaces_bar_container {
+  padding: 0px 12px;
+}
+
+.workspace_button {
+  padding: 0px 12px;
+  border-radius: 0px;
+}
+
+.workspace_button:hover {
+  background-color: black;
+  color: wheat;
+}
+
+.workspace_button.focused {
+  background-color: blue;
+  color: red;
+}

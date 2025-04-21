@@ -1,0 +1,19 @@
+.normal_notch_bluetooth_icon_button {
+  border-radius: 24px;
+}
+
+.normal_notch_bluetooth_icon_button.powered {
+  background-color: #0078d7;
+  color: white;
+}
+
+.normal_notch_bluetooth_icon_button.powered:hover {
+  background-color: #005a9e;
+}
+.normal_notch_bluetooth_icon_button.powered:active {
+  background-color: #004578;
+}
+.normal_notch_bluetooth_icon_button.unpowered {
+  background-color: gray;
+  color: white;
+}

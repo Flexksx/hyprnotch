@@ -2,10 +2,12 @@ import { Variable, execAsync, interval } from "astal";
 import WeatherService from "../service/WeatherService";
 import { Weather } from "../model/Weather";
 import { WeatherBuilder } from "../model/WeatherBuilder";
+import Logger from "../../logger/Logger";
 
 export class WeatherViewModel {
   private weatherService: WeatherService;
   private weatherVariable: Variable<Weather>;
+  private logger: Logger = new Logger("WeatherViewModel");
 
   constructor() {
     this.weatherService = new WeatherService();
@@ -28,7 +30,8 @@ export class WeatherViewModel {
   public async pollWeatherUpdate(): Promise<void> {
     interval(60000, async () => {
       this.refreshWeather();
-    }).start();
+      this.logger.debug("Polling weather update");
+    });
   }
 
   public async refreshWeather(): Promise<void> {
@@ -38,7 +41,7 @@ export class WeatherViewModel {
         this.weatherVariable.set(weather);
       }
     } catch (error) {
-      console.error("Error fetching weather:", error);
+      this.logger.error("Error fetching weather data: ", error);
     }
   }
 

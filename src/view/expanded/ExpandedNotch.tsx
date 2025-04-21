@@ -1,5 +1,5 @@
 import { bind } from "astal";
-import TimeService from "../../service/TimeService";
+import TimeService from "../../time/service/TimeService";
 import WeatherService from "../../weather/service/WeatherService";
 import { WeatherViewModel } from "../../weather/viewmodel/WeatherViewModel";
 
@@ -22,26 +22,38 @@ function Time() {
 }
 function Weather() {
   return (
-    <box>
-      {bind(weatherViewModel.getWeatherVariable()).as((weather) => {
-        if (weather) {
-          const condition = weather.getConditionText();
-          const currentTemp = weather.getTempCelsius();
-          return `${condition} now, ${currentTemp}°C`;
-        } else {
-          return "Loading...";
-        }
-      })}
-    </box>
+    <box
+      child={
+        <label>
+          {bind(weatherViewModel.getWeatherVariable()).as((weather) => {
+            if (weather) {
+              const condition = weather.getConditionText();
+              const currentTemp = weather.getTempCelsius();
+              return `${condition} now, ${currentTemp}°C`;
+            } else {
+              return "Loading...";
+            }
+          })}
+        </label>
+      }
+    ></box>
   );
 }
 export default function ExpandedNotch() {
   return (
-    <box className={"expanded_notch"}>
-      <box vertical="true">
-        <Time />
-        <Weather />
-      </box>
-    </box>
+    <box
+      className={"expanded_notch"}
+      child={
+        <box
+          vertical={true}
+          children={[
+            <>
+              <Time />
+              <Weather />
+            </>,
+          ]}
+        ></box>
+      }
+    ></box>
   );
 }
