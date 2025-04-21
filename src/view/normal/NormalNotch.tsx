@@ -1,6 +1,6 @@
 import { bind } from "astal/binding";
 import TimeService from "../../time/service/TimeService";
-import NormalNotchBluetooth from "./bluetooth/Bluetooth";
+import NormalNotchBluetooth from "./bluetooth/BluetoothIndicator";
 function Time() {
   return (
     <box

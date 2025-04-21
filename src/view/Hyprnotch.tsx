@@ -30,12 +30,8 @@ export default function Hyprnotch(gdkmonitor: Gdk.Monitor) {
         <centerbox
           centerWidget={
             <button
-              onClicked={() => {
-                logger.debug(
-                  `hyprnotch clicked on monitor ${gdkmonitor.get_manufacturer()}`
-                );
-                hoverViewModel.isHovered.set(!hoverViewModel.isHovered.get());
-              }}
+              onHover={setHovered}
+              onHoverLost={setNotHovered}
               className="hyprnotch-button-hover-area"
               child={bind(hoverViewModel.isHovered).as((isNotchHovered) => {
                 if (isNotchHovered) {

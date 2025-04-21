@@ -12,11 +12,13 @@ export default class BluetoothViewModel {
   public getAdapters(): Binding<Bluetooth.Adapter[]> {
     return bind(this.bluetooth, "adapters");
   }
-  public getIsOn(): Binding<boolean> {
+  public getIsPowered(): Binding<boolean> {
     return bind(this.bluetooth, "is_powered");
   }
   public toggle(): void {
     this.bluetooth.toggle();
-    this.logger.info("Toggling bluetooth state to " + this.getIsOn().get());
+    this.logger.info(
+      "Toggling bluetooth state to " + this.getIsPowered().get()
+    );
   }
 }
