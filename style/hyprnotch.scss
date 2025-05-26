@@ -4,34 +4,31 @@ window.hyprnotch {
   color: transparent;
   background: transparent;
 }
-
-.hyprnotch-button-hover-area {
-  background: black;
+.hyprnotch-button-area {
+  background: transparent;
+  padding: 0px;
   margin: 0px;
-  padding-top: 2px;
-  padding-bottom: 8px;
   border: 0px;
-  min-width: 300px;
-  min-height: 20px;
-  border-radius: 0px 0px 12px 12px;
-  transition: all 150ms;
 }
-
-.hyprnotch-button-hover-area:hover {
-  min-width: 900px;
-  min-height: 120px;
-  transition: all 150ms;
-  border-radius: 0px 0px 36px 36px;
+.hyprnotch {
+  background-color: black;
+  color: white;
+  transition: all 200ms;
 }
 
 .normal_notch {
-  background-color: black;
-  color: white;
+  @extend .hyprnotch;
+  padding-bottom: 8px;
+  min-width: 300px;
+  min-height: 20px;
+  border-radius: 0px 0px 12px 12px;
 }
 
 .expanded_notch {
-  background-color: black;
-  color: white;
+  @extend .hyprnotch;
+  min-width: 900px;
+  min-height: 120px;
+  border-radius: 0px 0px 36px 36px;
 }
 
 .current-time {

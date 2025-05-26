@@ -29,13 +29,12 @@ export default function Hyprnotch(gdkmonitor: Gdk.Monitor) {
         <centerbox
           centerWidget={
             <button
-              onHover={() =>
-                notchStateViewModel.setNotchState(NotchState.HOVERED)
-              }
-              onHoverLost={() =>
-                notchStateViewModel.setNotchState(NotchState.NORMAL)
-              }
-              className="hyprnotch-button-hover-area"
+              onButtonPressEvent={() => {
+                notchStateViewModel.getNotchState().get() === NotchState.NORMAL
+                  ? notchStateViewModel.setNotchState(NotchState.HOVERED)
+                  : notchStateViewModel.setNotchState(NotchState.NORMAL);
+              }}
+              className="hyprnotch-button-area"
               child={notchStateViewModel.getNotchState().as((notchState) => {
                 switch (notchState) {
                   case NotchState.NORMAL:

@@ -3,9 +3,10 @@
 @use "sass:list";
 @use "./hyprnotch.scss" as *;
 @use "../style/buttons.scss" as *;
+@use "../style/workspaces.scss" as *;
+@use "../style/media_indicator.scss" as *;
+@use "../style/notification.scss" as *;
 @use "../src/view/notch/normal/normal_notch.scss" as *;
-@use "../src/view/workspaces/workspaces.scss" as *;
-@use "../src/view/notch/normal/media/media_indicator.scss" as *;
 
 window.Bar {
   color: $primary;

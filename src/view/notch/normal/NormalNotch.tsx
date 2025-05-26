@@ -1,11 +1,9 @@
 import { bind } from "astal/binding";
 import TimeService from "../../../time/TimeService";
-import WifiIndicator from "./network/WifiIndicator";
-import MediaIndicator from "./media/MediaIndicator";
-import BluetoothViewModel from "../../../bluetooth/BluetoothViewModel";
-
-const BLUETOOTH_ON_ICON = "󰂯";
-const BLUETOOTH_OFF_ICON = "󰂲";
+import MediaIndicator from "./MediaIndicator";
+import { BluetoothButton } from "./BluetoothButton";
+import { WifiIndicator } from "./WifiIndicator";
+import Notifications from "./Notification";
 
 function Time() {
   return (
@@ -22,31 +20,6 @@ function Time() {
   );
 }
 
-function NormalNotchBluetooth() {
-  const bluetoothViewModel = new BluetoothViewModel();
-  return (
-    <box
-      className="normal_notch_bluetooth_icon"
-      child={
-        <box
-          className={bluetoothViewModel.getIsPowered().as((isPowered) => {
-            return isPowered
-              ? "normal_notch_bluetooth_indicator powered"
-              : "normal_notch_bluetooth_indicator unpowered";
-          })}
-          child={
-            <label
-              label={bluetoothViewModel.getIsPowered().as((isPowered) => {
-                return isPowered ? BLUETOOTH_ON_ICON : BLUETOOTH_OFF_ICON;
-              })}
-            ></label>
-          }
-        ></box>
-      }
-    ></box>
-  );
-}
-
 export default function NormalNotch() {
   return (
     <centerbox
@@ -58,10 +31,12 @@ export default function NormalNotch() {
           children={[
             <box
               vertical={true}
-              children={[<NormalNotchBluetooth />, <WifiIndicator />]}
+              children={[<BluetoothButton />, <WifiIndicator />]}
             />,
 
             <box vertical={true} children={[<MediaIndicator />]} />,
+
+            <box vertical={true} children={[<Notifications />]} />,
           ]}
         />
       }

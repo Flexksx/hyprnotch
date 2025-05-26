@@ -42,6 +42,7 @@
           hyprland
           mpris
           network
+          notifd
 
         ];
 

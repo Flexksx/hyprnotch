@@ -1,7 +1,7 @@
 import { Astal, App, Gdk } from "astal/gtk3";
 import Logger from "../../logger/Logger";
-import WorkspacesBar from "../workspaces/WorkspacesBar";
-import FocusedClient from "../focused_client/FocusedClient";
+import WorkspacesBar from "./WorkspacesBar";
+import FocusedClient from "./FocusedClient";
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
   const logger = new Logger("Bar");

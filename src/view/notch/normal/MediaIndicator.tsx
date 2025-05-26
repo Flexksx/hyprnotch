@@ -1,5 +1,5 @@
-import Logger from "../../../../logger/Logger";
-import MediaViewModel from "../../../../media/MediaViewModel";
+import Logger from "../../../logger/Logger";
+import MediaViewModel from "../../../media/MediaViewModel";
 export default function MediaIndicator() {
   const mediaViewModel = new MediaViewModel();
   const logger = new Logger("MediaIndicator");
