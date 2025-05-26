@@ -1,15 +1,14 @@
 import { App, Astal, Gdk } from "astal/gtk3";
 import { bind } from "astal";
-import ExpandedNotch from "./expanded/ExpandedNotch";
-import NormalNotch from "./normal/NormalNotch";
+import ExpandedNotch from "./notch/expanded/ExpandedNotch";
+import NormalNotch from "./notch/normal/NormalNotch";
 import Logger from "../logger/Logger";
-import HoverViewModel from "../hover/viewmodel/HoverViewModel";
+import HoverViewModel from "../hover/HoverViewModel";
+import NotchStateViewModel from "../notch_state/NotchStateViewModel";
+import { NotchState } from "../notch_state/NotchState";
 
 export default function Hyprnotch(gdkmonitor: Gdk.Monitor) {
-  const hoverViewModel = new HoverViewModel();
-
-  const setHovered = () => hoverViewModel.isHovered.set(true);
-  const setNotHovered = () => hoverViewModel.isHovered.set(false);
+  const notchStateViewModel = new NotchStateViewModel();
 
   const logger: Logger = new Logger("Hyprnotch");
   logger.debug(`Hyprnotch created on monitor ${gdkmonitor.get_manufacturer()}`);
@@ -30,20 +29,19 @@ export default function Hyprnotch(gdkmonitor: Gdk.Monitor) {
         <centerbox
           centerWidget={
             <button
-              onHover={setHovered}
-              onHoverLost={setNotHovered}
+              onHover={() =>
+                notchStateViewModel.setNotchState(NotchState.HOVERED)
+              }
+              onHoverLost={() =>
+                notchStateViewModel.setNotchState(NotchState.NORMAL)
+              }
               className="hyprnotch-button-hover-area"
-              child={bind(hoverViewModel.isHovered).as((isNotchHovered) => {
-                if (isNotchHovered) {
-                  logger.debug(
-                    `hyprnotch hovered on monitor ${gdkmonitor.get_manufacturer()}`
-                  );
-                  return <ExpandedNotch />;
-                } else {
-                  logger.debug(
-                    `hyprnotch on monitor ${gdkmonitor.get_manufacturer()} is unhovered`
-                  );
-                  return <NormalNotch />;
+              child={notchStateViewModel.getNotchState().as((notchState) => {
+                switch (notchState) {
+                  case NotchState.NORMAL:
+                    return <NormalNotch />;
+                  case NotchState.HOVERED:
+                    return <ExpandedNotch />;
                 }
               })}
             />

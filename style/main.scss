@@ -2,11 +2,10 @@
 @use "./colors.scss" as *;
 @use "sass:list";
 @use "./hyprnotch.scss" as *;
-@use "../src/view/normal/normal_notch.scss" as *;
+@use "../style/buttons.scss" as *;
+@use "../src/view/notch/normal/normal_notch.scss" as *;
 @use "../src/view/workspaces/workspaces.scss" as *;
-@use "../src/view/normal/bluetooth/bluetooth_button.scss" as *;
-@use "../src/view/normal/network/wifi_indicator.scss" as *;
-@use "../src/view/normal/media/media_indicator.scss" as *;
+@use "../src/view/notch/normal/media/media_indicator.scss" as *;
 
 window.Bar {
   color: $primary;

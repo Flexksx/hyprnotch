@@ -1,4 +1,4 @@
-import FocusedClientViewModel from "../../hyprland/clients/viewmodel/FocusedClientViewModel";
+import FocusedClientViewModel from "../../hyprland/FocusedClientViewModel";
 
 export default function FocusedClient() {
   const focusedClientViewModel = new FocusedClientViewModel();

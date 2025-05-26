@@ -1,0 +1,35 @@
+%indicator-button-base {
+  border-radius: 50%;
+  font-size: 12px;
+  padding-left: 2px;
+  padding-right: 2px;
+  min-height: 8px;
+  color: white;
+}
+
+@mixin indicator-state($bg, $fg: white) {
+  background-color: $bg;
+  color: $fg;
+}
+
+.normal_notch_wifi_indicator {
+  @extend %indicator-button-base;
+
+  &.connected {
+    @include indicator-state(rgb(64, 183, 64));
+  }
+  &.disconnected {
+    @include indicator-state(gray);
+  }
+}
+
+.normal_notch_bluetooth_indicator {
+  @extend %indicator-button-base;
+
+  &.powered {
+    @include indicator-state(#0078d7);
+  }
+  &.unpowered {
+    @include indicator-state(gray);
+  }
+}

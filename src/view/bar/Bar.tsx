@@ -17,7 +17,14 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
       }
       exclusivity={Astal.Exclusivity.EXCLUSIVE}
       application={App}
-      child={<box children={[<WorkspacesBar />, <FocusedClient />]}></box>}
+      child={
+        <box
+          children={[
+            <WorkspacesBar gdkmonitor={gdkmonitor} />,
+            <FocusedClient />,
+          ]}
+        ></box>
+      }
     ></window>
   );
 }

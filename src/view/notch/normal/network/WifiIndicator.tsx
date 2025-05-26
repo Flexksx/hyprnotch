@@ -1,4 +1,5 @@
-import NetworkViewModel from "../../../network/viewmodel/NetworkViewModel";
+import NetworkViewModel from "../../../../network/NetworkViewModel";
+
 export default function WifiIndicator() {
   const networkViewModel = new NetworkViewModel();
   return (

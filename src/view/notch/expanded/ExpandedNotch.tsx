@@ -1,7 +1,6 @@
 import { bind } from "astal";
-import TimeService from "../../time/service/TimeService";
-import WeatherService from "../../weather/service/WeatherService";
-import { WeatherViewModel } from "../../weather/viewmodel/WeatherViewModel";
+import { WeatherViewModel } from "../../../weather/viewmodel/WeatherViewModel";
+import TimeService from "../../../time/TimeService";
 
 const weatherViewModel = new WeatherViewModel();
 function Time() {

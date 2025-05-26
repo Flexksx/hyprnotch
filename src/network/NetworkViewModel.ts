@@ -1,7 +1,7 @@
 import { bind, Binding } from "astal";
 import Network from "gi://AstalNetwork";
-import Logger from "../../logger/Logger";
 import NM from "gi://NM";
+import Logger from "../logger/Logger";
 
 export default class NetworkViewModel {
   private network: Network.Network = Network.get_default();
