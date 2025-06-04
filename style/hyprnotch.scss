@@ -1,4 +1,5 @@
 @use "./colors.scss" as *;
+@use "./notification.scss" as *;
 
 window.hyprnotch {
   color: transparent;
@@ -13,22 +14,48 @@ window.hyprnotch {
 .hyprnotch {
   background-color: black;
   color: white;
-  transition: all 200ms;
+}
+
+.hyprnotch_transition {
+  transition: min-width 1000ms ease-in-out, min-height 1000ms ease-in-out,
+    border-radius 1000ms ease-in-out, background-color 300ms ease-in-out;
+}
+
+.notch_container {
 }
 
 .normal_notch {
   @extend .hyprnotch;
+  @extend .hyprnotch_transition;
   padding-bottom: 8px;
   min-width: 300px;
   min-height: 20px;
   border-radius: 0px 0px 12px 12px;
 }
 
+.gradient_border {
+  border-radius: 0px 0px 0px 12px;
+  border: 2px solid #ff6b6b;
+  border-top: none;
+  border-right: none;
+  animation: border-color-cycle 2s linear infinite;
+}
+
 .expanded_notch {
   @extend .hyprnotch;
+  @extend .hyprnotch_transition;
   min-width: 900px;
   min-height: 120px;
   border-radius: 0px 0px 36px 36px;
+}
+
+.notified_notch {
+  @extend .hyprnotch;
+  @extend .hyprnotch_transition;
+  padding-bottom: 8px;
+  min-width: 500px;
+  min-height: 45px;
+  border-radius: 0px 0px 12px 12px;
 }
 
 .current-time {

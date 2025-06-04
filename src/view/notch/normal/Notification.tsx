@@ -1,8 +1,10 @@
+import { NotchState } from "../../../notch_state/NotchState";
+import NotchStateViewModel from "../../../notch_state/NotchStateViewModel";
 import {
   NotificationViewModel,
   NotificationState,
 } from "../../../notification/NotificationViewModel";
-
+const notchStateViewModel = NotchStateViewModel.getInstance();
 export default function Notifications() {
   const notificationViewModel = new NotificationViewModel();
 
@@ -22,9 +24,7 @@ export default function Notifications() {
             case NotificationState.HAS_NOTIFICATIONS:
               return "normal_notch_notification has_notifications";
             case NotificationState.NEW_NOTIFICATION:
-              return "normal_notch_notification has_notifications new_notification";
-            default:
-              return "normal_notch_notification";
+              notchStateViewModel.setNotchState(NotchState.NEW_NOTIFICATION);
           }
         })}
     />

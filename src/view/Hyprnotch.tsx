@@ -6,9 +6,10 @@ import Logger from "../logger/Logger";
 import HoverViewModel from "../hover/HoverViewModel";
 import NotchStateViewModel from "../notch_state/NotchStateViewModel";
 import { NotchState } from "../notch_state/NotchState";
+import NotifiedNotch from "./notch/notification/NotifiedNotch";
 
 export default function Hyprnotch(gdkmonitor: Gdk.Monitor) {
-  const notchStateViewModel = new NotchStateViewModel();
+  const notchStateViewModel = NotchStateViewModel.getInstance();
 
   const logger: Logger = new Logger("Hyprnotch");
   logger.debug(`Hyprnotch created on monitor ${gdkmonitor.get_manufacturer()}`);
@@ -41,6 +42,8 @@ export default function Hyprnotch(gdkmonitor: Gdk.Monitor) {
                     return <NormalNotch />;
                   case NotchState.HOVERED:
                     return <ExpandedNotch />;
+                  case NotchState.NEW_NOTIFICATION:
+                    return <NotifiedNotch />;
                 }
               })}
             />

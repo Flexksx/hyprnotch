@@ -2,10 +2,10 @@
 @use "./colors.scss" as *;
 @use "sass:list";
 @use "./hyprnotch.scss" as *;
-@use "../style/buttons.scss" as *;
-@use "../style/workspaces.scss" as *;
-@use "../style/media_indicator.scss" as *;
-@use "../style/notification.scss" as *;
+@use "./buttons.scss" as *;
+@use "./workspaces.scss" as *;
+@use "./media_indicator.scss" as *;
+@use "./notification.scss" as *;
 @use "../src/view/notch/normal/normal_notch.scss" as *;
 
 window.Bar {
