@@ -1,4 +1,6 @@
-@use 'sass:color';
+@use "sass:color";
+
+$font_family: "Roboto, sans-serif";
 
 $background: #fafaee;
 
@@ -99,5 +101,3 @@ $tertiary_container: #bcece6;
 $tertiary_fixed: #bcece6;
 
 $tertiary_fixed_dim: #a0d0ca;
-
-

@@ -33,14 +33,6 @@ window.hyprnotch {
   border-radius: 0px 0px 12px 12px;
 }
 
-.gradient_border {
-  border-radius: 0px 0px 0px 12px;
-  border: 2px solid #ff6b6b;
-  border-top: none;
-  border-right: none;
-  animation: border-color-cycle 2s linear infinite;
-}
-
 .expanded_notch {
   @extend .hyprnotch;
   @extend .hyprnotch_transition;

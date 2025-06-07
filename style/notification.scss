@@ -70,31 +70,3 @@
     border-radius: 4px;
   }
 }
-
-.notified_gradient_border {
-  border-radius: 0px 0px 12px 12px;
-  border-top: 0px;
-  border-left: 2px solid;
-  border-bottom: 2px solid;
-  border-right: 2px solid;
-  border-color: #ff6b6b;
-  animation: simple-border-cycle 2s linear infinite;
-}
-
-@keyframes simple-border-cycle {
-  0% {
-    border-color: #ff6b6b;
-  }
-  25% {
-    border-color: #4ecdc4;
-  }
-  50% {
-    border-color: #45b7d1;
-  }
-  75% {
-    border-color: #96ceb4;
-  }
-  100% {
-    border-color: #ff6b6b;
-  }
-}

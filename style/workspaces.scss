@@ -1,22 +1,39 @@
-.workspaces_bar {
-  min-height: 24px;
+@use "./colors.scss" as *;
+
+.workspaces_bar_container {
+  background-color: $surface_variant;
 }
 
-.workspaces_bar .workspaces_bar_container {
-  padding: 0px 12px;
+.workspaces_bar {
+  background-color: $surface;
+  border-radius: 0px 0px 12px 0px;
 }
 
 .workspace_button {
-  padding: 0px 12px;
-  border-radius: 0px;
+  border-radius: 50%;
+  margin: 4px;
+  background-color: $surface_variant;
+  font-size: 14px;
+  padding: 0px 4px;
+  color: $on_surface_variant;
+  font-family: $font_family;
 }
 
 .workspace_button:hover {
-  background-color: black;
-  color: wheat;
+  background-color: rgb(200, 200, 200);
 }
 
 .workspace_button.focused {
-  background-color: blue;
-  color: red;
+  background-color: $primary;
+  color: $on_primary;
+}
+
+.focused_client_container {
+  background-color: $surface_variant;
+  border-radius: 0px 0px 12px 12px;
+}
+.focused_client {
+  background-color: $surface_variant;
+  border-radius: 0px 0px 12px 0px;
+  color: $on_surface_variant;
 }

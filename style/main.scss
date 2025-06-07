@@ -6,7 +6,6 @@
 @use "./workspaces.scss" as *;
 @use "./media_indicator.scss" as *;
 @use "./notification.scss" as *;
-@use "../src/view/notch/normal/normal_notch.scss" as *;
 
 window.Bar {
   color: $primary;
