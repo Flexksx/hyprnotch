@@ -11,9 +11,10 @@ window.hyprnotch {
   margin: 0px;
   border: 0px;
 }
+
 .hyprnotch {
-  background-color: black;
-  color: white;
+  background-color: $background;
+  color: $on_background;
 }
 
 .hyprnotch_transition {
@@ -29,7 +30,7 @@ window.hyprnotch {
   @extend .hyprnotch_transition;
   padding-bottom: 8px;
   min-width: 300px;
-  min-height: 20px;
+  min-height: 32px;
   border-radius: 0px 0px 12px 12px;
 }
 

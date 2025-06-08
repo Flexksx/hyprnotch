@@ -7,6 +7,25 @@ interface WorkspacesBarProps {
   gdkmonitor: Gdk.Monitor;
 }
 
+function toRomanNumeral(num: number): string {
+  const romanNumerals = [
+    { value: 10, symbol: "X" },
+    { value: 9, symbol: "IX" },
+    { value: 5, symbol: "V" },
+    { value: 4, symbol: "IV" },
+    { value: 1, symbol: "I" },
+  ];
+
+  let result = "";
+  for (const { value, symbol } of romanNumerals) {
+    while (num >= value) {
+      result += symbol;
+      num -= value;
+    }
+  }
+  return result || "I";
+}
+
 export default function WorkspacesBar(props: WorkspacesBarProps) {
   const workspaceViewModel: WorkspaceViewModel = new WorkspaceViewModel();
   const logger = new Logger("WorkspacesBar");
@@ -31,9 +50,7 @@ export default function WorkspacesBar(props: WorkspacesBarProps) {
                 .sort((a: Hyprland.Workspace, b: Hyprland.Workspace) => {
                   return a.get_id() - b.get_id();
                 })
-                .map((workspace: Hyprland.Workspace) => {
-                  return workspace.get_name();
-                })
+                .map((workspace: Hyprland.Workspace) => workspace.get_name())
                 .toString()
             );
             return workspaces.map((workspace: Hyprland.Workspace) => {
@@ -49,7 +66,13 @@ export default function WorkspacesBar(props: WorkspacesBarProps) {
                           : "")
                       );
                     })}
-                  child={<label label={workspace.get_name()} />}
+                  child={
+                    <label
+                      label={toRomanNumeral(
+                        parseInt(workspace.get_name()) || workspace.get_id()
+                      )}
+                    />
+                  }
                   onClick={() => {
                     logger.debug(
                       `Pressing button for workspace ${workspace.get_id()}, switching to it`

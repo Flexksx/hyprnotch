@@ -13,12 +13,23 @@ export class WorkspaceViewModel {
 
   public getWorkspaces(): Binding<Hyprland.Workspace[]> {
     return bind(this.hyprland, "workspaces").as(() => {
-      this.logger.debug("Workspaces updated");
-      return this.hyprland
+      const workspaces = this.hyprland
         .get_workspaces()
         .sort((a: Hyprland.Workspace, b: Hyprland.Workspace) => {
           return a.get_id() - b.get_id();
         });
+      this.logger.debug(
+        "Hyprland workspaces updated to: ",
+        workspaces
+          .map((workspace: Hyprland.Workspace) => {
+            return workspace.get_name();
+          })
+          .toString()
+      );
+      if (workspaces.length === 0) {
+        this.logger.warn("No workspaces found in Hyprland");
+      }
+      return workspaces;
     });
   }
 
@@ -34,13 +45,14 @@ export class WorkspaceViewModel {
   public getPerMonitorWorkspaces(
     monitorModel: string
   ): Binding<Hyprland.Workspace[]> {
-    return bind(this.hyprland, "workspaces").as(() => {
-      this.logger.debug("Per monitor workspaces updated");
-      return this.hyprland
-        .get_workspaces()
-        .filter((workspace: Hyprland.Workspace) => {
-          return workspace.get_monitor().get_model() === monitorModel;
-        });
+    return this.getWorkspaces().as((workspaces: Hyprland.Workspace[]) => {
+      this.logger.debug(
+        `Filtering workspaces for monitor model: ${monitorModel}`
+      );
+      return workspaces.filter(
+        (workspace: Hyprland.Workspace) =>
+          workspace.get_monitor().get_model() === monitorModel
+      );
     });
   }
 }

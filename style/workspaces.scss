@@ -2,6 +2,7 @@
 
 .workspaces_bar_container {
   background-color: $surface_variant;
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .workspaces_bar {
@@ -31,6 +32,7 @@
 .focused_client_container {
   background-color: $surface_variant;
   border-radius: 0px 0px 12px 12px;
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.15);
 }
 .focused_client {
   background-color: $surface_variant;

@@ -10,7 +10,7 @@ export default function FocusedClient() {
           className="focused_client"
           child={focusedClientViewModel.getFocusedClient().as((client) => {
             if (client) {
-              return <label label={client.get_initial_title()} />;
+              return <label label={client.get_class()} />;
             } else {
               return <label label={"No focused client"} />;
             }

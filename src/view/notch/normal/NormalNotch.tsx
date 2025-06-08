@@ -14,14 +14,14 @@ export function BluetoothButton() {
       onButtonPressEvent={() => {
         bluetoothViewModel.toggle();
       }}
-      className={bluetoothViewModel.getIsPowered().as((isPowered) => {
+      className={bluetoothViewModel.getIsPowered().as((isPowered: boolean) => {
         return isPowered
           ? "normal_notch_bluetooth_indicator powered"
           : "normal_notch_bluetooth_indicator unpowered";
       })}
       child={
         <label
-          label={bluetoothViewModel.getIsPowered().as((isPowered) => {
+          label={bluetoothViewModel.getIsPowered().as((isPowered: boolean) => {
             return isPowered ? BLUETOOTH_ON_ICON : BLUETOOTH_OFF_ICON;
           })}
         ></label>
@@ -81,7 +81,7 @@ export default function NormalNotch() {
           children={[
             <box
               vertical={true}
-              children={[<BluetoothButton />, <WifiIndicator />]}
+              // children={[<BluetoothButton />, <WifiIndicator />]}
             />,
 
             <box vertical={true} children={[<MediaIndicator />]} />,
