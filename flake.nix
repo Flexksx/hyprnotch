@@ -43,6 +43,7 @@
           mpris
           network
           notifd
+          tray
 
         ];
 

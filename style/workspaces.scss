@@ -1,32 +1,42 @@
 @use "./colors.scss" as *;
+@use "sass:color";
 
 .workspaces_bar_container {
-  background-color: $surface_variant;
-  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.15);
+  background-color: $background;
+  padding: 3px;
 }
 
 .workspaces_bar {
-  background-color: $surface;
-  border-radius: 0px 0px 12px 0px;
+  background-color: $primary_container;
+  border-radius: 12px;
 }
 
 .workspace_button {
+  $base-width: 12px;
+
   border-radius: 50%;
   margin: 4px;
-  background-color: $surface_variant;
+  background-color: $primary;
   font-size: 14px;
   padding: 0px 4px;
-  color: $on_surface_variant;
-  font-family: $font_family;
-}
+  border: none;
+  outline: none;
+  transition: all 0.3s;
+  min-width: $base-width;
+  min-height: $base-width;
 
-.workspace_button:hover {
-  background-color: rgb(200, 200, 200);
-}
+  &:hover {
+    background-color: color.scale($primary, $alpha: -40%);
+    border-radius: 16px;
+    min-width: $base-width * 2;
+  }
 
-.workspace_button.focused {
-  background-color: $primary;
-  color: $on_primary;
+  &.focused {
+    background-color: $primary;
+    color: $on_primary;
+    min-width: $base-width * 3;
+    border-radius: 20px;
+  }
 }
 
 .focused_client_container {

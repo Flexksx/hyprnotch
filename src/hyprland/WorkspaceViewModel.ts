@@ -38,7 +38,17 @@ export class WorkspaceViewModel {
   }
 
   public switchToWorkspace(workspaceId: number): void {
-    this.logger.debug(`Switching to workspace ${workspaceId}`);
+    if (!workspaceId) {
+      this.logger.error("Invalid workspace ID provided for switching");
+      return;
+    }
+    if (this.hyprland.get_focused_workspace().get_id() === workspaceId) {
+      this.logger.debug(
+        `Workspace ${workspaceId} is already focused, no action taken`
+      );
+      return;
+    }
+    this.logger.info(`Switching to workspace ${workspaceId}`);
     this.hyprland.get_workspace(workspaceId).focus();
   }
 
