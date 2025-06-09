@@ -15,7 +15,7 @@
 .workspace_button {
   $base-width: 12px;
 
-  border-radius: 50%;
+  border-radius: 12px;
   margin: 4px;
   background-color: $on_primary_container;
   font-size: 14px;
@@ -35,7 +35,13 @@
     color: $on_primary;
     min-width: $base-width * 2;
     border-radius: 20px;
+    padding: 0px 8px;
   }
+}
+
+.workspace_client_icon {
+  margin: 0px 2px;
+  min-height: 20px;
 }
 
 .focused_client_container {
