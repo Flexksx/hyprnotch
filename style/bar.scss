@@ -1,0 +1,17 @@
+@use "./colors.scss" as *;
+
+.bar_container {
+  background-color: transparent;
+
+  .workspaces_bar_container {
+    align-self: flex-start; // Don't stretch to container height
+  }
+
+  .system-tray {
+    align-self: flex-start; // Don't stretch to container height
+  }
+}
+
+.hyprnotch_bar {
+  background-color: transparent;
+}

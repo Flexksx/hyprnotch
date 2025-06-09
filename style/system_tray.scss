@@ -10,18 +10,35 @@
   background-color: $surface_container;
   border-radius: 12px;
   padding: 4px;
-  margin: 2px;
-  transition: $expressive_default_effects;
+  transition: all $expressive_default_effects_duration
+    $expressive_default_effects;
   color: $primary;
 
   &:hover {
-    background-color: color.scale($tertiary, $alpha: -20%);
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: $secondary_container;
+    color: $secondary;
+    border-radius: 12px 12px 0px 0px;
+    min-width: 30px;
   }
 
   &.active {
     background-color: $primary_container;
     color: $on_primary_container;
-    box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.2);
   }
+}
+
+.system_tray_bar_notch {
+  background-color: transparent;
+  border: 0px;
+  min-height: 0px;
+  padding: 0px;
+  margin: 0px;
+  transition: all $expressive_default_effects_duration
+    $expressive_default_effects;
+  border-radius: 0px 0px 12px 12px;
+}
+
+.system_tray_bar_notch.focused {
+  background-color: $secondary_container;
+  min-height: 40px;
 }

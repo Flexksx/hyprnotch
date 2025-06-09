@@ -2,6 +2,8 @@ import Logger from "../../logger/Logger";
 import { WorkspaceViewModel } from "../../hyprland/WorkspaceViewModel";
 import Hyprland from "gi://AstalHyprland";
 import { Gdk } from "astal/gtk3";
+import FocusedClientViewModel from "../../hyprland/FocusedClientViewModel";
+import { IconSource } from "../../utils/IconUtils";
 
 interface WorkspacesBarProps {
   gdkmonitor: Gdk.Monitor;
@@ -17,6 +19,8 @@ export default function WorkspacesBar(props: WorkspacesBarProps) {
   const workspacesBinding = gdkmonitor.get_model()
     ? workspaceViewModel.getPerMonitorWorkspaces(gdkmonitor.get_model() || "")
     : workspaceViewModel.getWorkspaces();
+
+  const focusedClientViewModel = new FocusedClientViewModel();
 
   return (
     <box
@@ -46,6 +50,23 @@ export default function WorkspacesBar(props: WorkspacesBarProps) {
                           ? "focused"
                           : "")
                       );
+                    })}
+                  child={focusedClientViewModel
+                    .getFocusedClient()
+                    .as((focusedClient) => {
+                      if (
+                        focusedClient &&
+                        focusedClient.get_workspace().get_id() ===
+                          workspace.get_id()
+                      ) {
+                        return (
+                          <IconSource
+                            iconName={focusedClient.get_class()}
+                            className="workspace-icon"
+                          />
+                        );
+                      }
+                      return <label label={workspace.get_name()} />;
                     })}
                   onClick={() => {
                     logger.debug(

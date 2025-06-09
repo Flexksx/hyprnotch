@@ -18,8 +18,12 @@ window.hyprnotch {
 }
 
 .hyprnotch_transition {
-  transition: min-width 1000ms ease-in-out, min-height 1000ms ease-in-out,
-    border-radius 1000ms ease-in-out, background-color 300ms ease-in-out;
+  transition: min-width $expressive_slow_spatial_duration
+      $expressive_slow_spatial,
+    min-height $expressive_slow_spatial_duration $expressive_slow_spatial,
+    border-radius $expressive_slow_spatial_duration $expressive_slow_spatial,
+    background-color $expressive_default_effects_duration
+      $expressive_default_effects;
 }
 
 .notch_container {
