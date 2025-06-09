@@ -24,7 +24,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
           className={"bar_container"}
           children={[
             <WorkspacesBar gdkmonitor={gdkmonitor} />,
-            <FocusedClient />,
+            // <FocusedClient />,
             <SystemTray />,
           ]}
         ></box>

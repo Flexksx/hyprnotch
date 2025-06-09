@@ -64,3 +64,33 @@ $source_color: #447a51;
 
 /* Optional: Custom font */
 $font_family: "Roboto", sans-serif;
+$font_family_mono: "Courier New", Courier, monospace;
+
+/* Animation Curves */
+/* Expressive */
+$expressive_fast_spatial: cubic-bezier(0.42, 1.67, 0.21, 0.9);
+$expressive_fast_spatial_duration: 350ms;
+$expressive_default_spatial: cubic-bezier(0.38, 1.21, 0.22, 1);
+$expressive_default_spatial_duration: 500ms;
+$expressive_slow_spatial: cubic-bezier(0.39, 1.29, 0.35, 0.98);
+$expressive_slow_spatial_duration: 650ms;
+$expressive_fast_effects: cubic-bezier(0.31, 0.94, 0.34, 1);
+$expressive_fast_effects_duration: 150ms;
+$expressive_default_effects: cubic-bezier(0.34, 0.8, 0.34, 1);
+$expressive_default_effects_duration: 200ms;
+$expressive_slow_effects: cubic-bezier(0.34, 0.88, 0.34, 1);
+$expressive_slow_effects_duration: 300ms;
+
+/* Standard */
+$standard_fast_spatial: cubic-bezier(0.27, 1.06, 0.18, 1);
+$standard_fast_spatial_duration: 350ms;
+$standard_default_spatial: cubic-bezier(0.27, 1.06, 0.18, 1);
+$standard_default_spatial_duration: 500ms;
+$standard_slow_spatial: cubic-bezier(0.27, 1.06, 0.18, 1);
+$standard_slow_spatial_duration: 750ms;
+$standard_fast_effects: cubic-bezier(0.31, 0.94, 0.34, 1);
+$standard_fast_effects_duration: 150ms;
+$standard_default_effects: cubic-bezier(0.34, 0.8, 0.34, 1);
+$standard_default_effects_duration: 200ms;
+$standard_slow_effects: cubic-bezier(0.34, 0.88, 0.34, 1);
+$standard_slow_effects_duration: 300ms;

@@ -9,6 +9,7 @@
 .workspaces_bar {
   background-color: $primary_container;
   border-radius: 12px;
+  transition: $expressive_default_effects;
 }
 
 .workspace_button {
@@ -16,25 +17,25 @@
 
   border-radius: 50%;
   margin: 4px;
-  background-color: $primary;
+  background-color: $on_primary_container;
   font-size: 14px;
   padding: 0px 4px;
   border: none;
   outline: none;
-  transition: all 0.3s;
+  transition: all $expressive_fast_spatial_duration $expressive_fast_spatial;
   min-width: $base-width;
   min-height: $base-width;
 
   &:hover {
-    background-color: color.scale($primary, $alpha: -40%);
+    background-color: color.scale($tertiary, $alpha: -40%);
     border-radius: 16px;
     min-width: $base-width * 2;
   }
 
   &.focused {
-    background-color: $primary;
+    background-color: $on_primary_container;
     color: $on_primary;
-    min-width: $base-width * 3;
+    min-width: $base-width * 2;
     border-radius: 20px;
   }
 }

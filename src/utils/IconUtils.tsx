@@ -9,7 +9,6 @@ export const fileExists = (path: string) =>
 export interface IconSourceProps {
   iconThemePath?: string;
   iconName?: string;
-  iconPixmap?: string;
   fallbackIcon?: string;
   className?: string;
 }
@@ -18,7 +17,6 @@ export function IconSource(props: IconSourceProps) {
   const {
     iconThemePath,
     iconName,
-    iconPixmap,
     fallbackIcon = "application-x-executable-symbolic",
     className = "icon-source",
   } = props;
@@ -38,10 +36,6 @@ export function IconSource(props: IconSourceProps) {
 
   if (iconName && isIcon(iconName)) {
     return <icon className={`${className}-icon`} icon={iconName} />;
-  }
-
-  if (iconPixmap) {
-    return <icon className={`${className}-pixmap`} icon={iconPixmap} />;
   }
 
   return <icon className={`${className}-fallback`} icon={fallbackIcon} />;
