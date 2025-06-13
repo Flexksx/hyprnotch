@@ -1,15 +1,18 @@
 @use "./colors.scss" as *;
 @use "sass:color";
 
+$base_border_radius: 12px;
+
 .system_tray_bar_container {
   background-color: $background;
-  border-radius: 0px 0px 12px 0px;
+  border-radius: $base_border_radius;
 }
 
 .system_tray_item {
   background-color: $surface_container;
-  border-radius: 12px;
+  border-radius: $base_border_radius;
   padding: 4px;
+  font-size: 16px;
   transition: all $expressive_default_effects_duration
     $expressive_default_effects;
   color: $primary;
@@ -22,8 +25,10 @@
   }
 
   &.active {
-    background-color: $primary_container;
-    color: $on_primary_container;
+    background-color: $secondary_container;
+    color: $secondary;
+    border-radius: 12px 12px 0px 0px;
+    min-width: 30px;
   }
 }
 
@@ -35,7 +40,7 @@
   margin: 0px;
   transition: all $expressive_default_effects_duration
     $expressive_default_effects;
-  border-radius: 0px 0px 12px 12px;
+  border-radius: 0px 0px 0px 12px;
 }
 
 .system_tray_bar_notch.focused {

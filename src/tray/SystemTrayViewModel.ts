@@ -10,11 +10,9 @@ export class SystemTrayViewModel {
   constructor() {}
 
   public getTrayItems(): Binding<Tray.TrayItem[]> {
-    this.logger.debug("Getting tray items");
     return bind(this.tray, "items");
   }
   public getFocusedTrayItem(): Binding<Tray.TrayItem | null> {
-    this.logger.debug("Getting focused tray item");
     return bind(this.focusedTrayItem);
   }
 

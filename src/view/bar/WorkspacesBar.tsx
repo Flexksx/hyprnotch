@@ -4,6 +4,7 @@ import Hyprland from "gi://AstalHyprland";
 import { Gdk, Gtk } from "astal/gtk3";
 import FocusedClientViewModel from "../../hyprland/FocusedClientViewModel";
 import { IconSource } from "../../utils/IconUtils";
+import { bind } from "astal";
 
 interface WorkspacesBarProps {
   gdkmonitor: Gdk.Monitor;
@@ -28,41 +29,32 @@ export default function WorkspacesBar(props: WorkspacesBarProps) {
       child={
         <box
           className={"workspaces_bar"}
-          children={workspacesBinding.as((workspaces: Hyprland.Workspace[]) => {
-            logger.debug(
-              "WorkspacesBar updated with new workspaces. Current workspaces: ",
-              workspaces
-                .sort((a: Hyprland.Workspace, b: Hyprland.Workspace) => {
-                  return a.get_id() - b.get_id();
-                })
-                .map((workspace: Hyprland.Workspace) => workspace.get_name())
-                .toString()
-            );
-            return workspaces.map((workspace: Hyprland.Workspace) => {
-              return (
-                <button
-                  className={workspaceViewModel
-                    .getFocusedWorkspace()
-                    .as((focusedWorkspace: Hyprland.Workspace) => {
-                      return (
-                        "workspace_button " +
-                        (focusedWorkspace.get_id() === workspace.get_id()
-                          ? "focused"
-                          : "")
-                      );
-                    })}
-                  child={
-                    workspace.get_clients().length === 0 ? (
-                      <box
-                        valign={Gtk.Align.CENTER}
-                        halign={Gtk.Align.CENTER}
-                        child={<label label={workspace.get_name()} />}
-                      />
-                    ) : (
-                      <box
-                        valign={Gtk.Align.CENTER}
-                        halign={Gtk.Align.CENTER}
-                        children={workspace.get_clients().map((client) => {
+          children={workspacesBinding.as((workspaces: Hyprland.Workspace[]) =>
+            workspaces.map((workspace: Hyprland.Workspace) => (
+              <button
+                className={workspaceViewModel
+                  .getFocusedWorkspace()
+                  .as((focusedWorkspace: Hyprland.Workspace) => {
+                    return (
+                      "workspace_button " +
+                      (focusedWorkspace.get_id() === workspace.get_id()
+                        ? "focused"
+                        : "")
+                    );
+                  })}
+                child={
+                  workspace.get_clients().length === 0 ? (
+                    <box
+                      valign={Gtk.Align.CENTER}
+                      halign={Gtk.Align.CENTER}
+                      child={<label label={workspace.get_name()} />}
+                    />
+                  ) : (
+                    <box
+                      valign={Gtk.Align.CENTER}
+                      halign={Gtk.Align.CENTER}
+                      children={bind(workspace, "clients").as((clients) =>
+                        clients.map((client) => {
                           return (
                             <box
                               className="workspace_client_icon"
@@ -71,20 +63,20 @@ export default function WorkspacesBar(props: WorkspacesBarProps) {
                               }
                             />
                           );
-                        })}
-                      />
-                    )
-                  }
-                  onClick={() => {
-                    logger.debug(
-                      `Pressing button for workspace ${workspace.get_id()}, switching to it`
-                    );
-                    workspaceViewModel.switchToWorkspace(workspace.get_id());
-                  }}
-                ></button>
-              );
-            });
-          })}
+                        })
+                      )}
+                    />
+                  )
+                }
+                onClick={() => {
+                  logger.debug(
+                    `Pressing button for workspace ${workspace.get_id()}, switching to it`
+                  );
+                  workspaceViewModel.switchToWorkspace(workspace.get_id());
+                }}
+              />
+            ))
+          )}
         />
       }
     />

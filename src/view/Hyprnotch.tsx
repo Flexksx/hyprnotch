@@ -19,11 +19,7 @@ export default function Hyprnotch(gdkmonitor: Gdk.Monitor) {
       className="hyprnotch"
       namespace="hyprnotch"
       gdkmonitor={gdkmonitor}
-      anchor={
-        Astal.WindowAnchor.TOP |
-        Astal.WindowAnchor.LEFT |
-        Astal.WindowAnchor.RIGHT
-      }
+      anchor={Astal.WindowAnchor.TOP}
       exclusivity={Astal.Exclusivity.IGNORE}
       application={App}
       child={

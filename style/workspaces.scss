@@ -1,9 +1,11 @@
 @use "./colors.scss" as *;
 @use "sass:color";
 
+.hyprnotch_bar_container {
+  background-color: transparent;
+}
 .workspaces_bar_container {
-  background-color: $background;
-  padding: 3px;
+  background-color: $primary_container;
 }
 
 .workspaces_bar {
@@ -13,44 +15,34 @@
 }
 
 .workspace_button {
-  $base-width: 12px;
+  $base-width: 16px;
+  $base-margin: 4px;
+  $border-radius: $base-margin + $base-width;
 
-  border-radius: 12px;
-  margin: 4px;
-  background-color: $on_primary_container;
-  font-size: 14px;
-  padding: 0px 4px;
-  transition: all $expressive_fast_spatial_duration $expressive_fast_spatial;
+  $base-horizontal-padding: 4px;
+
+  border-radius: $border-radius;
+  margin: $base-margin;
+  padding: 0px $base-horizontal-padding;
+  font-size: $base-width;
   min-width: $base-width;
   min-height: $base-width;
 
+  background-color: $primary;
+  color: $on_primary;
+
+  transition: all $expressive_fast_spatial_duration $expressive_fast_spatial;
+
   &:hover {
-    background-color: color.scale($tertiary, $alpha: -40%);
-    border-radius: 16px;
-    min-width: $base-width * 2;
+    padding: 0px $base-horizontal-padding * 1.5;
   }
 
   &.focused {
-    background-color: $on_primary_container;
-    color: $on_primary;
-    min-width: $base-width * 2;
-    border-radius: 20px;
-    padding: 0px 8px;
+    padding: 0px $base-horizontal-padding * 2;
   }
 }
 
 .workspace_client_icon {
   margin: 0px 2px;
-  min-height: 20px;
-}
-
-.focused_client_container {
-  background-color: $surface_variant;
-  border-radius: 0px 0px 12px 12px;
-  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.15);
-}
-.focused_client {
-  background-color: $surface_variant;
-  border-radius: 0px 0px 12px 0px;
-  color: $on_surface_variant;
+  font-size: 20px;
 }

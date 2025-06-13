@@ -3,6 +3,8 @@ import Logger from "../../logger/Logger";
 import { SystemTrayViewModel } from "../../tray/SystemTrayViewModel";
 import { IconSource } from "../../utils/IconUtils";
 import Tray from "gi://AstalTray";
+import system from "system";
+import { bind } from "astal";
 
 const logger = new Logger("TrayItemNotch");
 
@@ -17,12 +19,8 @@ function TrayItemNotch(props: TrayItemNotchProps) {
     <box
       className={systemTrayViewModel.getFocusedTrayItem().as((focusedItem) => {
         if (!focusedItem) {
-          logger.debug("No focused tray item, returning base notch class");
           return baseTrayNotchClass;
         }
-        logger.debug(
-          `Focused tray item: ${focusedItem.get_title()}, returning focused notch class`
-        );
         return focusedItem.get_title() === "HyprNotch"
           ? baseTrayNotchClass + " hyprnotch-focused"
           : baseTrayNotchClass + " focused";
@@ -50,20 +48,38 @@ export function SystemTray() {
                     return items.map((item) => {
                       return (
                         <button
-                          className={"system_tray_item"}
+                          className={bind(
+                            systemTrayViewModel
+                              .getFocusedTrayItem()
+                              .as((focusedItem) => {
+                                if (!focusedItem) {
+                                  return "system_tray_item";
+                                }
+                                return focusedItem.get_title() ===
+                                  item.get_title()
+                                  ? "system_tray_item active"
+                                  : "system_tray_item notch";
+                              })
+                          )}
                           child={
                             <IconSource
                               iconThemePath={item.get_icon_theme_path()}
                               iconName={item.get_icon_name()}
-                              fallbackIcon="application-x-executable-symbolic"
                               className="tray-item-notch-icon"
                             />
                           }
-                          onHover={() => {
-                            systemTrayViewModel.setFocusedTrayItem(item);
-                          }}
-                          onHoverLost={() => {
-                            systemTrayViewModel.setFocusedTrayItem(null);
+                          onClicked={() => {
+                            const currentlyFocused = systemTrayViewModel
+                              .getFocusedTrayItem()
+                              .get();
+                            if (
+                              currentlyFocused &&
+                              currentlyFocused.get_title() === item.get_title()
+                            ) {
+                              systemTrayViewModel.setFocusedTrayItem(null);
+                            } else {
+                              systemTrayViewModel.setFocusedTrayItem(item);
+                            }
                           }}
                         />
                       );
@@ -75,7 +91,6 @@ export function SystemTray() {
             />
           }
         />,
-        <box className="system_tray_bar_notch" />,
       ]}
     />
   );
