@@ -5,29 +5,13 @@ import { IconSource } from "../../utils/IconUtils";
 import Tray from "gi://AstalTray";
 import system from "system";
 import { bind } from "astal";
+import TrayItemNotch from "./TrayItemNotch.1";
 
 const logger = new Logger("TrayItemNotch");
 
-type TrayItemNotchProps = {
+export type TrayItemNotchProps = {
   systemTrayViewModel: SystemTrayViewModel;
 };
-
-function TrayItemNotch(props: TrayItemNotchProps) {
-  const systemTrayViewModel = props.systemTrayViewModel;
-  const baseTrayNotchClass = "system_tray_bar_notch";
-  return (
-    <box
-      className={systemTrayViewModel.getFocusedTrayItem().as((focusedItem) => {
-        if (!focusedItem) {
-          return baseTrayNotchClass;
-        }
-        return focusedItem.get_title() === "HyprNotch"
-          ? baseTrayNotchClass + " hyprnotch-focused"
-          : baseTrayNotchClass + " focused";
-      })}
-    />
-  );
-}
 
 export function SystemTray() {
   const systemTrayViewModel = new SystemTrayViewModel();

@@ -22,6 +22,7 @@ export class SystemTrayViewModel {
       this.focusedTrayItem.set(null);
     } else {
       this.logger.debug("Focusing tray item", item.get_title());
+      item.about_to_show();
       this.focusedTrayItem.set(item);
     }
   }

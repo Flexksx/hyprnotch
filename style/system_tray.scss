@@ -20,7 +20,7 @@ $base_border_radius: 12px;
   &:hover {
     background-color: $secondary_container;
     color: $secondary;
-    border-radius: 12px 12px 0px 0px;
+    border-radius: 12px;
     min-width: 30px;
   }
 
@@ -46,4 +46,13 @@ $base_border_radius: 12px;
 .system_tray_bar_notch.focused {
   background-color: $secondary_container;
   min-height: 40px;
+  border-radius: 12px;
+}
+
+.system_tray_bar_notch.focused.first {
+  border-radius: 0px 12px 12px 12px;
+}
+
+.system_tray_bar_notch.focused.last {
+  border-radius: 12px 0px 12px 12px;
 }
