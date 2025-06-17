@@ -43,10 +43,16 @@ export default function TrayItemNotch(props: TrayItemNotchProps) {
             if (!focusedItem) {
               return <box />;
             }
-            return focusedItem?.get_is_menu() ? (
-              <label label={"Is menu"} />
-            ) : (
-              <label label={"Not a menu"} />
+            const menuModel = focusedItem.get_menu_model();
+            if (!menuModel) {
+              return <box />;
+            }
+            const menuModelItemCount = menuModel.get_n_items();
+            return (
+              <label
+                label={`Menu items: ${menuModelItemCount}`}
+                className="tray-item-notch-label"
+              />
             );
           })}
         />,

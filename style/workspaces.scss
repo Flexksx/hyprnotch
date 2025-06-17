@@ -38,6 +38,7 @@
   }
 
   &.focused {
+    background-color: $tertiary;
     padding: 0px $base-horizontal-padding * 2;
   }
 }
