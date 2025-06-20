@@ -1,34 +1,63 @@
 @use "./colors.scss" as *;
 @use "sass:color";
 
-$base_border_radius: 12px;
+$base_border_radius: 14px;
+$small_border_radius: calc($base_border_radius/ 2);
+$base_item_padding: 4px;
+$button_width: 30px;
+$focused_width: 40px;
 
 .system_tray_bar_container {
-  background-color: $background;
-  border-radius: $base_border_radius;
+  background-color: $primary_container;
+  border-radius: 0px 0px 0px $base_border_radius;
+  padding: 2px;
 }
 
 .system_tray_item {
-  background-color: $surface_container;
-  border-radius: $base_border_radius;
-  padding: 4px;
+  background-color: $primary;
+  border-radius: $small_border_radius;
+  padding: 0px $base_item_padding;
+  margin: 0px 1px;
   font-size: 16px;
   transition: all $expressive_default_effects_duration
     $expressive_default_effects;
-  color: $primary;
+  color: $on_primary;
+  min-height: $button_width;
 
   &:hover {
-    background-color: $secondary_container;
-    color: $secondary;
-    border-radius: 12px;
-    min-width: 30px;
+    background-color: $secondary;
+    color: $on_secondary;
+    border-radius: $base_border_radius;
+    transition: all $expressive_default_effects_duration
+      $expressive_default_effects;
+    min-width: $focused_width;
   }
 
   &.active {
-    background-color: $secondary_container;
-    color: $secondary;
-    border-radius: 12px 12px 0px 0px;
-    min-width: 30px;
+    background-color: $surface;
+    color: $primary;
+    border-radius: $base_border_radius $base_border_radius 0px 0px;
+    min-width: $focused_width;
+  }
+
+  &.first {
+    border-radius: $base_border_radius $small_border_radius $small_border_radius
+      $base_border_radius;
+  }
+
+  &.last {
+    border-radius: $small_border_radius $base_border_radius $base_border_radius
+      $small_border_radius;
+  }
+
+  &.first:hover,
+  &.last:hover {
+    border-radius: $base_border_radius;
+  }
+
+  &.first.active,
+  &.last.active {
+    border-radius: $base_border_radius $base_border_radius 0px 0px;
   }
 }
 
@@ -44,7 +73,7 @@ $base_border_radius: 12px;
 }
 
 .system_tray_bar_notch.focused {
-  background-color: $secondary_container;
+  background-color: $surface;
   min-height: 40px;
   border-radius: 12px;
 }
@@ -55,4 +84,8 @@ $base_border_radius: 12px;
 
 .system_tray_bar_notch.focused.last {
   border-radius: 12px 0px 12px 12px;
+}
+
+.tray-item-notch-label {
+  color: $primary;
 }

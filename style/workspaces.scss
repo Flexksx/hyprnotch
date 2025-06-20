@@ -1,49 +1,51 @@
 @use "./colors.scss" as *;
 @use "sass:color";
 
+$base-width: 16px;
+$base-margin: 4px;
+$border-radius: $base-margin + $base-width;
+
+$base-horizontal-padding: 4px;
+$workspace-focused-padding: calc($base-horizontal-padding * 3);
+
+$workspace_hover_width: $base-width + ($base-horizontal-padding * 3);
+$workspace_focused_width: $base-width + ($base-horizontal-padding * 4);
+
 .hyprnotch_bar_container {
   background-color: transparent;
 }
 .workspaces_bar_container {
   background-color: $primary_container;
+  border-radius: 0px 0px $border-radius 0px;
 }
 
 .workspaces_bar {
   background-color: $primary_container;
-  border-radius: 12px;
+  border-radius: $border-radius;
   transition: $expressive_default_effects;
 }
 
 .workspace_button {
-  $base-width: 16px;
-  $base-margin: 4px;
-  $border-radius: $base-margin + $base-width;
-
-  $base-horizontal-padding: 4px;
-
   border-radius: $border-radius;
   margin: $base-margin;
   padding: 0px $base-horizontal-padding;
   font-size: $base-width;
-  min-width: $base-width;
-  min-height: $base-width;
+  padding: 0px $base_horizontal_padding;
 
   background-color: $primary;
   color: $on_primary;
 
-  transition: all $expressive_fast_spatial_duration $expressive_fast_spatial;
-
   &:hover {
-    padding: 0px $base-horizontal-padding * 1.5;
+    padding: 0px $workspace-focused-padding;
   }
 
   &.focused {
     background-color: $tertiary;
-    padding: 0px $base-horizontal-padding * 2;
+    padding: 0px $workspace-focused-padding;
   }
 }
 
 .workspace_client_icon {
-  margin: 0px 2px;
+  padding: 0px 2px;
   font-size: 20px;
 }

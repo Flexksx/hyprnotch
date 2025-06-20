@@ -1,13 +1,34 @@
 import { Astal } from "astal/gtk3";
 import Logger from "../../logger/Logger";
 import { SystemTrayViewModel } from "../../tray/SystemTrayViewModel";
-import { IconSource } from "../../utils/IconUtils";
+import { IconSource } from "../../lib/icons/IconUtils";
 import Tray from "gi://AstalTray";
 import system from "system";
 import { bind } from "astal";
-import TrayItemNotch from "./TrayItemNotch.1";
+import TrayItemNotch from "./TrayItemNotch";
 
 const logger = new Logger("TrayItemNotch");
+
+// helper to compute the classes for each tray item
+function getTrayItemClass(
+  item: any,
+  index: number,
+  items: any[],
+  focusedItem: any | null
+): string {
+  let cls = "system_tray_item";
+  if (focusedItem && focusedItem.get_title() === item.get_title()) {
+    cls += " active";
+  } else {
+    cls += " notch";
+  }
+  if (index === 0) {
+    cls += " first";
+  } else if (index === items.length - 1) {
+    cls += " last";
+  }
+  return cls;
+}
 
 export type TrayItemNotchProps = {
   systemTrayViewModel: SystemTrayViewModel;
@@ -28,30 +49,28 @@ export function SystemTray() {
               vertical={true}
               children={[
                 <box
-                  children={systemTrayViewModel.getTrayItems().as((items) => {
-                    return items.map((item) => {
-                      return (
+                  children={systemTrayViewModel.getTrayItems().as((items) =>
+                    items
+                      .filter((item) => item.get_title() !== null)
+                      .map((item, index) => (
                         <button
                           className={bind(
                             systemTrayViewModel
                               .getFocusedTrayItem()
-                              .as((focusedItem) => {
-                                if (!focusedItem) {
-                                  return "system_tray_item";
-                                }
-                                return focusedItem.get_title() ===
-                                  item.get_title()
-                                  ? "system_tray_item active"
-                                  : "system_tray_item notch";
-                              })
+                              .as((focused) =>
+                                getTrayItemClass(item, index, items, focused)
+                              )
                           )}
                           child={
-                            <IconSource
-                              iconThemePath={item.get_icon_theme_path()}
-                              iconName={item.get_icon_name()}
+                            <icon
+                              tooltipMarkup={bind(item, "tooltipMarkup")}
+                              gicon={bind(item, "gicon")}
                               className="tray-item-notch-icon"
                             />
                           }
+                          onHover={() => {
+                            systemTrayViewModel.refreshTrayItem(item);
+                          }}
                           onClicked={() => {
                             const currentlyFocused = systemTrayViewModel
                               .getFocusedTrayItem()
@@ -66,9 +85,8 @@ export function SystemTray() {
                             }
                           }}
                         />
-                      );
-                    });
-                  })}
+                      ))
+                  )}
                 />,
                 <TrayItemNotch systemTrayViewModel={systemTrayViewModel} />,
               ]}

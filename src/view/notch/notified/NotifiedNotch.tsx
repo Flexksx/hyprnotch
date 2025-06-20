@@ -4,7 +4,7 @@ import { Astal } from "astal/gtk3";
 import Notifd from "gi://AstalNotifd";
 import NotchStateViewModel from "../../../notch_state/NotchStateViewModel";
 import { NotchState } from "../../../notch_state/NotchState";
-import { IconSource } from "../../../utils/IconUtils";
+import { IconSource } from "../../../lib/icons/IconUtils";
 
 const NOTIFICATION_TIMEOUT = 5000;
 

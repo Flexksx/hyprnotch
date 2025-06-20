@@ -3,12 +3,14 @@ import { WorkspaceViewModel } from "../../hyprland/WorkspaceViewModel";
 import Hyprland from "gi://AstalHyprland";
 import { Gdk, Gtk } from "astal/gtk3";
 import FocusedClientViewModel from "../../hyprland/FocusedClientViewModel";
-import { IconSource } from "../../utils/IconUtils";
+import { IconSource } from "../../lib/icons/IconUtils";
 import { bind } from "astal";
 
 interface WorkspacesBarProps {
   gdkmonitor: Gdk.Monitor;
 }
+
+const BASE_WORKSPACE_BUTTON_WIDTH: number = 16;
 
 export default function WorkspacesBar(props: WorkspacesBarProps) {
   const workspaceViewModel: WorkspaceViewModel = new WorkspaceViewModel();
@@ -20,8 +22,6 @@ export default function WorkspacesBar(props: WorkspacesBarProps) {
   const workspacesBinding = gdkmonitor.get_model()
     ? workspaceViewModel.getPerMonitorWorkspaces(gdkmonitor.get_model() || "")
     : workspaceViewModel.getWorkspaces();
-
-  const focusedClientViewModel = new FocusedClientViewModel();
 
   return (
     <box
