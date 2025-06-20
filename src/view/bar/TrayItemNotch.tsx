@@ -68,6 +68,7 @@ const MenuEntry = ({ item, child }: MenuEntryProps): JSX.Element => {
 
   return (
     <button
+      className={"system_tray_bar_notch_entry"}
       cursor={"pointer"}
       onClick={(self, event) => {
         if (isPrimaryClick(event)) {
@@ -75,15 +76,29 @@ const MenuEntry = ({ item, child }: MenuEntryProps): JSX.Element => {
         }
 
         if (isSecondaryClick(event)) {
-          menu?.popup_at_widget(
+          menu.popup_at_widget(
             self,
-            Gdk.Gravity.NORTH,
-            Gdk.Gravity.SOUTH,
+            Gdk.Gravity.NORTH_WEST,
+            Gdk.Gravity.SOUTH_WEST,
             null
           );
         }
       }}
-      child={child}
+      child={
+        <box
+          className="system_tray_bar_notch_content"
+          child={
+            <label
+              label={bind(item, "title").as((title) => {
+                if (!title) {
+                  return item.get_tooltip()?.title;
+                }
+                return title;
+              })}
+            />
+          }
+        />
+      }
       onDestroy={() => {
         menu?.destroy();
         entryBinding.drop();
@@ -113,17 +128,7 @@ export default function TrayItemNotch(props: TrayItemNotchProps) {
               return <box />;
             }
             const menuModelItemCount = menuModel.get_n_items();
-            return (
-              <MenuEntry
-                item={focusedItem}
-                child={
-                  <box
-                    className="system_tray_bar_notch_content"
-                    child={<label label={focusedItem.get_title()} />}
-                  />
-                }
-              />
-            );
+            return <MenuEntry item={focusedItem} />;
           })}
         />,
       ]}

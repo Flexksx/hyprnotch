@@ -2,6 +2,7 @@ import { Astal, App, Gdk, Gtk } from "astal/gtk3";
 import Logger from "../../logger/Logger";
 import WorkspacesBar from "./WorkspacesBar";
 import { SystemTray } from "./SystemTray";
+import { SystemTrayViewModel } from "../../tray/SystemTrayViewModel";
 
 export function SystemTrayWindow(gdkmonitor: Gdk.Monitor) {
   const logger = new Logger("SystemTray");
@@ -15,7 +16,7 @@ export function SystemTrayWindow(gdkmonitor: Gdk.Monitor) {
       exclusivity={Astal.Exclusivity.IGNORE}
       anchor={Astal.WindowAnchor.TOP | Astal.WindowAnchor.RIGHT}
       application={App}
-      child={<SystemTray />}
+      child={<SystemTray systemTrayViewModel={new SystemTrayViewModel()} />}
     />
   );
 }

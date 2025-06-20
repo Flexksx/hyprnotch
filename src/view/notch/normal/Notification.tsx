@@ -4,7 +4,7 @@ import {
   NotificationViewModel,
   NotificationState,
 } from "../../../notification/NotificationViewModel";
-const notchStateViewModel = NotchStateViewModel.getInstance();
+const notchStateViewModel = new NotchStateViewModel();
 export default function Notifications() {
   const notificationViewModel = new NotificationViewModel();
 

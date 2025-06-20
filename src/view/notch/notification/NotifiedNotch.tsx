@@ -56,7 +56,7 @@ function NotifiedGradientBorder() {
 
 export default function NotifiedNotch() {
   const notificationViewModel = new NotificationViewModel();
-  const notchStateViewModel = NotchStateViewModel.getInstance();
+  const notchStateViewModel = new NotchStateViewModel();
 
   const latestNotification = notificationViewModel
     .getNotifications()

@@ -1,13 +1,27 @@
-import { Astal } from "astal/gtk3";
 import Logger from "../../logger/Logger";
 import { SystemTrayViewModel } from "../../tray/SystemTrayViewModel";
-import { IconSource } from "../../lib/icons/IconUtils";
 import Tray from "gi://AstalTray";
-import system from "system";
 import { bind } from "astal";
+import { timeout } from "astal/time";
 import TrayItemNotch from "./TrayItemNotch";
 
+const SYSTEM_TRAY_ITEM_TIMEOUT = 30000; // 30 seconds
 const logger = new Logger("TrayItemNotch");
+
+const onSystemTrayItemClicked = (
+  systemTrayViewModel: SystemTrayViewModel,
+  item: Tray.TrayItem
+) => {
+  const currentlyFocused = systemTrayViewModel.getFocusedTrayItem().get();
+  if (currentlyFocused && currentlyFocused.get_title() === item.get_title()) {
+    systemTrayViewModel.setFocusedTrayItem(null);
+  } else {
+    systemTrayViewModel.setFocusedTrayItem(item);
+    timeout(SYSTEM_TRAY_ITEM_TIMEOUT, () =>
+      systemTrayViewModel.setFocusedTrayItem(null)
+    );
+  }
+};
 
 // helper to compute the classes for each tray item
 function getTrayItemClass(
@@ -34,8 +48,8 @@ export type TrayItemNotchProps = {
   systemTrayViewModel: SystemTrayViewModel;
 };
 
-export function SystemTray() {
-  const systemTrayViewModel = new SystemTrayViewModel();
+export type SystemTrayProps = { systemTrayViewModel: SystemTrayViewModel };
+export function SystemTray({ systemTrayViewModel }: SystemTrayProps) {
   return (
     <box
       className="system_tray_bar_notch_container"
@@ -54,6 +68,8 @@ export function SystemTray() {
                       .filter((item) => item.get_title() !== null)
                       .map((item, index) => (
                         <button
+                          cursor={"pointer"}
+                          hexpand={true}
                           className={bind(
                             systemTrayViewModel
                               .getFocusedTrayItem()
@@ -71,19 +87,9 @@ export function SystemTray() {
                           onHover={() => {
                             systemTrayViewModel.refreshTrayItem(item);
                           }}
-                          onClicked={() => {
-                            const currentlyFocused = systemTrayViewModel
-                              .getFocusedTrayItem()
-                              .get();
-                            if (
-                              currentlyFocused &&
-                              currentlyFocused.get_title() === item.get_title()
-                            ) {
-                              systemTrayViewModel.setFocusedTrayItem(null);
-                            } else {
-                              systemTrayViewModel.setFocusedTrayItem(item);
-                            }
-                          }}
+                          onClicked={() =>
+                            onSystemTrayItemClicked(systemTrayViewModel, item)
+                          }
                         />
                       ))
                   )}

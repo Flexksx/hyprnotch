@@ -69,23 +69,30 @@ $focused_width: 40px;
   margin: 0px;
   transition: all $expressive_default_effects_duration
     $expressive_default_effects;
-  border-radius: 0px 0px 0px 12px;
+  border-radius: 0px 0px 0px $base_border_radius;
 }
 
 .system_tray_bar_notch.focused {
   background-color: $surface;
   min-height: 40px;
-  border-radius: 12px;
+  border-radius: $base_border_radius;
+  padding: 0px 2px;
 }
 
 .system_tray_bar_notch.focused.first {
-  border-radius: 0px 12px 12px 12px;
+  border-top-left-radius: 0px;
 }
 
 .system_tray_bar_notch.focused.last {
-  border-radius: 12px 0px 12px 12px;
+  border-top-right-radius: 0px;
 }
 
 .tray-item-notch-label {
+  color: $primary;
+}
+
+.system_tray_bar_notch_entry {
+  padding: 0px $base_item_padding;
+  background-color: transparent;
   color: $primary;
 }
