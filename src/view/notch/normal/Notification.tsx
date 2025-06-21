@@ -1,5 +1,5 @@
-import { NotchState } from "../../../notch_state/NotchState";
-import NotchStateViewModel from "../../../notch_state/NotchStateViewModel";
+import { NotchState } from "../../../notch/state/NotchState";
+import NotchStateViewModel from "../../../notch/state/NotchStateViewModel";
 import {
   NotificationViewModel,
   NotificationState,

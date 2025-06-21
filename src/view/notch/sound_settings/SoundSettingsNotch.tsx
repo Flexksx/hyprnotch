@@ -1,5 +1,5 @@
-import NotchStateViewModel from "../../../notch_state/NotchStateViewModel";
+import NotchStateViewModel from "../../../notch/state/NotchStateViewModel";
 
-const notchStateViewModel = new NotchStateViewModel();
-
-export default function SoundSettingsNotch() {}
+export default function SoundSettingsNotch() {
+  return <button label={"Sound settings"} />;
+}

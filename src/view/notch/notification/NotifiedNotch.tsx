@@ -2,8 +2,8 @@ import { NotificationViewModel } from "../../../notification/NotificationViewMod
 import { GLib } from "astal";
 import { Astal } from "astal/gtk3";
 import Notifd from "gi://AstalNotifd";
-import NotchStateViewModel from "../../../notch_state/NotchStateViewModel";
-import { NotchState } from "../../../notch_state/NotchState";
+import NotchStateViewModel from "../../../notch/state/NotchStateViewModel";
+import { NotchState } from "../../../notch/state/NotchState";
 const NOTIFICATION_TIMEOUT = 5000;
 type NotificationImageProps = {
   notification: Notifd.Notification;

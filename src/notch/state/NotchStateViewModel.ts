@@ -1,6 +1,6 @@
 import { bind, Binding, Variable } from "astal";
 import { NotchState } from "./NotchState";
-import Logger from "../logger/Logger";
+import Logger from "../../logger/Logger";
 
 export default class NotchStateViewModel {
   private logger: Logger = new Logger("NotchStateViewModel");
@@ -9,7 +9,7 @@ export default class NotchStateViewModel {
   );
   private stateChangeTimeout: number | null = null;
 
-  constructor() {}
+  constructor() { }
 
   public getNotchState(): Binding<NotchState> {
     return bind(this.notchState).as(() => {

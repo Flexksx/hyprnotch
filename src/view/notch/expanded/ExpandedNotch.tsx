@@ -1,10 +1,15 @@
 import { bind } from "astal";
-import { WeatherViewModel } from "../../../weather/viewmodel/WeatherViewModel";
 import TimeService from "../../../time/TimeService";
 import SettingsMenu from "./SettingsMenu";
-import { Astal, Gtk } from "astal/gtk3";
+import NotchStateViewModel from "../../../notch/state/NotchStateViewModel";
+import NotchContentViewModel from "../../../notch/content/NotchContentViewModel";
+import SoundSettingsNotch from "../sound_settings/SoundSettingsNotch";
+import { NotchContentState } from "../../../notch/content/NotchContentState";
 
-const weatherViewModel = new WeatherViewModel();
+type ExpandedNotchProps = {
+  notchStateViewModel: NotchStateViewModel;
+};
+
 function Time() {
   return (
     <box className="expanded_notch_time">
@@ -21,26 +26,9 @@ function Time() {
     </box>
   );
 }
-function Weather() {
-  return (
-    <box
-      child={
-        <label>
-          {bind(weatherViewModel.getWeatherVariable()).as((weather) => {
-            if (weather) {
-              const condition = weather.getConditionText();
-              const currentTemp = weather.getTempCelsius();
-              return `${condition} now, ${currentTemp}°C`;
-            } else {
-              return "Loading...";
-            }
-          })}
-        </label>
-      }
-    ></box>
-  );
-}
-export default function ExpandedNotch() {
+
+export default function ExpandedNotch(props: ExpandedNotchProps) {
+  const notchContentViewModel = new NotchContentViewModel();
   return (
     <box
       className={"expanded_notch"}
@@ -52,13 +40,24 @@ export default function ExpandedNotch() {
                 vertical={true}
                 children={[
                   <>
-                    <Time />
-                    <Weather />
+                    <SettingsMenu
+                      notchContentViewModel={notchContentViewModel}
+                    />
+                    <box
+                      child={notchContentViewModel
+                        .getNotchContentState()
+                        .as((state) => {
+                          switch (state) {
+                            case NotchContentState.SOUND_SETTINGS:
+                              return <SoundSettingsNotch />;
+                            case NotchContentState.DEFAULT:
+                              return <Time />;
+                          }
+                        })}
+                    />
                   </>,
                 ]}
               />
-
-              <SettingsMenu />
             </>,
           ]}
         ></box>
