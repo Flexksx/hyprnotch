@@ -36,11 +36,13 @@
         buildInputs = with astal.packages.${system}; [
           astal3
           io
+          wireplumber
           bluetooth
           apps
           battery
           hyprland
           mpris
+          cava
           network
           notifd
           tray

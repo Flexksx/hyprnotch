@@ -87,7 +87,8 @@ const MenuEntry = ({ item, child }: MenuEntryProps): JSX.Element => {
       child={
         <box
           className="system_tray_bar_notch_content"
-          child={
+          vertical={true}
+          children={[
             <label
               label={bind(item, "title").as((title) => {
                 if (!title) {
@@ -95,8 +96,13 @@ const MenuEntry = ({ item, child }: MenuEntryProps): JSX.Element => {
                 }
                 return title;
               })}
-            />
-          }
+            />,
+            <label
+              label={bind(item, "tooltip").as((tooltip) => {
+                return tooltip.description;
+              })}
+            />,
+          ]}
         />
       }
       onDestroy={() => {

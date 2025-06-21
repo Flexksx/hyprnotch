@@ -5,7 +5,7 @@ import { bind } from "astal";
 import { timeout } from "astal/time";
 import TrayItemNotch from "./TrayItemNotch";
 
-const SYSTEM_TRAY_ITEM_TIMEOUT = 30000; // 30 seconds
+const SYSTEM_TRAY_ITEM_TIMEOUT = 10000; // 30 seconds
 const logger = new Logger("TrayItemNotch");
 
 const onSystemTrayItemClicked = (

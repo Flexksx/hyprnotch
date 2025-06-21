@@ -1,6 +1,8 @@
 import { bind } from "astal";
 import { WeatherViewModel } from "../../../weather/viewmodel/WeatherViewModel";
 import TimeService from "../../../time/TimeService";
+import SettingsMenu from "./SettingsMenu";
+import { Astal, Gtk } from "astal/gtk3";
 
 const weatherViewModel = new WeatherViewModel();
 function Time() {
@@ -44,11 +46,19 @@ export default function ExpandedNotch() {
       className={"expanded_notch"}
       child={
         <box
-          vertical={true}
           children={[
             <>
-              <Time />
-              <Weather />
+              <box
+                vertical={true}
+                children={[
+                  <>
+                    <Time />
+                    <Weather />
+                  </>,
+                ]}
+              />
+
+              <SettingsMenu />
             </>,
           ]}
         ></box>
