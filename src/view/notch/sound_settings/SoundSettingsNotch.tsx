@@ -1,5 +1,19 @@
 import NotchStateViewModel from "../../../notch/state/NotchStateViewModel";
 
+function SoundSlider() {
+  return (
+    <box className="sound_slider">
+      <label label="Volume" className="sound_slider_label" />
+      <slider
+        vertical={true}
+        className="sound_slider_control"
+        min={0}
+        max={100}
+        value={50}
+      />
+    </box>
+  );
+}
 export default function SoundSettingsNotch() {
   return (
     <box
@@ -10,10 +24,7 @@ export default function SoundSettingsNotch() {
           vertical={true}
           children={[
             <label label="Sound Settings" className="sound_settings_label" />,
-            <label
-              label="Adjust your sound settings here."
-              className="sound_settings_description"
-            />,
+            <SoundSlider />,
           ]}
         />
       }
