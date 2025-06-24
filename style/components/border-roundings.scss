@@ -1,0 +1,52 @@
+// =============================================================================
+// Material Design 3 (M3) - Shape Tokens
+// =============================================================================
+//
+// This file defines the standard corner radius scale from the Material Design 3
+// guidelines as SCSS variables. Using these tokens helps maintain visual
+// consistency across all components in your application.
+//
+// Note: Material Design specs use 'dp' (density-independent pixels), which
+// is equivalent to 'px' in standard web CSS.
+//
+// Source: https://m3.material.io/styles/shape/corner-radius-scale
+
+// --- Corner Radius Scale ---
+
+// For components that should have sharp, 90-degree corners.
+$m3-shape-corner-none: 0px;
+
+// For smaller components or enclosed elements like tags.
+$m3-shape-corner-extra-small: 4px;
+
+// A common radius for components like text fields or chips.
+$m3-shape-corner-small: 8px;
+
+// The default for many components, including cards and dialogs.
+$m3-shape-corner-medium: 12px;
+
+// Used for larger components like navigation drawers or bottom sheets.
+$m3-shape-corner-large: 16px;
+
+// For prominent components like a Floating Action Button (FAB).
+$m3-shape-corner-extra-large: 28px;
+
+// For creating a fully rounded or "pill" shape. The radius is set to be
+// half the height of the component. A large value like 999px is often
+// used as a practical way to ensure any element becomes fully rounded.
+$m3-shape-corner-full: 9999px;
+
+// --- Example Usage ---
+//
+// .my-card {
+//   border-radius: $m3-shape-corner-medium; // Applies a 12px radius
+// }
+//
+// .my-button {
+//   border-radius: $m3-shape-corner-full; // Creates a pill-shaped button
+// }
+//
+// .my-text-field {
+//   // Applying a different radius to each corner
+//   border-radius: $m3-shape-corner-small $m3-shape-corner-small 0 0;
+// }

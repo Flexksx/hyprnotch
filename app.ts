@@ -5,6 +5,7 @@ import WorkspacesBar from "./src/view/bar/WorkspacesBar";
 import { Workspaces } from "./src/view/Workspaces";
 import { SystemTrayWindow } from "./src/view/bar/Bar";
 import SystemDetails from "./src/view/bar/SystemDetails";
+import SoundSettingsNotch from "./src/view/notch/sound_settings/SoundSettingsNotch";
 
 App.start({
   css: style,

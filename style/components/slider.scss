@@ -1,0 +1,58 @@
+@use "../colors.scss" as *;
+@use "./border-roundings.scss" as *;
+
+$slider-height: 100px;
+$slider-width: 20px;
+$trough-width: $slider-width;
+$trough-height: $slider-height;
+$handle-width: calc($slider-width * 1.1);
+$handle-height: 2px;
+$handle-radius: 8px;
+
+scale {
+  min-width: $slider-width;
+  min-height: $slider-height;
+  margin: 0px;
+
+  scale {
+  }
+
+  // The trough is the track/line that the slider handle moves along
+  trough {
+    min-width: $trough-width;
+    min-height: $trough-height;
+    background-color: $on_secondary_container; // Background color for the track
+    border-radius: $m3-shape-corner-small;
+  }
+
+  // This is the filled part of the trough (shows progress)
+  highlight {
+    background-color: $primary; // Color for the filled portion
+    border-radius: $m3-shape-corner-medium;
+  }
+
+  // Modify the slider handle to be wide but short (elliptical)
+  slider {
+    min-width: $handle-width;
+    min-height: $handle-height;
+    border-radius: $handle-radius;
+    background-color: $primary;
+    border: 2px solid transparent;
+    margin: -3px -13px;
+  }
+
+  &:hover slider {
+    background-color: $secondary;
+    border-color: $on_secondary;
+  }
+
+  &:active slider {
+    background-color: $tertiary;
+  }
+
+  contents {
+    through {
+      min-width: 30px;
+    }
+  }
+}

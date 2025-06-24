@@ -1,34 +1,34 @@
 @use 'sass:color';
 
 /* Primary Palette */
-$primary: #9bcbfb;
-$on_primary: #003353;
-$primary_container: #0e4a73;
-$on_primary_container: #cee5ff;
-$primary_fixed: #cee5ff;
-$primary_fixed_dim: #9bcbfb;
-$on_primary_fixed: #001d33;
-$on_primary_fixed_variant: #0e4a73;
+$primary: #99ccf9;
+$on_primary: #003351;
+$primary_container: #074b72;
+$on_primary_container: #cce5ff;
+$primary_fixed: #cce5ff;
+$primary_fixed_dim: #99ccf9;
+$on_primary_fixed: #001d31;
+$on_primary_fixed_variant: #074b72;
 
 /* Secondary Palette */
-$secondary: #b9c8da;
-$on_secondary: #233240;
-$secondary_container: #3a4857;
-$on_secondary_container: #d5e4f7;
-$secondary_fixed: #d5e4f7;
-$secondary_fixed_dim: #b9c8da;
-$on_secondary_fixed: #0e1d2a;
-$on_secondary_fixed_variant: #3a4857;
+$secondary: #b8c8da;
+$on_secondary: #23323f;
+$secondary_container: #394857;
+$on_secondary_container: #d4e4f6;
+$secondary_fixed: #d4e4f6;
+$secondary_fixed_dim: #b8c8da;
+$on_secondary_fixed: #0d1d2a;
+$on_secondary_fixed_variant: #394857;
 
 /* Tertiary Palette */
-$tertiary: #d3bfe6;
-$on_tertiary: #392a49;
-$tertiary_container: #504061;
-$on_tertiary_container: #efdbff;
-$tertiary_fixed: #efdbff;
-$tertiary_fixed_dim: #d3bfe6;
-$on_tertiary_fixed: #231533;
-$on_tertiary_fixed_variant: #504061;
+$tertiary: #d1bfe7;
+$on_tertiary: #372a4a;
+$tertiary_container: #4e4162;
+$on_tertiary_container: #eddcff;
+$tertiary_fixed: #eddcff;
+$tertiary_fixed_dim: #d1bfe7;
+$on_tertiary_fixed: #221534;
+$on_tertiary_fixed_variant: #4e4162;
 
 /* Surface & Background */
 $background: #101418;
@@ -36,17 +36,17 @@ $on_background: #e0e2e8;
 $surface: #101418;
 $on_surface: #e0e2e8;
 $surface_variant: #42474e;
-$on_surface_variant: #c2c7cf;
+$on_surface_variant: #c2c7ce;
 $inverse_surface: #e0e2e8;
 $inverse_on_surface: #2d3135;
-$surface_tint: #9bcbfb;
+$surface_tint: #99ccf9;
 $surface_dim: #101418;
 $surface_bright: #36393e;
 $surface_container: #1c2024;
 $surface_container_low: #181c20;
 $surface_container_lowest: #0b0f12;
-$surface_container_high: #272a2f;
-$surface_container_highest: #323539;
+$surface_container_high: #272a2e;
+$surface_container_highest: #313539;
 
 /* Error Palette */
 $error: #ffb4ab;
@@ -59,8 +59,8 @@ $outline: #8c9198;
 $outline_variant: #42474e;
 $scrim: #000000;
 $shadow: #000000;
-$inverse_primary: #2f628c;
-$source_color: #5d7a97;
+$inverse_primary: #2c638b;
+$source_color: #18689a;
 
 /* Optional: Custom font */
 $font_family: "Roboto", sans-serif;

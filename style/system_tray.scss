@@ -75,7 +75,6 @@ $focused_width: 40px;
 .system_tray_bar_notch.focused {
   background-color: $surface;
   min-height: 40px;
-  min-width: $focused_width;
   border-radius: $base_border_radius;
   padding: 0px 2px;
 }

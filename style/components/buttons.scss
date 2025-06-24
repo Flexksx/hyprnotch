@@ -1,0 +1,201 @@
+@use "sass:color";
+@use "../colors.scss" as *;
+@use "./border-roundings.scss" as *;
+
+// Base variables for icon button following M3 specifications
+$icon-button-size-small: 40px;
+$icon-button-size-medium: 48px;
+$icon-button-size-large: 56px;
+$icon-button-size-xlarge: 64px;
+$icon-button-size-xsmall: 32px;
+
+$icon-button-icon-size-default: 24px;
+$icon-button-icon-size-small: 20px;
+$icon-button-icon-size-large: 28px;
+
+$icon-button-padding-narrow: 4px;
+$icon-button-padding-default: 8px;
+$icon-button-padding-wide: 14px;
+
+$focus-indicator-thickness: 2px;
+$focus-indicator-offset: 2px;
+
+// Base icon button styles
+.icon_button {
+  min-width: $icon-button-size-small;
+  min-height: $icon-button-size-small;
+  padding: 0;
+  border-radius: $m3-shape-corner-full;
+  background-color: $primary;
+  color: $on_primary;
+  transition: background-color 0.2s ease, border-radius 0.2s ease;
+
+  // Default state - centering the icon
+  label,
+  image {
+    margin: 0px;
+    padding: 0px;
+  }
+
+  image {
+    min-width: $icon-button-icon-size-default;
+    min-height: $icon-button-icon-size-default;
+  }
+
+  // States
+  &:hover {
+    background-color: color.mix($primary, white, 90%);
+  }
+
+  &:active {
+    background-color: color.mix($primary, white, 80%);
+    border-radius: $m3-shape-corner-small;
+  }
+
+  &:focus {
+    outline: $focus-indicator-thickness solid $secondary;
+    outline-offset: $focus-indicator-offset;
+  }
+
+  &:disabled {
+    background-color: color.mix($surface, black, 85%);
+    color: color.mix($on_surface, $surface, 38%);
+    opacity: 0.38;
+  }
+}
+
+// Size variants
+.icon_button.xsmall {
+  min-width: $icon-button-size-xsmall;
+  min-height: $icon-button-size-xsmall;
+
+  image {
+    min-width: $icon-button-icon-size-small;
+    min-height: $icon-button-icon-size-small;
+  }
+}
+
+.icon_button.medium {
+  min-width: $icon-button-size-medium;
+  min-height: $icon-button-size-medium;
+}
+
+.icon_button.large {
+  min-width: $icon-button-size-large;
+  min-height: $icon-button-size-large;
+
+  image {
+    min-width: $icon-button-icon-size-large;
+    min-height: $icon-button-icon-size-large;
+  }
+}
+
+.icon_button.xlarge {
+  min-width: $icon-button-size-xlarge;
+  min-height: $icon-button-size-xlarge;
+
+  image {
+    min-width: $icon-button-icon-size-large;
+    min-height: $icon-button-icon-size-large;
+  }
+}
+
+// Width variants
+.icon_button.narrow {
+  padding: $icon-button-padding-narrow;
+}
+
+.icon_button.wide {
+  padding: $icon-button-padding-wide;
+}
+
+// Shape variants
+.icon_button.square {
+  border-radius: $m3-shape-corner-medium;
+
+  &:active {
+    border-radius: $m3-shape-corner-small;
+  }
+
+  &.toggle.checked {
+    border-radius: $m3-shape-corner-full;
+  }
+}
+
+// Color variants
+.icon_button.filled {
+  background-color: $primary;
+  color: $on_primary;
+}
+
+.icon_button.tonal {
+  background-color: $secondary_container;
+  color: $on_secondary_container;
+
+  &:hover {
+    background-color: color.mix($secondary_container, white, 90%);
+  }
+
+  &:active {
+    background-color: color.mix($secondary_container, white, 80%);
+  }
+}
+
+.icon_button.outlined {
+  background-color: transparent;
+  color: $primary;
+  border: 1px solid $outline;
+
+  &:hover {
+    background-color: color.mix($primary, white, 5%);
+  }
+
+  &:active {
+    background-color: color.mix($primary, white, 10%);
+  }
+}
+
+.icon_button.standard {
+  background-color: transparent;
+  color: $on_surface_variant;
+
+  &:hover {
+    background-color: color.mix($on_surface_variant, white, 5%);
+  }
+
+  &:active {
+    background-color: color.mix($on_surface_variant, white, 10%);
+  }
+}
+
+// Toggle buttons
+.icon_button.toggle {
+  background-color: $surface_container;
+  color: $on_surface_variant;
+
+  &.checked {
+    background-color: $primary;
+    color: $on_primary;
+    border-radius: $m3-shape-corner-medium;
+  }
+
+  &.square.checked {
+    border-radius: $m3-shape-corner-full;
+  }
+}
+
+// Button groups
+.icon_button_group {
+  .icon_button {
+    // Fix margin syntax - use standard format with units on each value
+    margin: 0px 2px; // Simplified to 2 values (vertical horizontal)
+
+    &:first-child {
+      margin-left: 0px;
+    }
+
+    &:last-child {
+      margin-right: 0px;
+    }
+  }
+}
