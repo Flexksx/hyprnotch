@@ -16,7 +16,7 @@ export function Workspaces(gdkmonitor: Gdk.Monitor) {
         Astal.WindowAnchor.LEFT |
         Astal.WindowAnchor.RIGHT
       }
-      exclusivity={Astal.Exclusivity.IGNORE}
+      exclusivity={Astal.Exclusivity.EXCLUSIVE}
       application={App}
       child={
         <box

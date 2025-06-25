@@ -3,18 +3,22 @@ import BatteryViewModel from "../../battery/BatteryViewModel";
 import Logger from "../../logger/Logger";
 import { IconSource } from "../../lib/icons/IconUtils";
 
-function BatteryLevelCircularProgress() {
+type BatteryLevelCircularProgressProps = { batteryViewModel: BatteryViewModel };
+
+function BatteryLevelCircularProgress(
+  props: BatteryLevelCircularProgressProps
+) {
   const logger = new Logger("BatteryLevelCircularProgress");
   const batteryViewModel = new BatteryViewModel();
   return (
     <circularprogress
-      className={"battery_level_circular_progress"}
+      rounded={true}
       value={batteryViewModel.getBatteryPercentage().as((percentage) => {
         logger.debug(`Battery percentage: ${percentage}`);
-        return percentage * 100.0;
+        return percentage;
       })}
       startAt={0}
-      endAt={100}
+      endAt={1}
       child={
         <IconSource iconName="battery-symbolic" className="battery_icon" />
       }
@@ -33,7 +37,9 @@ function SystemDetailsBarModule(props: SystemDetailsBarModuleProps) {
   return (
     <box
       className="system_details_container"
-      children={[<BatteryLevelCircularProgress />]}
+      children={[
+        <BatteryLevelCircularProgress batteryViewModel={batteryViewModel} />,
+      ]}
     />
   );
 }
@@ -42,6 +48,7 @@ export default function SystemDetails(monitor: Gdk.Monitor) {
   return (
     <window
       anchor={Astal.WindowAnchor.TOP | Astal.WindowAnchor.RIGHT}
+      exclusivity={Astal.Exclusivity.EXCLUSIVE}
       child={<SystemDetailsBarModule monitor={monitor} />}
     />
   );

@@ -1,0 +1,11 @@
+@use "../colors.scss" as *;
+@use "./border-roundings.scss" as *;
+@use "sass:color";
+
+circularprogress {
+  color: $primary;
+  background-color: $secondary_container;
+  font-size: 6px;
+  margin: 2px;
+  min-width: 32px;
+}

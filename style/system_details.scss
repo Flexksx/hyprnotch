@@ -1,11 +1,30 @@
+@use "sass:color";
+@use "./colors.scss" as *;
+
 .battery_level_circular_progress {
-  color: green;
-  background-color: black;
-  font-size: 6px;
-  margin: 2px;
-  min-width: 32px;
+  margin: 4px;
+
+  // Battery-specific color when low
+  &.low-battery {
+    color: $error;
+    background-color: color.mix($error, $surface, 10%);
+  }
+
+  // Battery-specific color when charging
+  &.charging {
+    color: $tertiary; // Green-ish color for charging
+    background-color: color.mix($tertiary, $surface, 10%);
+  }
+}
+
+.battery_icon {
+  color: $on_surface;
+  min-width: 16px;
+  min-height: 16px;
 }
 
 .system_details_container {
   min-height: 40px;
+  min-width: 50px;
+  padding: 5px;
 }
