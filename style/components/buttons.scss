@@ -64,6 +64,25 @@ $focus-indicator-offset: 2px;
   }
 }
 
+// Add specific styling for disabled state when using .disabled class
+.icon_button.disabled {
+  background-color: color.mix($surface, black, 85%);
+  color: color.mix($on_surface, $surface, 38%);
+  opacity: 0.38;
+
+  &:hover {
+    // Prevent hover effects when disabled
+    background-color: color.mix($surface, black, 85%);
+    color: color.mix($on_surface, $surface, 38%);
+  }
+
+  &:active {
+    // Prevent active effects when disabled
+    background-color: color.mix($surface, black, 85%);
+    border-radius: $m3-shape-corner-full; // Keep original border radius
+  }
+}
+
 // Size variants
 .icon_button.xsmall {
   min-width: $icon-button-size-xsmall;

@@ -12,8 +12,8 @@ App.start({
   main() {
     App.get_monitors().map((monitor) => {
       Workspaces(monitor);
-      // SystemDetails(monitor);
       Hyprnotch(monitor);
+      SystemDetails(monitor);
       SystemTrayWindow(monitor);
     });
   },

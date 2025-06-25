@@ -20,7 +20,7 @@ export default function WorkspacesBar(props: WorkspacesBarProps) {
     `WorkspacesBar created on monitor ${gdkmonitor.get_manufacturer()}`
   );
   const workspacesBinding = gdkmonitor.get_model()
-    ? workspaceViewModel.getPerMonitorWorkspaces(gdkmonitor.get_model() || "")
+    ? workspaceViewModel.getPerMonitorWorkspaces(gdkmonitor)
     : workspaceViewModel.getWorkspaces();
 
   return (

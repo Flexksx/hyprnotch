@@ -1,6 +1,7 @@
 import { bind, Binding, Variable } from "astal";
 import Hyprland from "gi://AstalHyprland";
 import Logger from "../logger/Logger";
+import { Gdk } from "astal/gtk3";
 
 export class WorkspaceViewModel {
   private hyprland = Hyprland.get_default();
@@ -53,15 +54,19 @@ export class WorkspaceViewModel {
   }
 
   public getPerMonitorWorkspaces(
-    monitorModel: string
+    gdkMonitor: Gdk.Monitor
   ): Binding<Hyprland.Workspace[]> {
     return this.getWorkspaces().as((workspaces: Hyprland.Workspace[]) => {
       this.logger.debug(
-        `Filtering workspaces for monitor model: ${monitorModel}`
+        `Filtering workspaces for Gdk Monitor: ${gdkMonitor.get_manufacturer()} ${gdkMonitor.get_model()} ${gdkMonitor.get_display().get_default_screen().get_monitor_plug_name(0)}`
       );
       return workspaces.filter(
         (workspace: Hyprland.Workspace) =>
-          workspace.get_monitor().get_model() === monitorModel
+          workspace.get_monitor().get_make() ===
+          gdkMonitor.get_manufacturer()
+          && workspace.get_monitor().get_model() ===
+          gdkMonitor.get_model()
+
       );
     });
   }

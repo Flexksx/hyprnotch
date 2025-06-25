@@ -8,15 +8,14 @@ export function SystemTrayWindow(gdkmonitor: Gdk.Monitor) {
   const logger = new Logger("SystemTray");
   logger.debug("SystemTray window created");
 
+  const systemTrayViewModel = new SystemTrayViewModel();
   return (
     <window
       className="system_tray_window"
-      namespace="system_tray_window"
       gdkmonitor={gdkmonitor}
-      exclusivity={Astal.Exclusivity.IGNORE}
       anchor={Astal.WindowAnchor.TOP | Astal.WindowAnchor.RIGHT}
-      application={App}
-      child={<SystemTray systemTrayViewModel={new SystemTrayViewModel()} />}
+      exclusivity={Astal.Exclusivity.EXCLUSIVE}
+      child={<SystemTray systemTrayViewModel={systemTrayViewModel} />}
     />
   );
 }
