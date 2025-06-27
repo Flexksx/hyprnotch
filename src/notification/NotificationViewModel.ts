@@ -1,4 +1,5 @@
 import { bind, Binding, Variable } from "astal";
+import { Gtk } from "astal/gtk3";
 import Notifd from "gi://AstalNotifd";
 
 export enum NotificationState {
@@ -9,60 +10,44 @@ export enum NotificationState {
 
 export class NotificationViewModel {
   private notifid = Notifd.get_default();
-  private currentState = Variable<NotificationState>(NotificationState.NONE);
+  private hasNewNotification = Variable<boolean>(false);
   private transitionTimer: number | null = null;
 
   constructor() {
-    this.initializeState();
-    this.setupNotificationListener();
-  }
-
-  private initializeState() {
-    const notifications = this.notifid.get_notifications();
-    if (notifications.length > 0) {
-      this.currentState.set(NotificationState.HAS_NOTIFICATIONS);
-    } else {
-      this.currentState.set(NotificationState.NONE);
-    }
-  }
-
-  private setupNotificationListener() {
     this.notifid.connect("notified", () => {
       this.handleNewNotification();
     });
 
-    this.notifid.connect("resolved", () => {
-      this.updateStateBasedOnCount();
-    });
   }
+
+
+
+
 
   private handleNewNotification() {
     if (this.transitionTimer) {
       clearTimeout(this.transitionTimer);
     }
-
-    this.currentState.set(NotificationState.NEW_NOTIFICATION);
-
-    this.transitionTimer = setTimeout(() => {
-      this.updateStateBasedOnCount();
-      this.transitionTimer = null;
-    }, 2000);
+    this.hasNewNotification.set(true);
   }
 
-  private updateStateBasedOnCount() {
-    const notifications = this.notifid.get_notifications();
-    if (notifications.length > 0) {
-      this.currentState.set(NotificationState.HAS_NOTIFICATIONS);
-    } else {
-      this.currentState.set(NotificationState.NONE);
-    }
+  public getNotifications(sort: boolean | null = true): Binding<Notifd.Notification[]> {
+    return bind(this.notifid, "notifications").as((notifications) => {
+      if (sort) {
+        notifications = notifications.sort((a, b) => {
+          return b.get_time() - a.get_time();
+        });
+      }
+      return notifications;
+    });
   }
 
-  public getNotifications(): Binding<Notifd.Notification[]> {
-    return bind(this.notifid, "notifications");
+
+
+
+  public connectNewNotificationCallback(callback: (self: Notifd.Notifd, id: number) => void) {
+    this.notifid.connect("notified", (self, id) => { callback(self, id); });
   }
 
-  public getCurrentNotificationState(): Binding<NotificationState> {
-    return bind(this.currentState);
-  }
+
 }

@@ -41,13 +41,11 @@ export default function Hyprnotch(gdkmonitor: Gdk.Monitor) {
                         notchStateViewModel={notchStateViewModel}
                       />
                     );
-                  case NotchState.NEW_NOTIFICATION:
-                    return <NotifiedNotch />;
                 }
               })}
             />
           }
-        ></centerbox>
+        />
       }
     />
   );

@@ -85,8 +85,6 @@ export default function NormalNotch() {
             />,
 
             <box vertical={true} children={[<MediaIndicator />]} />,
-
-            <box vertical={true} children={[<Notifications />]} />,
           ]}
         />
       }
