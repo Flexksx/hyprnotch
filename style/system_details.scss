@@ -1,9 +1,8 @@
 @use "sass:color";
 @use "./colors.scss" as *;
+@use "./components/border-roundings.scss" as *;
 
 .battery_level_circular_progress {
-  margin: 4px;
-
   // Battery-specific color when low
   &.low-battery {
     color: $error;
@@ -24,7 +23,8 @@
 }
 
 .system_details_container {
-  min-height: 40px;
-  min-width: 50px;
-  padding: 5px;
+  padding: 2px;
+  margin: 0px 4px;
+  background-color: $surface;
+  border-radius: $m3-shape-corner-small;
 }

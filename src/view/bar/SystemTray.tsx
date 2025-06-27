@@ -4,6 +4,7 @@ import Tray from "gi://AstalTray";
 import { bind } from "astal";
 import { timeout } from "astal/time";
 import TrayItemNotch from "./TrayItemNotch";
+import { Gtk } from "astal/gtk3";
 
 const SYSTEM_TRAY_ITEM_TIMEOUT = 10000; // 30 seconds
 const logger = new Logger("TrayItemNotch");
@@ -54,6 +55,8 @@ export function SystemTray({ systemTrayViewModel }: SystemTrayProps) {
     <box
       className="system_tray_bar_notch_container"
       vertical={true}
+      halign={Gtk.Align.END}
+      valign={Gtk.Align.START}
       children={[
         <box
           className={"system_tray_bar_container"}

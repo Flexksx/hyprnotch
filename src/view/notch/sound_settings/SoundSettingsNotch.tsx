@@ -1,65 +1,29 @@
 import { bind } from "astal";
-import { IconSource } from "../../../lib/icons/IconUtils";
 import Logger from "../../../logger/Logger";
-import MediaViewModel from "../../../media/MediaViewModel";
-import NotchStateViewModel from "../../../notch/state/NotchStateViewModel";
 import WirePlumberViewModel from "../../../sound/WirePlumberViewModel";
 
 const wirePlumberViewModel = new WirePlumberViewModel();
 const logger = new Logger("SoundSettingsNotch");
 function SoundMuteButton() {
-  const onButtonClick = () => {
-    if (wirePlumberViewModel.getDefaultSpeakerVolume().get() > 0) {
-      wirePlumberViewModel.muteDefaultSpeaker();
-    } else {
-      wirePlumberViewModel.unmuteDefaultSpeaker();
-    }
-  };
   return (
     <button
       className={wirePlumberViewModel.getDefaultSpeakerVolume().as((volume) => {
         let className = "icon_button";
-        if (volume === 0) {
-          logger.debug("Volume is muted");
-          return className + " disabled";
-        } else {
-          logger.debug("Volume is unmuted");
-          return className;
-        }
+        return volume === 0
+          ? (className += " disabled")
+          : (className += " enabled");
       })}
-      child={wirePlumberViewModel.getDefaultSpeakerVolume().as((volume) => {
-        if (volume === 0) {
-          logger.debug("Volume is muted, showing mute icon");
-          return (
-            <IconSource
-              iconName="audio-volume-muted-symbolic"
-              className="sound_slider_icon"
-            />
-          );
-        }
-        return (
-          <IconSource
-            iconName="audio-volume-high-symbolic"
-            className="sound_slider_icon"
-          />
-        );
-      })}
-      onButtonReleaseEvent={onButtonClick}
+      child={<icon icon={wirePlumberViewModel.getDefaultSpeakerVolumeIcon()} />}
+      onButtonReleaseEvent={() => {
+        wirePlumberViewModel.getDefaultSpeakerVolume().get() > 0
+          ? wirePlumberViewModel.muteDefaultSpeaker()
+          : wirePlumberViewModel.unmuteDefaultSpeaker();
+      }}
     />
   );
 }
 
 function SoundSlider() {
-  const onSliderChange = (value: number) => {
-    wirePlumberViewModel.setDefaultSpeakerVolume(value);
-  };
-  const onVolumeButtonClick = () => {
-    if (wirePlumberViewModel.getDefaultSpeakerVolume().get() > 0) {
-      wirePlumberViewModel.muteDefaultSpeaker();
-    } else {
-      wirePlumberViewModel.unmuteDefaultSpeaker();
-    }
-  };
   return (
     <box
       vertical={true}
@@ -74,11 +38,16 @@ function SoundSlider() {
           max={100}
           value={bind(wirePlumberViewModel.getDefaultSpeakerVolume()).as(
             (volume) => {
-              logger.debug("Current volume:", volume);
-              return volume * 100;
+              const volumeAsPercentage = volume * 100;
+              logger.debug("Current volume:", volumeAsPercentage);
+              return volumeAsPercentage;
             }
           )}
-          onDragged={(self) => onSliderChange(self.get_value() / 100)}
+          onDragged={(self) => {
+            const volumeToSet = self.get_value() / 100;
+            logger.debug("Setting volume to:", volumeToSet);
+            wirePlumberViewModel.setDefaultSpeakerVolume(volumeToSet);
+          }}
         />,
       ]}
     />

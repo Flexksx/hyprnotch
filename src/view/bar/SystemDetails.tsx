@@ -1,4 +1,4 @@
-import { Astal, Gdk } from "astal/gtk3";
+import { Astal, Gdk, Gtk } from "astal/gtk3";
 import BatteryViewModel from "../../battery/BatteryViewModel";
 import Logger from "../../logger/Logger";
 import { IconSource } from "../../lib/icons/IconUtils";
@@ -30,26 +30,20 @@ type SystemDetailsBarModuleProps = {
   monitor: Gdk.Monitor;
 };
 
-function SystemDetailsBarModule(props: SystemDetailsBarModuleProps) {
+export default function SystemDetailsBarModule(
+  props: SystemDetailsBarModuleProps
+) {
   const logger = new Logger("SystemDetails");
   const batteryViewModel = new BatteryViewModel();
   logger.debug("SystemDetails component created");
   return (
     <box
+      valign={Gtk.Align.START}
+      halign={Gtk.Align.END}
       className="system_details_container"
       children={[
         <BatteryLevelCircularProgress batteryViewModel={batteryViewModel} />,
       ]}
-    />
-  );
-}
-
-export default function SystemDetails(monitor: Gdk.Monitor) {
-  return (
-    <window
-      anchor={Astal.WindowAnchor.TOP | Astal.WindowAnchor.RIGHT}
-      exclusivity={Astal.Exclusivity.EXCLUSIVE}
-      child={<SystemDetailsBarModule monitor={monitor} />}
     />
   );
 }

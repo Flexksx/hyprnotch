@@ -1,4 +1,4 @@
-import { App, Astal, Gdk } from "astal/gtk3";
+import { App, Astal, Gdk, Gtk } from "astal/gtk3";
 import Logger from "../logger/Logger";
 import WorkspacesBar from "./bar/WorkspacesBar";
 
@@ -16,6 +16,9 @@ export function Workspaces(gdkmonitor: Gdk.Monitor) {
         Astal.WindowAnchor.LEFT |
         Astal.WindowAnchor.RIGHT
       }
+      hexpand={false}
+      halign={Gtk.Align.START}
+      valign={Gtk.Align.START}
       exclusivity={Astal.Exclusivity.EXCLUSIVE}
       application={App}
       child={

@@ -3,9 +3,60 @@ import Logger from "../../logger/Logger";
 import WorkspacesBar from "./WorkspacesBar";
 import { SystemTray } from "./SystemTray";
 import { SystemTrayViewModel } from "../../tray/SystemTrayViewModel";
+import SystemDetailsBarModule from "./SystemDetails";
 
-type SystemTrayWindowProps = { gdkmonitor: Gdk.Monitor };
+// Componentize the bar layout structure
+type BarLayoutProps = {
+  startWidget?: JSX.Element;
+  centerWidget?: JSX.Element;
+  endWidget?: JSX.Element;
+};
 
+function BarLayout({ startWidget, centerWidget, endWidget }: BarLayoutProps) {
+  return (
+    <centerbox
+      startWidget={startWidget}
+      centerWidget={centerWidget || <box />}
+      endWidget={endWidget}
+    />
+  );
+}
+
+// Componentize the right side bar components
+type RightSideBarProps = {
+  gdkmonitor: Gdk.Monitor;
+  systemTrayViewModel: SystemTrayViewModel;
+};
+
+function RightSideBar({ gdkmonitor, systemTrayViewModel }: RightSideBarProps) {
+  return (
+    <box
+      vertical={false}
+      hexpand={true}
+      halign={Gtk.Align.END}
+      children={[
+        <SystemDetailsBarModule monitor={gdkmonitor} />,
+        <SystemTray systemTrayViewModel={systemTrayViewModel} />,
+      ]}
+    />
+  );
+}
+
+// Componentize the left side bar components
+type LeftSideBarProps = {
+  gdkmonitor: Gdk.Monitor;
+};
+
+function LeftSideBar({ gdkmonitor }: LeftSideBarProps) {
+  return (
+    <box
+      vexpand={true}
+      child={<WorkspacesBar gdkmonitor={gdkmonitor} />}
+    />
+  );
+}
+
+// Separate window component for system tray
 export function SystemTrayWindow(gdkmonitor: Gdk.Monitor) {
   const logger = new Logger("SystemTray");
   logger.debug("SystemTray window created");
@@ -22,6 +73,7 @@ export function SystemTrayWindow(gdkmonitor: Gdk.Monitor) {
   );
 }
 
+// Main bar component - denormalized
 export default function Bar(gdkmonitor: Gdk.Monitor) {
   const logger = new Logger("Bar");
   const systemTrayViewModel = new SystemTrayViewModel();
@@ -37,14 +89,26 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
         Astal.WindowAnchor.LEFT |
         Astal.WindowAnchor.RIGHT
       }
-      exclusivity={Astal.Exclusivity.EXCLUSIVE}
+      exclusivity={Astal.Exclusivity.IGNORE}
       application={App}
       child={
-        <centerbox
-          startWidget={<WorkspacesBar gdkmonitor={gdkmonitor} />}
-          endWidget={<SystemTray systemTrayViewModel={systemTrayViewModel} />}
+        <BarLayout
+          startWidget={<LeftSideBar gdkmonitor={gdkmonitor} />}
+          endWidget={
+            <RightSideBar 
+              gdkmonitor={gdkmonitor} 
+              systemTrayViewModel={systemTrayViewModel} 
+            />
+          }
         />
       }
     />
   );
 }
+
+// Export components for reuse
+export {
+  BarLayout,
+  RightSideBar,
+  LeftSideBar
+};

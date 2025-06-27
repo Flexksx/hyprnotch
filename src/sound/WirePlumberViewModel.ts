@@ -23,7 +23,7 @@ export default class WirePlumberViewModel {
         }
         return bind(this.getAudio().get(), "speakers");
     }
-    public getDefaultSpeaker(): Binding<Wp.Endpoint | null> {
+    public getDefaultSpeaker(): Binding<Wp.Endpoint> {
         if (!this.wireplumber) {
             throw new Error("WirePlumber is not initialized.");
         }
@@ -32,12 +32,14 @@ export default class WirePlumberViewModel {
 
     public getDefaultSpeakerVolume(): Binding<number> {
         const defaultSpeaker = this.getDefaultSpeaker().get();
-        if (!defaultSpeaker) {
-            throw new Error("No default speaker set.");
-        }
+
         return bind(defaultSpeaker, "volume");
     }
 
+    public getDefaultSpeakerVolumeIcon(): Binding<string> {
+        const defaultSpeaker = this.getDefaultSpeaker().get();
+        return bind(defaultSpeaker, "volumeIcon");
+    }
     public setDefaultSpeakerVolume(volume: number): void {
         const defaultSpeaker = this.getDefaultSpeaker().get();
         if (!defaultSpeaker) {
