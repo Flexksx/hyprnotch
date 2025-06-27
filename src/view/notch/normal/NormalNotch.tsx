@@ -1,6 +1,6 @@
 import { bind } from "astal/binding";
 import TimeService from "../../../time/TimeService";
-import { WifiIndicator } from "./WifiIndicator";
+import { WifiIndicator } from "../../../network/WifiIndicator";
 import Notifications from "./Notification";
 import MediaViewModel from "../../../media/MediaViewModel";
 import Logger from "../../../logger/Logger";

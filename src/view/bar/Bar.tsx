@@ -1,9 +1,10 @@
 import { Astal, App, Gdk, Gtk } from "astal/gtk3";
 import Logger from "../../logger/Logger";
-import WorkspacesBar from "./WorkspacesBar";
+import WorkspacesBar from "../../hyprland/WorkspacesBar";
 import { SystemTray } from "./SystemTray";
 import { SystemTrayViewModel } from "../../tray/SystemTrayViewModel";
-import SystemDetailsBarModule from "./SystemDetails";
+import SystemDetailsBarModule from "../../system_stats/battery/SystemDetails";
+import { NotificationsPopup } from "../../notification/Notification";
 
 // Componentize the bar layout structure
 type BarLayoutProps = {
@@ -37,6 +38,7 @@ function RightSideBar({ gdkmonitor, systemTrayViewModel }: RightSideBarProps) {
       children={[
         <SystemDetailsBarModule monitor={gdkmonitor} />,
         <SystemTray systemTrayViewModel={systemTrayViewModel} />,
+        <NotificationsPopup gdkmonitor={gdkmonitor} />,
       ]}
     />
   );
@@ -49,10 +51,7 @@ type LeftSideBarProps = {
 
 function LeftSideBar({ gdkmonitor }: LeftSideBarProps) {
   return (
-    <box
-      vexpand={true}
-      child={<WorkspacesBar gdkmonitor={gdkmonitor} />}
-    />
+    <box vexpand={true} child={<WorkspacesBar gdkmonitor={gdkmonitor} />} />
   );
 }
 
@@ -81,8 +80,8 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
 
   return (
     <window
-      className="hyprnotch_bar"
-      namespace="hyprnotch_bar"
+      className="hyprnotch"
+      namespace="hyprnotch"
       gdkmonitor={gdkmonitor}
       anchor={
         Astal.WindowAnchor.TOP |
@@ -95,9 +94,9 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
         <BarLayout
           startWidget={<LeftSideBar gdkmonitor={gdkmonitor} />}
           endWidget={
-            <RightSideBar 
-              gdkmonitor={gdkmonitor} 
-              systemTrayViewModel={systemTrayViewModel} 
+            <RightSideBar
+              gdkmonitor={gdkmonitor}
+              systemTrayViewModel={systemTrayViewModel}
             />
           }
         />
@@ -107,8 +106,4 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
 }
 
 // Export components for reuse
-export {
-  BarLayout,
-  RightSideBar,
-  LeftSideBar
-};
+export { BarLayout, RightSideBar, LeftSideBar };

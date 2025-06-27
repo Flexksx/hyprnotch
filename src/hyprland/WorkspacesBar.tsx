@@ -1,8 +1,8 @@
-import Logger from "../../logger/Logger";
-import { WorkspaceViewModel } from "../../hyprland/WorkspaceViewModel";
+import Logger from "../logger/Logger";
+import { WorkspaceViewModel } from "./WorkspaceViewModel";
 import Hyprland from "gi://AstalHyprland";
 import { Gdk, Gtk } from "astal/gtk3";
-import { IconSource } from "../../lib/icons/IconUtils";
+import { IconSource } from "../lib/icons/IconUtils";
 import { bind } from "astal";
 
 interface WorkspacesBarProps {

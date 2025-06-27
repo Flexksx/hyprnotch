@@ -3,7 +3,7 @@ import style from "./style/main.scss";
 import Hyprnotch from "./src/view/Hyprnotch";
 import Bar from "./src/view/bar/Bar";
 import BarContainerBackground from "./src/view/bar/BarContainerBackground";
-import Notification from "./src/notification/Notification";
+import { NotificationsWindow } from "./src/notification/Notification";
 
 App.start({
   css: style,
@@ -13,7 +13,7 @@ App.start({
       BarContainerBackground(monitor);
       Bar(monitor);
       // Workspaces(monitor);
-      Notification();
+      // NotificationsWindow(monitor);
       Hyprnotch(monitor);
     });
   },

@@ -1,4 +1,4 @@
-import NetworkViewModel from "../../../network/NetworkViewModel";
+import NetworkViewModel from "./NetworkViewModel";
 const WIFI_ON_ICON = "󰤨";
 const WIFI_OFF_ICON = "󰤧";
 

@@ -24,7 +24,6 @@ const onSystemTrayItemClicked = (
   }
 };
 
-// helper to compute the classes for each tray item
 function getTrayItemClass(
   item: any,
   index: number,

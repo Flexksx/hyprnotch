@@ -7,10 +7,20 @@ $base_item_padding: 4px;
 $button_width: 30px;
 $focused_width: 40px;
 
+.system_tray_notch_transition {
+  transition: min-width $expressive_slow_spatial_duration
+      $expressive_slow_spatial,
+    min-height $expressive_slow_spatial_duration $expressive_slow_spatial,
+    border-radius $expressive_slow_spatial_duration $expressive_slow_spatial,
+    background-color $expressive_default_effects_duration
+      $expressive_default_effects;
+}
+
 .system_tray_bar_container {
+  @extend .system_tray_notch_transition;
   margin: 0px;
   background-color: $surface;
-  border-radius: 0px 0px 0px $base_border_radius;
+  border-radius: 0px 0px 0px 0px;
   padding: 2px;
 }
 
@@ -63,17 +73,17 @@ $focused_width: 40px;
 }
 
 .system_tray_bar_notch {
+  @extend .system_tray_notch_transition;
   background-color: transparent;
   border: 0px;
   min-height: 0px;
   padding: 0px;
   margin: 0px;
-  transition: all $expressive_default_effects_duration
-    $expressive_default_effects;
   border-radius: 0px 0px 0px $base_border_radius;
 }
 
 .system_tray_bar_notch.focused {
+  @extend .system_tray_notch_transition;
   background-color: $surface;
   min-height: 40px;
   border-radius: $base_border_radius;
@@ -81,10 +91,12 @@ $focused_width: 40px;
 }
 
 .system_tray_bar_notch.focused.first {
+  @extend .system_tray_notch_transition;
   border-top-left-radius: 0px;
 }
 
 .system_tray_bar_notch.focused.last {
+  @extend .system_tray_notch_transition;
   border-top-right-radius: 0px;
 }
 

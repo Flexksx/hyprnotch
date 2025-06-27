@@ -1,6 +1,6 @@
 import { bind } from "astal";
-import Logger from "../../../logger/Logger";
-import WirePlumberViewModel from "../../../sound/WirePlumberViewModel";
+import Logger from "../logger/Logger";
+import WirePlumberViewModel from "./WirePlumberViewModel";
 
 const wirePlumberViewModel = new WirePlumberViewModel();
 const logger = new Logger("SoundSettingsNotch");

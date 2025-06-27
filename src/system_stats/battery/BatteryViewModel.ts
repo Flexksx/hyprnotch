@@ -1,5 +1,5 @@
 import Battery from "gi://AstalBattery";
-import Logger from "../logger/Logger";
+import Logger from "../../logger/Logger";
 import { bind, Binding } from "astal";
 
 export default class BatteryViewModel {
@@ -14,9 +14,8 @@ export default class BatteryViewModel {
         return bind(this.battery, "state");
     }
 
-
-
-
-
+    public getBatteryIcon(): Binding<string> {
+        return bind(this.battery, "icon_name");
+    }
 
 }

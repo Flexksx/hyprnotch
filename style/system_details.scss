@@ -3,28 +3,18 @@
 @use "./components/border-roundings.scss" as *;
 
 .battery_level_circular_progress {
-  // Battery-specific color when low
+  icon {
+    font-size: 14px;
+  }
   &.low-battery {
     color: $error;
     background-color: color.mix($error, $surface, 10%);
   }
 
-  // Battery-specific color when charging
-  &.charging {
-    color: $tertiary; // Green-ish color for charging
-    background-color: color.mix($tertiary, $surface, 10%);
-  }
-}
-
-.battery_icon {
-  color: $on_surface;
-  min-width: 16px;
   min-height: 16px;
 }
 
 .system_details_container {
   padding: 2px;
-  margin: 0px 4px;
   background-color: $surface;
-  border-radius: $m3-shape-corner-small;
 }
