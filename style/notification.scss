@@ -1,5 +1,8 @@
 @use "./colors.scss" as *;
 .notification_popup {
+  min-height: 32px;
   background-color: $surface;
   color: $primary;
+  font-size: 18px;
+  padding: 2px;
 }

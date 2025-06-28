@@ -1,6 +1,6 @@
 @use "sass:color";
 @use "../colors.scss" as *;
-@use "./border-roundings.scss" as *;
+@use "./border_rounding.scss" as *;
 
 // Base variables for icon button following M3 specifications
 $icon-button-size-small: 40px;

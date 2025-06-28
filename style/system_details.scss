@@ -1,6 +1,6 @@
 @use "sass:color";
 @use "./colors.scss" as *;
-@use "./components/border-roundings.scss" as *;
+@use "./components/border_rounding.scss" as *;
 
 .battery_level_circular_progress {
   icon {
@@ -17,4 +17,5 @@
 .system_details_container {
   padding: 2px;
   background-color: $surface;
+  border-radius: 0px 0px 0px $m3_shape_corner_large;
 }

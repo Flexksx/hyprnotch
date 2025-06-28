@@ -1,12 +1,27 @@
 import { Astal, Gdk, Gtk } from "astal/gtk3";
 import { NotificationViewModel } from "./NotificationViewModel";
+import AstalNotifd from "gi://AstalNotifd";
 
 const notificationViewModel = new NotificationViewModel();
-type NotificationPopupProps = {};
+const onNewNotification = (
+  notifdClient: AstalNotifd.Notifd,
+  notificationId: number
+) => {
+  const notification =
+    notificationViewModel.getNotificationById(notificationId);
+};
+type NewNotificationPopupProps = {
+  notification: AstalNotifd.Notification;
+};
+function NewNotificationPopup(props: NewNotificationPopupProps) {
+  return <box className={"new_notification_popup"} child={<box />} />;
+}
+
 export function NotificationsPopup() {
   return (
     <box
-      vexpand={false}
+      className={"notification_popup"}
+      vexpand={true}
       halign={Gtk.Align.END}
       valign={Gtk.Align.START}
       child={notificationViewModel.getNotifications().as((notifications) => {
@@ -15,22 +30,6 @@ export function NotificationsPopup() {
           <box child={<label label={firstNotification.get_summary()} />} />
         );
       })}
-    />
-  );
-}
-
-export function NotificationsWindow(gdkMonitor: Gdk.Monitor) {
-  notificationViewModel.connectNewNotificationCallback((self, id) => {
-    console.log(`New notification received with ID: ${id}`);
-  });
-  return (
-    <window
-      namespace={"hyprnotch_notifications_popup"}
-      className="notification_popup"
-      gdkmonitor={gdkMonitor}
-      anchor={Astal.WindowAnchor.TOP | Astal.WindowAnchor.RIGHT}
-      exclusivity={Astal.Exclusivity.EXCLUSIVE}
-      child={NotificationsPopup()}
     />
   );
 }

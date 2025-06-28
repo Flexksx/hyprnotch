@@ -5,7 +5,7 @@ import {
   isMiddleClick,
   isPrimaryClick,
   isSecondaryClick,
-} from "../../lib/events/mouse";
+} from "../lib/events/mouse";
 import AstalTray from "gi://AstalTray";
 
 function getTrayItemNotchClassName(

@@ -1,10 +1,25 @@
 @use "./colors.scss" as *;
 @use "./notification.scss" as *;
 
+// Base styles
+%hyprnotch-base {
+  background-color: $background;
+  color: $on_background;
+}
+
+// Transition mixin to avoid conflicts
+@mixin notch-transition {
+  transition: min-width $expressive_default_effects_duration,
+    $expressive_default_effects,
+    min-height $expressive_default_effects_duration $expressive_default_effects,
+    padding $expressive_default_effects_duration $expressive_default_effects;
+}
+
 window.hyprnotch {
   color: transparent;
   background: transparent;
 }
+
 .hyprnotch-button-area {
   background: transparent;
   padding: 0px;
@@ -13,25 +28,39 @@ window.hyprnotch {
 }
 
 .hyprnotch {
-  background-color: $background;
-  color: $on_background;
+  @extend %hyprnotch-base;
 }
 
-.hyprnotch_transition {
-  transition: min-width $expressive_slow_spatial_duration
-      $expressive_slow_spatial,
-    min-height $expressive_slow_spatial_duration $expressive_slow_spatial,
-    border-radius $expressive_slow_spatial_duration $expressive_slow_spatial,
-    background-color $expressive_default_effects_duration
-      $expressive_default_effects;
+@keyframes expand-in {
+  from {
+    min-width: 300px;
+    min-height: 32px;
+    border-radius: 0px 0px 12px 12px;
+    padding: 0px 0px 8px 0px;
+  }
+  to {
+    border-radius: 0px 0px 36px 36px;
+    padding: 0px 24px 12px 24px;
+  }
 }
 
-.notch_container {
+@keyframes collapse-in {
+  from {
+    border-radius: 0px 0px 36px 36px;
+    padding: 0px 24px 12px 24px;
+  }
+  to {
+    min-width: 300px;
+    min-height: 32px;
+    border-radius: 0px 0px 12px 12px;
+    padding: 0px 0px 8px 0px;
+  }
 }
 
 .normal_notch {
-  @extend .hyprnotch;
-  @extend .hyprnotch_transition;
+  @extend %hyprnotch-base;
+
+  animation: collapse-in $expressive_slow_spatial_duration;
   padding-bottom: 8px;
   min-width: 300px;
   min-height: 32px;
@@ -39,16 +68,17 @@ window.hyprnotch {
 }
 
 .expanded_notch {
-  @extend .hyprnotch;
-  @extend .hyprnotch_transition;
-  border-radius: 0px 0px 36px 36px;
+  @extend %hyprnotch-base;
 
+  animation: expand-in $expressive_slow_spatial_duration;
+  border-radius: 0px 0px 36px 36px;
   padding: 0px 24px 12px 24px;
 }
 
 .notified_notch {
-  @extend .hyprnotch;
-  @extend .hyprnotch_transition;
+  @extend %hyprnotch-base;
+  @include notch-transition;
+
   padding-bottom: 8px;
   min-width: 500px;
   min-height: 45px;

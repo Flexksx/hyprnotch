@@ -1,105 +1,134 @@
 @use "./colors.scss" as *;
+@use "./components/border_rounding.scss" as *;
 @use "sass:color";
 
-$base_border_radius: 14px;
-$small_border_radius: calc($base_border_radius/ 2);
 $base_item_padding: 4px;
 $button_width: 30px;
 $focused_width: 40px;
 
-.system_tray_notch_transition {
+%system-tray-base {
+  margin: 0px;
+  border: 0px;
+}
+
+@mixin fast-transition {
+  transition: min-width $expressive_fast_spatial_duration
+      $expressive_fast_spatial,
+    min-height $expressive_fast_spatial_duration $expressive_fast_spatial,
+    border-radius $expressive_fast_spatial_duration $expressive_fast_spatial,
+    background-color $expressive_default_effects_duration
+      $expressive_default_effects;
+}
+
+@mixin slow-transition {
   transition: min-width $expressive_slow_spatial_duration
       $expressive_slow_spatial,
     min-height $expressive_slow_spatial_duration $expressive_slow_spatial,
     border-radius $expressive_slow_spatial_duration $expressive_slow_spatial,
     background-color $expressive_default_effects_duration
-      $expressive_default_effects;
+      $expressive_default_effects,
+    padding $expressive_slow_spatial_duration $expressive_slow_spatial;
 }
 
 .system_tray_bar_container {
-  @extend .system_tray_notch_transition;
-  margin: 0px;
+  @extend %system-tray-base;
+  @include slow-transition;
+
   background-color: $surface;
-  border-radius: 0px 0px 0px 0px;
+  border-radius: 0px;
   padding: 2px;
+  min-height: 32px;
+
+  &.notch-focused {
+    border-radius: 0 0 $m3_shape_corner_large $m3_shape_corner_large;
+  }
 }
 
+// Base tray item styles
 .system_tray_item {
+  @extend %system-tray-base;
+  @include fast-transition;
+
   background-color: $primary;
-  border-radius: $small_border_radius;
+  color: $on_primary;
+  border-radius: $m3_shape_corner_small;
   padding: 0px $base_item_padding;
   margin: 0px 1px;
   font-size: 16px;
-  transition: all $expressive_default_effects_duration
-    $expressive_default_effects;
-  color: $on_primary;
   min-height: $button_width;
+
+  &:hover,
+  &.active {
+    min-width: $focused_width;
+  }
 
   &:hover {
     background-color: $secondary;
     color: $on_secondary;
-    border-radius: $base_border_radius;
-    transition: all $expressive_default_effects_duration
-      $expressive_default_effects;
-    min-width: $focused_width;
+    border-radius: $m3_shape_corner_large;
   }
 
   &.active {
     background-color: $surface;
     color: $primary;
-    border-radius: $base_border_radius $base_border_radius 0px 0px;
-    min-width: $focused_width;
+    border-radius: $m3_shape_corner_large $m3_shape_corner_large 0px 0px;
   }
 
   &.first {
-    border-radius: $base_border_radius $small_border_radius $small_border_radius
-      $base_border_radius;
+    border-radius: $m3_shape_corner_large $m3_shape_corner_small
+      $m3_shape_corner_small $m3_shape_corner_large;
+
+    &:hover,
+    &.active {
+      border-radius: $m3_shape_corner_large;
+    }
+
+    &.active {
+      border-radius: $m3_shape_corner_large $m3_shape_corner_large 0px 0px;
+    }
   }
 
   &.last {
-    border-radius: $small_border_radius $base_border_radius $base_border_radius
-      $small_border_radius;
-  }
+    border-radius: $m3_shape_corner_small $m3_shape_corner_large
+      $m3_shape_corner_large $m3_shape_corner_small;
 
-  &.first:hover,
-  &.last:hover {
-    border-radius: $base_border_radius;
-  }
+    &:hover,
+    &.active {
+      border-radius: $m3_shape_corner_large;
+    }
 
-  &.first.active,
-  &.last.active {
-    border-radius: $base_border_radius $base_border_radius 0px 0px;
+    &.active {
+      border-radius: $m3_shape_corner_large $m3_shape_corner_large 0px 0px;
+    }
   }
 }
 
 .system_tray_bar_notch {
-  @extend .system_tray_notch_transition;
+  @extend %system-tray-base;
+  @include slow-transition;
+
   background-color: transparent;
-  border: 0px;
   min-height: 0px;
   padding: 0px;
-  margin: 0px;
-  border-radius: 0px 0px 0px $base_border_radius;
+  border-radius: 0px 0px 0px $m3_shape_corner_large;
+
+  &.focused {
+    background-color: $surface;
+    min-height: 40px;
+    border-radius: $m3_shape_corner_large;
+    padding: 0px 2px;
+
+    &.first {
+      border-top-left-radius: 0px;
+    }
+
+    &.last {
+      border-top-right-radius: 0px;
+    }
+  }
 }
 
-.system_tray_bar_notch.focused {
-  @extend .system_tray_notch_transition;
-  background-color: $surface;
-  min-height: 40px;
-  border-radius: $base_border_radius;
-  padding: 0px 2px;
-}
-
-.system_tray_bar_notch.focused.first {
-  @extend .system_tray_notch_transition;
-  border-top-left-radius: 0px;
-}
-
-.system_tray_bar_notch.focused.last {
-  @extend .system_tray_notch_transition;
-  border-top-right-radius: 0px;
-}
-
+// Notch content
 .tray-item-notch-label {
   color: $primary;
 }
