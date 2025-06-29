@@ -32,9 +32,6 @@ export default function Hyprnotch(gdkmonitor: Gdk.Monitor) {
                 .getNotchState()
                 .as((notchState) => {
                   let classes = "hyprnotch-button-area";
-                  /* if (notchState === NotchState.HOVERED) {
-                    classes += " expanded";
-                  } */
                   switch (notchState) {
                     case NotchState.HOVERED:
                       classes += " expanded";

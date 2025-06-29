@@ -6,14 +6,71 @@ $base_item_padding: 4px;
 $button_width: 30px;
 $focused_width: 40px;
 
-%system-tray-base {
-  margin: 0px;
-  border: 0px;
+%system-tray-item-base {
+  @include default-size-transition;
+  padding: 0 $base_item_padding;
+  margin: 0 1px;
+  font-size: 16px;
+  min-height: $button_width;
+
+  &:hover,
+  &.active {
+    @include fast-size-transition;
+    min-width: $focused_width;
+  }
 }
 
-.system_tray_bar_container {
-  @extend %system-tray-base;
+@mixin tray-item-hover {
+  background-color: $secondary;
+  color: $on_secondary;
+  border-radius: $m3_shape_corner_large;
+}
 
+@mixin tray-item-active {
+  background-color: $surface;
+  color: $primary;
+  border-radius: $m3_shape_corner_large $m3_shape_corner_large 0px 0px;
+}
+
+.system_tray_item {
+  @extend %system-tray-item-base;
+  background-color: $primary;
+  color: $on_primary;
+  border-radius: $m3_shape_corner_small;
+
+  &:hover {
+    @include tray-item-hover;
+  }
+
+  &.active {
+    @include tray-item-active;
+  }
+
+  &.first {
+    @include default-size-transition;
+    border-radius: $m3_shape_corner_large $m3_shape_corner_small $m3_shape_corner_small $m3_shape_corner_large;
+
+    &:hover,
+    &.active {
+      @include default-size-transition;
+      border-radius: $m3_shape_corner_large;
+    }
+  }
+
+  &.last {
+    @include default-size-transition;
+    border-radius: $m3_shape_corner_small $m3_shape_corner_large $m3_shape_corner_large $m3_shape_corner_small;
+
+    &:hover,
+    &.active {
+      @include default-size-transition;
+      border-radius: $m3_shape_corner_large;
+    }
+  }
+}
+
+.system_tray {
+  @include default-size-transition;
   background-color: $surface;
   border-radius: 0px;
   padding: 2px;
@@ -22,114 +79,4 @@ $focused_width: 40px;
   &.notch-focused {
     border-radius: 0 0 $m3_shape_corner_large $m3_shape_corner_large;
   }
-}
-
-// Base tray item styles
-.system_tray_item {
-  @extend %system-tray-base;
-
-  background-color: $primary;
-  color: $on_primary;
-  border-radius: $m3_shape_corner_small;
-  padding: 0px $base_item_padding;
-  margin: 0px 1px;
-  font-size: 16px;
-  min-height: $button_width;
-
-  &:hover,
-  &.active {
-    min-width: $focused_width;
-  }
-
-  &:hover {
-    background-color: $secondary;
-    color: $on_secondary;
-    border-radius: $m3_shape_corner_large;
-  }
-
-  &.active {
-    background-color: $surface;
-    color: $primary;
-    border-radius: $m3_shape_corner_large $m3_shape_corner_large 0px 0px;
-  }
-
-  &.first {
-    border-radius: $m3_shape_corner_large $m3_shape_corner_small $m3_shape_corner_small $m3_shape_corner_large;
-
-    &:hover,
-    &.active {
-      border-radius: $m3_shape_corner_large;
-    }
-
-    &.active {
-      border-radius: $m3_shape_corner_large $m3_shape_corner_large 0px 0px;
-    }
-  }
-
-  &.last {
-    border-radius: $m3_shape_corner_small $m3_shape_corner_large $m3_shape_corner_large $m3_shape_corner_small;
-
-    &:hover,
-    &.active {
-      border-radius: $m3_shape_corner_large;
-    }
-
-    &.active {
-      border-radius: $m3_shape_corner_large $m3_shape_corner_large 0px 0px;
-    }
-  }
-}
-
-.system_tray_bar_notch {
-  @extend %system-tray-base;
-
-  background-color: transparent;
-  min-height: 0px;
-  padding: 0px;
-  border-radius: 0px 0px 0px $m3_shape_corner_large;
-
-  &.focused {
-    background-color: $surface;
-    min-height: 40px;
-    border-radius: $m3_shape_corner_large;
-    padding: 0px 2px;
-
-    &.first {
-      border-top-left-radius: 0px;
-    }
-
-    &.last {
-      border-top-right-radius: 0px;
-    }
-  }
-}
-
-.tray-item-notch-label {
-  color: $primary;
-}
-
-.system_tray_bar_notch_entry {
-  padding: 0px $base_item_padding;
-  background-color: transparent;
-  color: $primary;
-}
-// Notch content
-.tray-item-notch-label {
-  color: $primary;
-}
-
-.system_tray_bar_notch_entry {
-  padding: 0px $base_item_padding;
-  background-color: transparent;
-  color: $primary;
-}
-// Notch content
-.tray-item-notch-label {
-  color: $primary;
-}
-
-.system_tray_bar_notch_entry {
-  padding: 0px $base_item_padding;
-  background-color: transparent;
-  color: $primary;
 }
