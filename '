@@ -5,26 +5,25 @@
   background-color: $background;
   color: $on_background;
   @include fast-size-transition;
-  border-radius: 0px 0px $m3-shape-corner-medium $m3-shape-corner-medium;
 }
 .hyprnotch-button-area {
   @extend %hyprnotch-base;
+  @include fast-size-transition;
   padding: 0px;
   margin: 0px;
   border: 0px;
+  border-radius: 0px 0px 12px 12px;
   padding-bottom: 8px;
   min-width: 300px;
   min-height: 32px;
 
   &.expanded {
+    border-radius: 0px 0px 36px 36px;
     padding: 0px 24px 12px 24px;
-    border-radius: 0px 0px $m3-shape-corner-extra-large $m3-shape-corner-extra-large;
   }
 
-  &.sound_settings {
-    padding: 0px 24px 12px 24px;
-    border-radius: 0px 0px $m3-shape-corner-extra-large $m3-shape-corner-extra-large;
-    min-width: 400px;
+  &.notified {
+    min-width: 500px;
     min-height: 45px;
   }
 }

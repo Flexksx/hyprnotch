@@ -9,9 +9,7 @@ import SoundSettingsNotch from "../sound/SoundSettingsNotch";
 
 export default function Hyprnotch(gdkmonitor: Gdk.Monitor) {
   const notchStateViewModel = new NotchStateViewModel();
-
   const logger: Logger = new Logger("Hyprnotch");
-  logger.debug(`Hyprnotch created on monitor ${gdkmonitor.get_manufacturer()}`);
 
   return (
     <window
@@ -30,17 +28,39 @@ export default function Hyprnotch(gdkmonitor: Gdk.Monitor) {
                   ? notchStateViewModel.setNotchState(NotchState.HOVERED)
                   : notchStateViewModel.setNotchState(NotchState.NORMAL);
               }}
-              className="hyprnotch-button-area"
+              className={notchStateViewModel
+                .getNotchState()
+                .as((notchState) => {
+                  let classes = "hyprnotch-button-area";
+                  /* if (notchState === NotchState.HOVERED) {
+                    classes += " expanded";
+                  } */
+                  switch (notchState) {
+                    case NotchState.HOVERED:
+                      classes += " expanded";
+                      break;
+                    case NotchState.SOUND_SETTINGS:
+                      classes += " sound_settings";
+                      break;
+                    case NotchState.NORMAL:
+                      classes += " normal";
+                      break;
+                  }
+
+                  return classes;
+                })}
               child={notchStateViewModel.getNotchState().as((notchState) => {
                 switch (notchState) {
-                  case NotchState.NORMAL:
-                    return <NormalNotch />;
+                  case NotchState.SOUND_SETTINGS:
+                    return <SoundSettingsNotch />;
                   case NotchState.HOVERED:
                     return (
                       <ExpandedNotch
                         notchStateViewModel={notchStateViewModel}
                       />
                     );
+                  case NotchState.NORMAL:
+                    return <NormalNotch />;
                 }
               })}
             />

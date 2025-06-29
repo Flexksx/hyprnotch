@@ -1,5 +1,5 @@
 @use "./colors.scss" as *;
-@use "./components/border_rounding.scss" as *;
+@use "./components/material.scss" as *;
 @use "sass:color";
 
 $base_item_padding: 4px;
@@ -11,28 +11,8 @@ $focused_width: 40px;
   border: 0px;
 }
 
-@mixin fast-transition {
-  transition: min-width $expressive_fast_spatial_duration
-      $expressive_fast_spatial,
-    min-height $expressive_fast_spatial_duration $expressive_fast_spatial,
-    border-radius $expressive_fast_spatial_duration $expressive_fast_spatial,
-    background-color $expressive_default_effects_duration
-      $expressive_default_effects;
-}
-
-@mixin slow-transition {
-  transition: min-width $expressive_slow_spatial_duration
-      $expressive_slow_spatial,
-    min-height $expressive_slow_spatial_duration $expressive_slow_spatial,
-    border-radius $expressive_slow_spatial_duration $expressive_slow_spatial,
-    background-color $expressive_default_effects_duration
-      $expressive_default_effects,
-    padding $expressive_slow_spatial_duration $expressive_slow_spatial;
-}
-
 .system_tray_bar_container {
   @extend %system-tray-base;
-  @include slow-transition;
 
   background-color: $surface;
   border-radius: 0px;
@@ -47,7 +27,6 @@ $focused_width: 40px;
 // Base tray item styles
 .system_tray_item {
   @extend %system-tray-base;
-  @include fast-transition;
 
   background-color: $primary;
   color: $on_primary;
@@ -75,8 +54,7 @@ $focused_width: 40px;
   }
 
   &.first {
-    border-radius: $m3_shape_corner_large $m3_shape_corner_small
-      $m3_shape_corner_small $m3_shape_corner_large;
+    border-radius: $m3_shape_corner_large $m3_shape_corner_small $m3_shape_corner_small $m3_shape_corner_large;
 
     &:hover,
     &.active {
@@ -89,8 +67,7 @@ $focused_width: 40px;
   }
 
   &.last {
-    border-radius: $m3_shape_corner_small $m3_shape_corner_large
-      $m3_shape_corner_large $m3_shape_corner_small;
+    border-radius: $m3_shape_corner_small $m3_shape_corner_large $m3_shape_corner_large $m3_shape_corner_small;
 
     &:hover,
     &.active {
@@ -105,7 +82,6 @@ $focused_width: 40px;
 
 .system_tray_bar_notch {
   @extend %system-tray-base;
-  @include slow-transition;
 
   background-color: transparent;
   min-height: 0px;
@@ -128,6 +104,25 @@ $focused_width: 40px;
   }
 }
 
+.tray-item-notch-label {
+  color: $primary;
+}
+
+.system_tray_bar_notch_entry {
+  padding: 0px $base_item_padding;
+  background-color: transparent;
+  color: $primary;
+}
+// Notch content
+.tray-item-notch-label {
+  color: $primary;
+}
+
+.system_tray_bar_notch_entry {
+  padding: 0px $base_item_padding;
+  background-color: transparent;
+  color: $primary;
+}
 // Notch content
 .tray-item-notch-label {
   color: $primary;

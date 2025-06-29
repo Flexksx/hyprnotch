@@ -4,6 +4,7 @@ import WirePlumberViewModel from "./WirePlumberViewModel";
 
 const wirePlumberViewModel = new WirePlumberViewModel();
 const logger = new Logger("SoundSettingsNotch");
+
 function SoundMuteButton() {
   return (
     <button

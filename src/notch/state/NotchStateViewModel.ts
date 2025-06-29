@@ -9,7 +9,7 @@ export default class NotchStateViewModel {
   );
   private stateChangeTimeout: number | null = null;
 
-  constructor() { }
+  constructor() {}
 
   public getNotchState(): Binding<NotchState> {
     return bind(this.notchState).as(() => {

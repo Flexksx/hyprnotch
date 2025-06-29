@@ -28,7 +28,6 @@ function Time() {
 }
 
 export default function ExpandedNotch(props: ExpandedNotchProps) {
-  const notchContentViewModel = new NotchContentViewModel();
   return (
     <box
       className={"expanded_notch"}
@@ -41,20 +40,9 @@ export default function ExpandedNotch(props: ExpandedNotchProps) {
                 children={[
                   <>
                     <SettingsMenu
-                      notchContentViewModel={notchContentViewModel}
+                      notchStateViewModel={props.notchStateViewModel}
                     />
-                    <box
-                      child={notchContentViewModel
-                        .getNotchContentState()
-                        .as((state) => {
-                          switch (state) {
-                            case NotchContentState.SOUND_SETTINGS:
-                              return <SoundSettingsNotch />;
-                            case NotchContentState.DEFAULT:
-                              return <Time />;
-                          }
-                        })}
-                    />
+                    <box child={<Time />} />
                   </>,
                 ]}
               />

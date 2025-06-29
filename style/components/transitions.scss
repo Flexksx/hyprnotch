@@ -1,0 +1,29 @@
+@use "../colors.scss" as *;
+
+@mixin spatial-size-transition {
+  transition:
+    min-width $expressive_slow_spatial_duration $expressive_slow_spatial,
+    min-height $expressive_slow_spatial_duration $expressive_slow_spatial,
+    padding $expressive_slow_spatial_duration $expressive_slow_spatial;
+}
+
+@mixin fast-size-transition {
+  transition:
+    min-width $expressive_fast_spatial_duration $expressive_fast_spatial,
+    min-height $expressive_fast_spatial_duration $expressive_fast_spatial,
+    padding $expressive_fast_spatial_duration $expressive_fast_spatial;
+}
+
+@mixin slow-size-transition {
+  transition:
+    min-width $expressive_slow_spatial_duration $expressive_slow_spatial,
+    min-height $expressive_slow_spatial_duration $expressive_slow_spatial,
+    padding $expressive_slow_spatial_duration $expressive_slow_spatial;
+}
+
+@mixin default-size-transition {
+  transition:
+    min-width $expressive_default_spatial_duration $expressive_default_spatial,
+    min-height $expressive_default_spatial_duration $expressive_default_spatial,
+    padding $expressive_default_spatial_duration $expressive_default_spatial;
+}

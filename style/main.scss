@@ -8,6 +8,7 @@
 @use "./notification.scss" as *;
 @use "./system_details.scss" as *;
 @use "./components/material.scss" as *;
+@use "./bar.scss" as *;
 
 window.Bar {
   color: $primary;

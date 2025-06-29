@@ -13,16 +13,6 @@ type BarLayoutProps = {
   endWidget?: JSX.Element;
 };
 
-function BarLayout({ startWidget, centerWidget, endWidget }: BarLayoutProps) {
-  return (
-    <centerbox
-      startWidget={startWidget}
-      centerWidget={centerWidget || <box />}
-      endWidget={endWidget}
-    />
-  );
-}
-
 // Componentize the right side bar components
 type RightSideBarProps = {
   gdkmonitor: Gdk.Monitor;
@@ -55,7 +45,6 @@ function LeftSideBar({ gdkmonitor }: LeftSideBarProps) {
   );
 }
 
-// Separate window component for system tray
 export function SystemTrayWindow(gdkmonitor: Gdk.Monitor) {
   const logger = new Logger("SystemTray");
   logger.debug("SystemTray window created");
@@ -72,7 +61,6 @@ export function SystemTrayWindow(gdkmonitor: Gdk.Monitor) {
   );
 }
 
-// Main bar component - denormalized
 export default function Bar(gdkmonitor: Gdk.Monitor) {
   const logger = new Logger("Bar");
   const systemTrayViewModel = new SystemTrayViewModel();
@@ -80,7 +68,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
 
   return (
     <window
-      className="hyprnotch"
+      className="hyprnotch_bar"
       namespace="hyprnotch"
       gdkmonitor={gdkmonitor}
       anchor={
@@ -91,8 +79,10 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
       exclusivity={Astal.Exclusivity.IGNORE}
       application={App}
       child={
-        <BarLayout
+        <centerbox
+          className={"hyprnotch_bar_container"}
           startWidget={<LeftSideBar gdkmonitor={gdkmonitor} />}
+          centerWidget={<box />}
           endWidget={
             <RightSideBar
               gdkmonitor={gdkmonitor}
@@ -106,4 +96,3 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
 }
 
 // Export components for reuse
-export { BarLayout, RightSideBar, LeftSideBar };
