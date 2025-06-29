@@ -2,9 +2,6 @@ import { bind } from "astal";
 import TimeService from "../../../time/TimeService";
 import SettingsMenu from "./SettingsMenu";
 import NotchStateViewModel from "../../../notch/state/NotchStateViewModel";
-import NotchContentViewModel from "../../../notch/content/NotchContentViewModel";
-import SoundSettingsNotch from "../../../sound/SoundSettingsNotch";
-import { NotchContentState } from "../../../notch/content/NotchContentState";
 
 type ExpandedNotchProps = {
   notchStateViewModel: NotchStateViewModel;

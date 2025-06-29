@@ -8,6 +8,7 @@
 @use "./notification.scss" as *;
 @use "./system_details.scss" as *;
 @use "./components/material.scss" as *;
+@use "./sound_settings.scss" as *;
 @use "./bar.scss" as *;
 
 window.Bar {
@@ -24,4 +25,8 @@ window.Bar {
     background: transparent;
     border-radius: 0px 0px 24px 24px;
   }
+}
+
+.hyprnotch_bar_container_background {
+  min-height: 32px;
 }
