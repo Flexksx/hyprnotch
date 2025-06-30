@@ -1,9 +1,8 @@
-@use "./colors.scss" as *;
+@use "./components/material.scss" as *;
 @use "sass:color";
 
 $base-width: 16px;
 $base-margin: 4px;
-$border-radius: $base-margin + $base-width;
 
 $base-horizontal-padding: 4px;
 $workspace-focused-padding: calc($base-horizontal-padding * 3);
@@ -16,17 +15,17 @@ $workspace_focused_width: $base-width + ($base-horizontal-padding * 4);
 }
 .workspaces_bar_container {
   background-color: $primary_container;
-  border-radius: 0px 0px $border-radius 0px;
+  border-radius: 0px 0px $m3-shape-corner-large 0px;
 }
 
 .workspaces_bar {
   background-color: $primary_container;
-  border-radius: $border-radius;
-  transition: $expressive_default_effects;
+  border-radius: $m3-shape-corner-full;
+  transition: $expressive_default_spatial_duration $expressive_default_spatial;
 }
 
 .workspace_button {
-  border-radius: $border-radius;
+  border-radius: $m3-shape-corner-full;
   margin: $base-margin;
   padding: 0px $base-horizontal-padding;
   font-size: $base-width;
@@ -42,6 +41,10 @@ $workspace_focused_width: $base-width + ($base-horizontal-padding * 4);
   &.focused {
     background-color: $tertiary;
     padding: 0px $workspace-focused-padding;
+  }
+  icon {
+    font-size: 20px;
+    padding: 0px 2px;
   }
 }
 

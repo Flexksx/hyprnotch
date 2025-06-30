@@ -25,24 +25,19 @@ function WorkspaceButton({
       className={workspaceViewModel
         .getFocusedWorkspace()
         .as((focusedWorkspace: Hyprland.Workspace) => {
-          return (
-            "workspace_button " +
-            (focusedWorkspace.get_id() === workspace.get_id() ? "focused" : "")
-          );
+          let workspaceClass = "workspace_button";
+          if (focusedWorkspace.get_id() === workspace.get_id()) {
+            workspaceClass += " focused";
+          }
+          return workspaceClass;
         })}
       child={
         workspace.get_clients().length === 0 ? (
-          <box
-            valign={Gtk.Align.CENTER}
-            halign={Gtk.Align.CENTER}
-            child={<label label={workspace.get_name()} />}
-          />
+          <label label={workspace.get_name()} />
         ) : (
           <box
-            valign={Gtk.Align.CENTER}
-            halign={Gtk.Align.CENTER}
             children={bind(workspace, "clients").as((clients) =>
-              clients.map((client) => <WorkspaceClientIcon client={client} />)
+              clients.map((client) => <icon icon={client.get_class()} />)
             )}
           />
         )
@@ -53,19 +48,6 @@ function WorkspaceButton({
         );
         workspaceViewModel.switchToWorkspace(workspace.get_id());
       }}
-    />
-  );
-}
-
-type WorkspaceClientIconProps = {
-  client: Hyprland.Client;
-};
-
-function WorkspaceClientIcon({ client }: WorkspaceClientIconProps) {
-  return (
-    <box
-      className="workspace_client_icon"
-      child={<IconSource iconName={client.get_class()} />}
     />
   );
 }

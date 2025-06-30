@@ -1,11 +1,12 @@
 import Logger from "../logger/Logger";
 import { SystemTrayViewModel } from "./SystemTrayViewModel";
 import Tray from "gi://AstalTray";
-import { bind } from "astal";
+import { bind, Binding } from "astal";
 import { timeout } from "astal/time";
 import TrayItemNotch from "./TrayItemNotch";
 import { Gtk } from "astal/gtk3";
 import SystemTrayItemButton from "./SystemTrayItemButton";
+import system from "system";
 
 const logger = new Logger("TrayItemNotch");
 export type TrayItemNotchProps = {
@@ -17,7 +18,15 @@ export type SystemTrayProps = { systemTrayViewModel: SystemTrayViewModel };
 export function SystemTray({ systemTrayViewModel }: SystemTrayProps) {
   return (
     <box
-      className="system_tray"
+      className={bind(systemTrayViewModel.getFocusedTrayItem()).as(
+        (focusedTrayItem) => {
+          let systemTrayClass = "system_tray";
+          if (focusedTrayItem) {
+            systemTrayClass += " focused";
+          }
+          return systemTrayClass;
+        }
+      )}
       vertical={true}
       halign={Gtk.Align.END}
       valign={Gtk.Align.START}

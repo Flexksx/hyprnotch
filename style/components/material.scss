@@ -3,6 +3,7 @@
 @use "./circular_progress.scss" as *;
 @use "./border_rounding.scss" as *;
 @use "./transitions.scss" as *;
+@use "../colors.scss" as *;
 
 // Forward all mixins from transitions
 @forward "./transitions.scss";
@@ -10,3 +11,4 @@
 @forward "./slider.scss";
 @forward "./circular_progress.scss";
 @forward "./border_rounding.scss";
+@forward "../colors.scss";
