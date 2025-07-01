@@ -61,7 +61,7 @@ $focused_width: 40px;
     &:hover,
     &.active {
       border-radius: $m3_shape_corner_large;
-      background-color: $secondary;
+      background-color: $surface;
     }
   }
 
@@ -71,7 +71,7 @@ $focused_width: 40px;
     &:hover,
     &.active {
       border-radius: $m3_shape_corner_large;
-      background-color: $secondary;
+      background-color: $surface;
     }
   }
 }
