@@ -1,7 +1,7 @@
 import SystemTrayStateViewModel from "./SystemTrayStateViewModel";
 import Tray from "gi://AstalTray";
 import { SystemTrayViewModel } from "./SystemTrayViewModel";
-import { Binding, timeout } from "astal";
+import { bind, Binding, timeout } from "astal";
 
 const SYSTEM_TRAY_ITEM_TIMEOUT = 10000; // 30 seconds
 
@@ -53,6 +53,13 @@ type SystemTrayItemButtonProps = {
 
 export default function SystemTrayItemButton(props: SystemTrayItemButtonProps) {
   const { systemTrayViewModel, item } = props;
+  const trayItemsIdNamesMap: Record<string, { icon: string; title: string }> =
+    {};
+  trayItemsIdNamesMap["chrome_status_icon_1"] = {
+    icon: "slack",
+    title: "Slack",
+  };
+
   return (
     <button
       cursor={"pointer"}
@@ -62,7 +69,16 @@ export default function SystemTrayItemButton(props: SystemTrayItemButtonProps) {
         onSystemTrayItemClicked(systemTrayViewModel, item)
       }
       onHover={() => systemTrayViewModel.refreshTrayItem(item)}
-      child={<icon icon={item.get_icon_name() || "unknown"} />}
+      child={
+        <icon
+          icon={bind(item, "iconName").as((iconName) => {
+            if (!iconName) {
+              return trayItemsIdNamesMap[item.get_id()]?.icon || "unknown";
+            }
+            return iconName;
+          })}
+        />
+      }
     />
   );
 }

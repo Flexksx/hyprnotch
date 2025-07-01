@@ -14,8 +14,8 @@ export function NewNotificationPopup(props: NewNotificationPopupProps) {
     <box
       className={"new_notification_card_preview"}
       vexpand={true}
-      halign={Gtk.Align.END}
-      valign={Gtk.Align.START}
+      halign={Gtk.Align.CENTER}
+      valign={Gtk.Align.CENTER}
       child={
         <box
           children={[
