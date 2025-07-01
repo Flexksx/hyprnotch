@@ -9,18 +9,10 @@ function getTrayItemClass(
   viewModel: SystemTrayViewModel,
   item: any
 ): Binding<string> {
-  /* const classes = ["system_tray_item"];
-
-  if (focusedItem && focusedItem.get_title() === item.get_title()) {
-    classes.push("active");
-  } else {
-    classes.push("notch");
-  }
-
-  if (index === 0) classes.push("first");
-  if (index === items.length - 1) classes.push("last");
-
-  return classes.join(" "); */
+  const existingTrayItems = viewModel
+    .getTrayItems()
+    .get()
+    .filter((item) => item.get_title());
   return viewModel.getFocusedTrayItem().as((focused) => {
     let classes = "system_tray_item";
     if (focused && focused.get_title() === item.get_title()) {
@@ -28,13 +20,10 @@ function getTrayItemClass(
     } else {
       classes += " notch";
     }
-    if (viewModel.getTrayItems().get().indexOf(item) === 0) {
+    if (existingTrayItems.indexOf(item) === 0) {
       classes += " first";
     }
-    if (
-      viewModel.getTrayItems().get().indexOf(item) ===
-      viewModel.getTrayItems().get().length - 1
-    ) {
+    if (existingTrayItems.indexOf(item) === existingTrayItems.length - 1) {
       classes += " last";
     }
 

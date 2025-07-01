@@ -1,0 +1,56 @@
+import Gtk from "gi://Gtk?version=3.0";
+import { NotificationViewModel } from "./NotificationViewModel";
+import Logger from "../logger/Logger";
+const NOTIFICATIONS_READ_DND_ICON = "indicator-notification-read-dnd";
+const NOTIFICATIONS_UNREAD_DND_ICON = "indicator-notification-unread-dnd";
+
+const NOTIFICATIONS_READ_ICON = "indicator-notification-read";
+const NOTIFICATIONS_UNREAD_ICON = "indicator-notification-unread";
+const notificationViewModel = new NotificationViewModel();
+
+export function NoNewNotificationPopup() {
+  const logger = new Logger("NoNewNotificationPopup");
+  return (
+    <box
+      className={"no_notification"}
+      vexpand={true}
+      halign={Gtk.Align.CENTER}
+      valign={Gtk.Align.CENTER}
+      child={notificationViewModel.getIsDoNotDisturb().as((isDoNotDisturb) => {
+        return (
+          <button
+            cursor={"pointer"}
+            className="icon_button xsmall tonal"
+            onButtonPressEvent={() => {
+              const isDoNotDisturb = notificationViewModel
+                .getIsDoNotDisturb()
+                .get();
+              logger.debug(`Toggling Do Not Disturb mode: ${!isDoNotDisturb}`);
+              notificationViewModel.setDoNotDisturb(!isDoNotDisturb);
+            }}
+            child={
+              <icon
+                icon={notificationViewModel
+                  .getIsDoNotDisturb()
+                  .as((isDoNotDisturb) => {
+                    const notificationsCount = notificationViewModel
+                      .getNotifications()
+                      .get().length;
+                    if (isDoNotDisturb) {
+                      return notificationsCount > 0
+                        ? NOTIFICATIONS_UNREAD_DND_ICON
+                        : NOTIFICATIONS_READ_DND_ICON;
+                    } else {
+                      return notificationsCount > 0
+                        ? NOTIFICATIONS_UNREAD_ICON
+                        : NOTIFICATIONS_READ_ICON;
+                    }
+                  })}
+              />
+            }
+          />
+        );
+      })}
+    />
+  );
+}

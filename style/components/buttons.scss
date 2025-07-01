@@ -169,7 +169,7 @@ $focus-indicator-offset: 2px;
 
   &.outlined {
     @include button-colors(transparent, $primary);
-    border: 1px solid $outline;
+    border: 2px solid $primary;
     @include button-hover-state($primary, white, 5%);
     @include button-active-state($primary, white, 10%, $m3-shape-corner-small);
   }

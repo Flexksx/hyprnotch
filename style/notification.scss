@@ -1,8 +1,20 @@
 @use "./colors.scss" as *;
-.notification_popup {
-  min-height: 32px;
+@use "./components/material.scss" as *;
+
+.notification_bar {
+  min-height: 36px;
   background-color: $surface;
   color: $primary;
-  font-size: 18px;
-  padding: 2px;
+}
+
+.new_notification_card_preview {
+  icon {
+    font-size: 36px;
+  }
+}
+
+.no_notification {
+  icon {
+    font-size: 32px;
+  }
 }

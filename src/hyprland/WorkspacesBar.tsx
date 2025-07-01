@@ -37,7 +37,9 @@ function WorkspaceButton({
         ) : (
           <box
             children={bind(workspace, "clients").as((clients) =>
-              clients.map((client) => <icon icon={client.get_class()} />)
+              clients.map((client) => (
+                <icon icon={client.get_class().toLowerCase()} />
+              ))
             )}
           />
         )

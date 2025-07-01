@@ -10,9 +10,10 @@ $focused_width: 40px;
   @include default-size-transition;
   padding: 0 $base_item_padding;
   margin: 0 1px;
-  font-size: 16px;
   min-height: $button_width;
-
+  icon {
+    font-size: 22px;
+  }
   &:hover,
   &.active {
     @include default-size-transition;
@@ -68,7 +69,6 @@ $focused_width: 40px;
 .system_tray {
   @include default-size-transition;
   background-color: $surface;
-  border-radius: 0px 0px $m3_shape_corner_medium $m3_shape_corner_medium;
   padding: 2px;
   margin: 0px;
   min-height: 32px;

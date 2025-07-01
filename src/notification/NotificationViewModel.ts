@@ -1,5 +1,4 @@
 import { bind, Binding, Variable } from "astal";
-import { Gtk } from "astal/gtk3";
 import Notifd from "gi://AstalNotifd";
 
 export class NotificationViewModel {
@@ -43,5 +42,13 @@ export class NotificationViewModel {
 
   public getNotificationById(id: number): Notifd.Notification {
     return this.notifid.get_notification(id);
+  }
+
+  public getIsDoNotDisturb(): Binding<boolean> {
+    return bind(this.notifid, "dontDisturb");
+  }
+
+  public setDoNotDisturb(value: boolean) {
+    this.notifid.set_dont_disturb(value);
   }
 }

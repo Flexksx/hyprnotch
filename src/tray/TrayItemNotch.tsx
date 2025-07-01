@@ -9,9 +9,9 @@ import {
 import AstalTray from "gi://AstalTray";
 
 function getTrayItemNotchClassName(focusedItem: any | null): string {
-  if (!focusedItem) {
+  /* if (!focusedItem) {
     return "system_tray_bar_notch";
-  }
+  } */
   return "system_tray_bar_notch focused";
 }
 

@@ -27,7 +27,12 @@ export class SystemTrayViewModel {
   }
 
   public refreshTrayItem(item: Tray.TrayItem): void {
-    this.logger.debug("Refreshing tray item", item.get_title());
+    this.logger.debug(
+      "Refreshing tray item",
+      item.get_title(),
+      item.get_tooltip()?.description,
+      item.get_icon_name()
+    );
     item.about_to_show();
   }
 }
