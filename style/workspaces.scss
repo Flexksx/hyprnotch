@@ -14,12 +14,12 @@ $workspace_focused_width: $base-width + ($base-horizontal-padding * 4);
   background-color: transparent;
 }
 .workspaces_bar_container {
-  background-color: $primary_container;
+  background-color: $surface;
   border-radius: 0px 0px $m3-shape-corner-large 0px;
 }
 
 .workspaces_bar {
-  background-color: $primary_container;
+  background-color: $surface;
   border-radius: $m3-shape-corner-full;
   transition: $expressive_default_spatial_duration $expressive_default_spatial;
 }

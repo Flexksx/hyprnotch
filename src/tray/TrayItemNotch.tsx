@@ -9,10 +9,7 @@ import {
 import AstalTray from "gi://AstalTray";
 
 function getTrayItemNotchClassName(focusedItem: any | null): string {
-  /* if (!focusedItem) {
-    return "system_tray_bar_notch";
-  } */
-  return "system_tray_bar_notch focused";
+  return "";
 }
 
 interface MenuEntryProps {
@@ -73,7 +70,7 @@ export default function TrayItemNotch(props: TrayItemNotchProps) {
 
   return (
     <box
-      className={focusedItem.as(getTrayItemNotchClassName)}
+      className={"system_tray_bar_notch focused"}
       vertical={true}
       child={focusedItem.as((item) => {
         if (!item || !item.get_menu_model()) {

@@ -6,6 +6,14 @@ $base_item_padding: 4px;
 $button_width: 30px;
 $focused_width: 40px;
 
+.system_tray_constant_background {
+  background-color: $surface;
+  border-radius: 0px;
+  &.focused {
+    border-radius: 0px 0px $m3-shape-corner-extra-large $m3-shape-corner-extra-large;
+  }
+}
+
 %system-tray-item-base {
   @include default-size-transition;
   padding: 0 $base_item_padding;
@@ -30,7 +38,7 @@ $focused_width: 40px;
 @mixin tray-item-active {
   background-color: $surface;
   color: $primary;
-  border-radius: $m3_shape_corner_large $m3_shape_corner_large 0px 0px;
+  border-radius: $m3-shape-corner-extra-large $m3-shape-corner-extra-large 0px 0px;
 }
 
 .system_tray_item {
@@ -53,6 +61,7 @@ $focused_width: 40px;
     &:hover,
     &.active {
       border-radius: $m3_shape_corner_large;
+      background-color: $secondary;
     }
   }
 
@@ -62,24 +71,25 @@ $focused_width: 40px;
     &:hover,
     &.active {
       border-radius: $m3_shape_corner_large;
+      background-color: $secondary;
     }
   }
 }
 
 .system_tray {
-  @include default-size-transition;
+  @include fast-size-transition;
   background-color: $surface;
   padding: 2px;
   margin: 0px;
   min-height: 32px;
 
   &.focused {
-    border-radius: 0px 0px $m3_shape_corner_large $m3_shape_corner_large;
+    border-radius: $m3-shape-corner-extra-large;
   }
 }
 
 .system_tray_bar_notch {
-  @include default-size-transition;
+  @include fast-size-transition;
   background-color: transparent;
   min-height: 0px;
   padding: 0px;
@@ -89,14 +99,14 @@ $focused_width: 40px;
   &.focused {
     background-color: $surface;
     min-height: 40px;
-    border-radius: $m3_shape_corner_large;
+    border-radius: $m3-shape-corner-extra-large;
     padding: 2px;
     opacity: 1;
   }
 }
 
 .system_tray_bar_notch_entry {
-  @include default-size-transition;
+  @include fast-size-transition;
   padding: 0px $base_item_padding;
   background-color: transparent;
   color: $primary;
@@ -108,5 +118,5 @@ $focused_width: 40px;
 }
 
 .system_tray_bar_notch_content {
-  @include default-size-transition;
+  @include fast-size-transition;
 }

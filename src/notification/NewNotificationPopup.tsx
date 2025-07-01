@@ -5,6 +5,7 @@ import { NoNewNotificationPopup } from "./NoNewNotificationPopup";
 type NewNotificationPopupProps = {
   notification: AstalNotifd.Notification | null;
 };
+
 export function NewNotificationPopup(props: NewNotificationPopupProps) {
   const notification = props.notification;
   if (!notification) {

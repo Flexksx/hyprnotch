@@ -53,11 +53,12 @@ type SystemTrayItemButtonProps = {
 
 export default function SystemTrayItemButton(props: SystemTrayItemButtonProps) {
   const { systemTrayViewModel, item } = props;
-  const trayItemsIdNamesMap: Record<string, { icon: string; title: string }> =
-    {};
+  const trayItemsIdNamesMap: Record<string, { icon: string }> = {};
   trayItemsIdNamesMap["chrome_status_icon_1"] = {
     icon: "slack",
-    title: "Slack",
+  };
+  trayItemsIdNamesMap["openrgb"] = {
+    icon: "openrgb",
   };
 
   return (
