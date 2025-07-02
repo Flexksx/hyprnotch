@@ -2,9 +2,13 @@
 @use "./components/material.scss" as *;
 
 .notification_bar {
+  @include spatial-size-transition;
   min-height: 36px;
   background-color: $surface;
   color: $primary;
+
+  &.new_notification {
+  }
 }
 
 .new_notification_card_preview {
@@ -15,7 +19,7 @@
 
 .no_notification {
   color: $on_secondary;
-  icon {
-    font-size: 32px;
+  label {
+    font-size: 24px;
   }
 }

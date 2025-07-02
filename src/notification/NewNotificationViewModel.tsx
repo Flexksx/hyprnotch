@@ -8,6 +8,7 @@ import { NotificationViewModel } from "./NotificationViewModel";
 export class NewNotificationViewModel {
   private notificationViewModel = new NotificationViewModel();
   private resultingWidgetVariable = new Variable<Gtk.Widget>(null!);
+  private isShowingNewNotification = new Variable<boolean>(false);
   private logger = new Logger(this.constructor.name);
   private static DEFAULT_NOTIFICATION_TIMEOUT = 5000;
   constructor() {
@@ -20,6 +21,8 @@ export class NewNotificationViewModel {
       (notificationClient, notificationId) => {
         const notification =
           this.notificationViewModel.getNotificationById(notificationId);
+
+        this.isShowingNewNotification.set(true);
         this.resultingWidgetVariable.set(
           <NewNotificationPopup notification={notification} />
         );
@@ -32,12 +35,17 @@ export class NewNotificationViewModel {
           `New notification received: ${notification.get_app_name()} with timeout ${notificationTimeout}`
         );
         timeout(notificationTimeout, () => {
+          this.isShowingNewNotification.set(false);
           this.resultingWidgetVariable.set(<NoNewNotificationPopup />);
         });
       }
     );
   }
+
   public getResultingWidget(): Binding<Gtk.Widget> {
     return bind(this.resultingWidgetVariable);
+  }
+  public getIsShowingNewNotification(): Binding<boolean> {
+    return bind(this.isShowingNewNotification);
   }
 }

@@ -39,6 +39,9 @@ export class NotificationViewModel {
       callback(self, id);
     });
   }
+  public getNotifdClient(): Notifd.Notifd {
+    return this.notifid;
+  }
 
   public getNotificationById(id: number): Notifd.Notification {
     return this.notifid.get_notification(id);
