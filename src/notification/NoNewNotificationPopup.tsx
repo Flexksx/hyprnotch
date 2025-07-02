@@ -20,7 +20,7 @@ export function NoNewNotificationPopup() {
         return (
           <button
             cursor={"pointer"}
-            className="icon_button xsmall tonal"
+            className="icon_button xsmall "
             onButtonPressEvent={() => {
               const isDoNotDisturb = notificationViewModel
                 .getIsDoNotDisturb()

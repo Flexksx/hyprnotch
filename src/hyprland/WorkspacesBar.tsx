@@ -5,6 +5,15 @@ import { Gdk, Gtk } from "astal/gtk3";
 import { IconSource } from "../lib/icons/IconUtils";
 import { bind } from "astal";
 
+const getClientIconName = (client: Hyprland.Client): string => {
+  const className = client.get_class().toLowerCase();
+  const jetbrainsPrefix = "jetbrains-";
+  if (className.startsWith(jetbrainsPrefix)) {
+    return className.replace(jetbrainsPrefix, "");
+  }
+  return className;
+};
+
 interface WorkspacesBarProps {
   gdkmonitor: Gdk.Monitor;
 }
@@ -37,9 +46,7 @@ function WorkspaceButton({
         ) : (
           <box
             children={bind(workspace, "clients").as((clients) =>
-              clients.map((client) => (
-                <icon icon={client.get_class().toLowerCase()} />
-              ))
+              clients.map((client) => <icon icon={getClientIconName(client)} />)
             )}
           />
         )
