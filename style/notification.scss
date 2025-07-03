@@ -3,7 +3,9 @@
 
 .notification_bar {
   @include spatial-size-transition;
-  min-height: 36px;
+  border-radius: 0px;
+  min-height: 34px;
+  padding: 0px;
   background-color: $surface;
   color: $primary;
 

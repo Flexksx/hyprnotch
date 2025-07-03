@@ -1,61 +1,51 @@
 import { Gtk } from "astal/gtk3";
 import { NotificationViewModel } from "./NotificationViewModel";
-import { bind, Binding, Variable } from "astal";
-import Logger from "../logger/Logger";
+import NotificationMenuContentViewModel from "./viewmodel/NotificationMenuContentViewModel";
+import { NotificationMenuContentState } from "./viewmodel/NotificationMenuContentState";
+import nerdfonts from "../lib/icons/nerdfonts";
 
 const notificationViewModel = new NotificationViewModel();
-
-enum NotificationMenuContentState {
-  MINIMIZED,
-  OPEN,
-}
-
-enum MinimizedNotificationMenuContentState {
-  NO_NOTIFICATIONS,
-  HAS_NOTIFICATIONS,
-  DO_NOT_DISTURB,
-}
-
-enum OpenNotificationMenuContentState {}
-
-class MinimizedNotificationMenuContentViewModel {
-  private state = Variable<NotificationMenuContentState>(
-    NotificationMenuContentState.MINIMIZED
-  );
-  private logger = new Logger(this.constructor.name);
-
-  constructor() {}
-
-  public setState(state: NotificationMenuContentState) {
-    this.state.set(state);
-  }
-
-  public getState(): Binding<NotificationMenuContentState> {
-    return bind(this.state);
-  }
-}
-
-class OpenNotificationMenuContentViewModel {
-  private state = Variable<NotificationMenuContentState>(
-    NotificationMenuContentState.OPEN
-  );
-  private logger = new Logger(this.constructor.name);
-  constructor() {}
-  public setState(state: NotificationMenuContentState) {
-    this.state.set(state);
-  }
-  public getState(): Binding<NotificationMenuContentState> {
-    return bind(this.state);
-  }
-}
+const notificationMenuContentViewModel = new NotificationMenuContentViewModel();
 
 export function NotificationsPopup() {
   return (
-    <box
+    <button
       className={"notification_bar"}
       halign={Gtk.Align.END}
       valign={Gtk.Align.START}
-      child={}
+      onButtonPressEvent={() => {
+        notificationMenuContentViewModel.setState(
+          notificationMenuContentViewModel.getState().get() ===
+            NotificationMenuContentState.MINIMIZED
+            ? NotificationMenuContentState.OPEN
+            : NotificationMenuContentState.MINIMIZED
+        );
+      }}
+      child={notificationMenuContentViewModel.getState().as((state) => {
+        switch (state) {
+          case NotificationMenuContentState.MINIMIZED:
+            return (
+              <box
+                className={"minimized_notifications"}
+                child={<label label={nerdfonts.notifications.bell} />}
+              />
+            );
+          case NotificationMenuContentState.OPEN:
+            return (
+              <box
+                className={"open_notifications"}
+                child={
+                  <label
+                    label={
+                      nerdfonts.notifications.bell_badge +
+                      " See your notifications"
+                    }
+                  />
+                }
+              />
+            );
+        }
+      })}
     />
   );
 }
