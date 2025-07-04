@@ -1,6 +1,6 @@
 import { Astal, App, Gdk, Gtk } from "astal/gtk3";
 import Logger from "../../logger/Logger";
-import WorkspacesBar from "../../hyprland/WorkspacesBar";
+import WorkspacesBar from "../../hyprland/workspaces/WorkspacesBar";
 import { SystemTray } from "../../tray/SystemTray";
 import { SystemTrayViewModel } from "../../tray/SystemTrayViewModel";
 import SystemDetailsBarModule from "../../system_stats/battery/SystemDetails";

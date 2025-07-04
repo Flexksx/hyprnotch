@@ -1,6 +1,6 @@
 import { bind, Binding } from "astal";
 import Bluetooth from "gi://AstalBluetooth";
-import Logger from "../../../logger/Logger";
+import Logger from "../../logger/Logger";
 
 export default class BluetoothViewModel {
   private bluetooth: Bluetooth.Bluetooth = Bluetooth.get_default();

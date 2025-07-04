@@ -5,7 +5,7 @@ import Logger from "../logger/Logger";
 import NotchStateViewModel from "../notch/state/NotchStateViewModel";
 import { NotchState } from "../notch/state/NotchState";
 import NotifiedNotch from "./notch/notification/NotifiedNotch";
-import SoundSettingsNotch from "../sound/view/SoundSettingsNotch";
+import SoundSettingsNotch from "../sound/SoundSettingsNotch";
 
 export default function Hyprnotch(gdkmonitor: Gdk.Monitor) {
   const notchStateViewModel = new NotchStateViewModel();

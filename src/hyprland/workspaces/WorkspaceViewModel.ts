@@ -1,6 +1,6 @@
 import { bind, Binding, Variable } from "astal";
 import Hyprland from "gi://AstalHyprland";
-import Logger from "../logger/Logger";
+import Logger from "../../logger/Logger";
 import { Gdk } from "astal/gtk3";
 
 export class WorkspaceViewModel {
@@ -57,16 +57,37 @@ export class WorkspaceViewModel {
     gdkMonitor: Gdk.Monitor
   ): Binding<Hyprland.Workspace[]> {
     return this.getWorkspaces().as((workspaces: Hyprland.Workspace[]) => {
-      this.logger.debug(
-        `Filtering workspaces for Gdk Monitor: ${gdkMonitor.get_manufacturer()} ${gdkMonitor.get_model()} ${gdkMonitor.get_display().get_default_screen().get_monitor_plug_name(0)}`
-      );
+      const hyprlandMonitors = this.hyprland.get_monitors();
+      const targetHyprlandMonitor = hyprlandMonitors.find((monitor) => {
+        const gdkDisplayName = gdkMonitor.get_display()?.get_name() || "";
+        const hyprlandDisplayName = monitor.get_name() || "";
+
+        if (
+          gdkDisplayName &&
+          hyprlandDisplayName &&
+          gdkDisplayName === hyprlandDisplayName
+        ) {
+          return true;
+        }
+
+        return (
+          monitor.get_make() === gdkMonitor.get_manufacturer() &&
+          monitor.get_model() === gdkMonitor.get_model() &&
+          monitor.get_x() === gdkMonitor.get_geometry().x &&
+          monitor.get_y() === gdkMonitor.get_geometry().y
+        );
+      });
+
+      if (!targetHyprlandMonitor) {
+        this.logger.warn(
+          "Could not find matching Hyprland monitor for GDK monitor"
+        );
+        return [];
+      }
+
       return workspaces.filter(
         (workspace: Hyprland.Workspace) =>
-          workspace.get_monitor().get_make() ===
-          gdkMonitor.get_manufacturer()
-          && workspace.get_monitor().get_model() ===
-          gdkMonitor.get_model()
-
+          workspace.get_monitor().get_id() === targetHyprlandMonitor.get_id()
       );
     });
   }

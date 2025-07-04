@@ -1,5 +1,5 @@
 import { App, Astal, Gdk, Gtk } from "astal/gtk3";
-import Logger from "../logger/Logger";
+import Logger from "../../logger/Logger";
 import WorkspacesBar from "../hyprland/WorkspacesBar";
 
 export function Workspaces(gdkmonitor: Gdk.Monitor) {

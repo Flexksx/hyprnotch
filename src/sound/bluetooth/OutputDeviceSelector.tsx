@@ -1,5 +1,5 @@
 import { Gtk } from "astal/gtk3";
-import WirePlumberViewModel from "../../WirePlumberViewModel";
+import WirePlumberViewModel from "../WirePlumberViewModel";
 import Wp from "gi://AstalWp";
 
 const getSpeakerButtonClassName = (
