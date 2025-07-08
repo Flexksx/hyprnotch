@@ -3,81 +3,83 @@ import { bind, Binding } from "astal";
 import Logger from "../logger/Logger";
 
 export default class WirePlumberViewModel {
-  private wireplumber: Wp.Wp | null = Wp.get_default();
+  private wireplumber: Wp.Wp;
   private lastDefaultSpeakerVolumeBeforeMute: number | null = null;
   private logger = new Logger(this.constructor.name);
-  public getWirePlumber(): Wp.Wp {
+
+  private _audio: Binding<Wp.Audio>;
+  private _defaultSpeaker: Binding<Wp.Endpoint>;
+  private _speakers: Binding<Wp.Endpoint[]>;
+
+  constructor() {
+    this.wireplumber = Wp.get_default();
     if (!this.wireplumber) {
       throw new Error("WirePlumber is not initialized.");
     }
+
+    this._audio = bind(this.wireplumber, "audio");
+    this._defaultSpeaker = this._audio.as((audio) =>
+      bind(audio, "defaultSpeaker").get()
+    );
+    this._speakers = this._audio.as(
+      (audio) => bind(audio, "speakers").get() || []
+    );
+  }
+
+  public getWirePlumber(): Wp.Wp {
     return this.wireplumber;
   }
+
   public getAudio(): Binding<Wp.Audio> {
-    return bind(this.getWirePlumber(), "audio").as((audio) => {
-      if (!audio) {
-        throw new Error("Audio is not available in WirePlumber.");
-      }
-      return audio;
-    });
+    return this._audio;
   }
+
   public getVideo(): Binding<Wp.Video> {
-    return bind(this.getWirePlumber(), "video");
+    return bind(this.wireplumber, "video");
   }
-  public getSpeakers(): Binding<Wp.Endpoint[] | null> {
-    return this.getAudio().as((audio) => {
-      const speakers = bind(audio, "speakers");
-      if (!speakers) {
-        throw new Error("No speakers found in WirePlumber audio.");
-      }
-      return speakers.get();
-    });
+
+  public getSpeakers(): Binding<Wp.Endpoint[]> {
+    return this._speakers;
   }
+
   public getDefaultSpeaker(): Binding<Wp.Endpoint> {
-    return this.getAudio().as((audio) => {
-      const defaultSpeaker = bind(audio, "defaultSpeaker");
-      if (!defaultSpeaker) {
-        throw new Error("Default speaker is not set.");
-      }
-      return defaultSpeaker.get();
-    });
+    return this._defaultSpeaker;
   }
 
   public getDefaultSpeakerVolume(): Binding<number> {
-    return this.getDefaultSpeaker().as((speaker) => {
-      if (!speaker) {
-        throw new Error("Default speaker is not set.");
-      }
-      return bind(speaker, "volume").get();
-    });
+    return this._defaultSpeaker.as((speaker) => bind(speaker, "volume").get());
   }
 
   public getDefaultSpeakerVolumeIcon(): Binding<string> {
-    const defaultSpeaker = this.getDefaultSpeaker().get();
-    return bind(defaultSpeaker, "volumeIcon");
+    return this._defaultSpeaker.as((speaker) =>
+      bind(speaker, "volumeIcon").get()
+    );
   }
+
   public setDefaultSpeakerVolume(volume: number): void {
-    const defaultSpeaker = this.getDefaultSpeaker().get();
-    defaultSpeaker.set_volume(volume);
+    const defaultSpeaker = this._defaultSpeaker.get();
+    if (defaultSpeaker) {
+      defaultSpeaker.set_volume(volume);
+    }
   }
 
   public muteDefaultSpeaker(): void {
-    const defaultSpeaker = this.getDefaultSpeaker().get();
-
-    this.lastDefaultSpeakerVolumeBeforeMute = defaultSpeaker.get_volume();
-    defaultSpeaker.set_volume(0);
+    const defaultSpeaker = this._defaultSpeaker.get();
+    if (defaultSpeaker) {
+      this.lastDefaultSpeakerVolumeBeforeMute = defaultSpeaker.get_volume();
+      defaultSpeaker.set_volume(0);
+    }
   }
 
   public unmuteDefaultSpeaker(): void {
-    const defaultSpeaker = this.getDefaultSpeaker().get();
-
-    if (this.lastDefaultSpeakerVolumeBeforeMute !== null) {
+    const defaultSpeaker = this._defaultSpeaker.get();
+    if (defaultSpeaker && this.lastDefaultSpeakerVolumeBeforeMute !== null) {
       defaultSpeaker.set_volume(this.lastDefaultSpeakerVolumeBeforeMute);
       this.lastDefaultSpeakerVolumeBeforeMute = null;
-    } else {
-      throw new Error("No previous volume to restore.");
     }
   }
-  public setDefaultSpeaker(speaker: Wp.Endpoint) {
+
+  public setDefaultSpeaker(speaker: Wp.Endpoint): void {
     this.logger.debug(
       `Setting default speaker to: ${speaker.get_description()}`
     );

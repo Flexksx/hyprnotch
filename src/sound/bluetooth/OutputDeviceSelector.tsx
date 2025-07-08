@@ -2,21 +2,9 @@ import { Gtk } from "astal/gtk3";
 import WirePlumberViewModel from "../WirePlumberViewModel";
 import Wp from "gi://AstalWp";
 
-const getSpeakerButtonClassName = (
-  wirePlumberViewModel: WirePlumberViewModel,
-  speaker: Wp.Endpoint
-) => {
-  return wirePlumberViewModel.getDefaultSpeaker().as((defaultSpeaker) => {
-    let className = "output_device_button";
-    if (defaultSpeaker && defaultSpeaker.get_id() === speaker.get_id()) {
-      className += " selected";
-    }
-    return className;
-  });
-};
+const wirePlumberViewModel = new WirePlumberViewModel();
 
 export default function OutputDeviceSelector() {
-  const wirePlumberViewModel = new WirePlumberViewModel();
   return (
     <scrollable
       kineticScrolling={true}
@@ -30,10 +18,18 @@ export default function OutputDeviceSelector() {
             speakers = speakers ? speakers : [];
             return speakers.map((speaker) => (
               <button
-                className={getSpeakerButtonClassName(
-                  wirePlumberViewModel,
-                  speaker
-                )}
+                className={wirePlumberViewModel
+                  .getDefaultSpeaker()
+                  .as((defaultSpeaker) => {
+                    let className = "output_device_button";
+                    if (
+                      defaultSpeaker &&
+                      defaultSpeaker.get_id() === speaker.get_id()
+                    ) {
+                      className += " selected";
+                    }
+                    return className;
+                  })}
                 onClick={() => {
                   wirePlumberViewModel.setDefaultSpeaker(speaker);
                 }}
