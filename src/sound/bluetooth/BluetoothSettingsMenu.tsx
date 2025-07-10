@@ -1,7 +1,6 @@
 import { bind } from "astal";
 import nerdfonts from "../../lib/icons/nerdfonts";
 import BluetoothViewModel from "./BluetoothViewModel";
-import { Gtk } from "astal/gtk3";
 
 const bluetoothViewModel = new BluetoothViewModel();
 
