@@ -35,6 +35,8 @@
     border-radius: $m3-shape-corner-large;
     background-color: $primary;
     color: $on_primary;
+    padding: 8px;
+
     &.selected {
         border-radius: $m3-shape-corner-extra-large;
         background-color: $tertiary;
