@@ -1,28 +1,22 @@
-import { Astal, App, Gdk, Gtk } from "astal/gtk3";
-import Logger from "../../logger/Logger";
-import WorkspacesBar from "../../hyprland/workspaces/WorkspacesBar";
-import { SystemTray } from "../../tray/SystemTray";
-import { SystemTrayViewModel } from "../../tray/SystemTrayViewModel";
-import SystemDetailsBarModule from "../../system_stats/battery/SystemDetails";
-import { NotificationsPopup } from "../../notification/Notification";
-import Hyprnotch from "../Hyprnotch";
+import { Astal, App, Gdk, Gtk } from 'astal/gtk3';
+import Logger from '../../logger/Logger';
+import WorkspacesBar from '../../hyprland/workspaces/WorkspacesBar';
+import { SystemTray } from '../../tray/SystemTray';
+import { SystemTrayViewModel } from '../../tray/SystemTrayViewModel';
+import SystemDetailsBarModule from '../../system_stats/battery/SystemDetails';
+import { NotificationsPopup } from '../../notification/Notification';
 
-type RightSideBarProps = {
-  gdkmonitor: Gdk.Monitor;
-  systemTrayViewModel: SystemTrayViewModel;
-};
-
-function RightSideBar({ gdkmonitor, systemTrayViewModel }: RightSideBarProps) {
+function RightSideBar() {
   return (
     <box
-      className={"hyprnotch_bar_side"}
+      className={'hyprnotch_bar_side'}
       vertical={false}
       hexpand={true}
       halign={Gtk.Align.END}
       children={[
-        <SystemDetailsBarModule monitor={gdkmonitor} />,
-        <SystemTray systemTrayViewModel={systemTrayViewModel} />,
-        <NotificationsPopup gdkmonitor={gdkmonitor} />,
+        <SystemDetailsBarModule />,
+        <SystemTray />,
+        <NotificationsPopup />,
       ]}
     />
   );
@@ -39,8 +33,8 @@ function LeftSideBar({ gdkmonitor }: LeftSideBarProps) {
 }
 
 export function SystemTrayWindow(gdkmonitor: Gdk.Monitor) {
-  const logger = new Logger("SystemTray");
-  logger.debug("SystemTray window created");
+  const logger = new Logger('SystemTray');
+  logger.debug('SystemTray window created');
 
   const systemTrayViewModel = new SystemTrayViewModel();
   return (
@@ -55,9 +49,8 @@ export function SystemTrayWindow(gdkmonitor: Gdk.Monitor) {
 }
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
-  const logger = new Logger("Bar");
-  const systemTrayViewModel = new SystemTrayViewModel();
-  logger.debug("Bar window created");
+  const logger = new Logger('Bar');
+  logger.debug('Bar window created');
 
   return (
     <window
@@ -73,15 +66,10 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
       application={App}
       child={
         <centerbox
-          className={"hyprnotch_bar_container"}
+          className={'hyprnotch_bar_container'}
           startWidget={<LeftSideBar gdkmonitor={gdkmonitor} />}
           centerWidget={<box />}
-          endWidget={
-            <RightSideBar
-              gdkmonitor={gdkmonitor}
-              systemTrayViewModel={systemTrayViewModel}
-            />
-          }
+          endWidget={<RightSideBar gdkmonitor={gdkmonitor} />}
         />
       }
     />

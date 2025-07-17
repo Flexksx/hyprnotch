@@ -1,4 +1,4 @@
-import { Gtk } from "astal/gtk3";
+import { Gtk } from 'astal/gtk3';
 
 /**
  * Looks up an icon by name and size
@@ -6,15 +6,15 @@ import { Gtk } from "astal/gtk3";
  * @param size - The size of the icon to look up. Defaults to 16
  * @returns The Gtk.IconInfo object if the icon is found, or null if not found
  */
-export function lookUpIcon(name?: string, size = 16): Gtk.IconInfo | null {
+export const lookUpIcon = (name?: string, size = 16): Gtk.IconInfo | null => {
   if (name === undefined) return null;
 
   return Gtk.IconTheme.get_default().lookup_icon(
     name,
     size,
-    Gtk.IconLookupFlags.USE_BUILTIN
+    Gtk.IconLookupFlags.USE_BUILTIN,
   );
-}
+};
 
 /**
  * Checks if an icon exists in the theme

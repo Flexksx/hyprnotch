@@ -1,21 +1,21 @@
-import { Gtk } from "astal/gtk3";
-import { NewNotificationViewModel } from "./NewNotificationViewModel";
+import { Gtk } from 'astal/gtk3';
+import { NewNotificationViewModel } from './NewNotificationViewModel';
 
 export function NotificationsPopup() {
   const newNotificationViewModel = new NewNotificationViewModel();
   return (
     <box
-      // className={"notification_bar"}
       className={newNotificationViewModel
         .getHasNewNotification()
         .as((hasNewNotification) => {
-          let className = "notification_bar";
+          let className = 'notification_bar';
           if (hasNewNotification) {
-            className += " has_new_notification";
+            className += ' has_new_notification';
           }
           return className;
         })}
       vexpand={true}
+      hexpand={true}
       halign={Gtk.Align.END}
       valign={Gtk.Align.START}
       child={newNotificationViewModel.getResultingWidget()}
