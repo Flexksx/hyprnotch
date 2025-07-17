@@ -1,78 +1,88 @@
-import Logger from "../../logger/Logger";
-import { WorkspaceViewModel } from "./WorkspaceViewModel";
-import Hyprland from "gi://AstalHyprland";
-import { Gdk, Gtk } from "astal/gtk3";
-import { IconSource } from "../../lib/icons/IconUtils";
-import { bind } from "astal";
+import Logger from '../../logger/Logger';
+import { HyprlandWorkspacesViewModel } from './HyprlandWorkspacesViewModel';
+import Hyprland from 'gi://AstalHyprland';
+import { Gdk, Gtk } from 'astal/gtk3';
+import { bind } from 'astal';
+
+const workspacesViewModel: HyprlandWorkspacesViewModel =
+  new HyprlandWorkspacesViewModel();
+const logger = new Logger('WorkspacesBar');
 
 const getClientIconName = (client: Hyprland.Client): string => {
   const className = client.get_class().toLowerCase();
-  const jetbrainsPrefix = "jetbrains-";
+  const jetbrainsPrefix = 'jetbrains-';
   if (className.startsWith(jetbrainsPrefix)) {
-    return className.replace(jetbrainsPrefix, "");
+    return className.replace(jetbrainsPrefix, '');
   }
   return className;
 };
 
-interface WorkspacesBarProps {
+type WorkspacesBarProps = {
   gdkmonitor: Gdk.Monitor;
-}
-
-type WorkspaceButtonProps = {
-  workspace: Hyprland.Workspace;
-  workspaceViewModel: WorkspaceViewModel;
-  logger: Logger;
 };
 
-function WorkspaceButton({
-  workspace,
-  workspaceViewModel,
-  logger,
-}: WorkspaceButtonProps) {
+const WorkspaceButtonContent = (workspace: Hyprland.Workspace) => {
+  return workspacesViewModel
+    .getWorkspaceViewModelById(workspace.get_id())
+    .getClients()
+    .as((clients: Hyprland.Client[]) => (
+      <box
+        className="workspace_button_content"
+        child={
+          clients.length === 0 ? (
+            <label
+              halign={Gtk.Align.CENTER}
+              valign={Gtk.Align.CENTER}
+              label={workspace.get_name()}
+            />
+          ) : (
+            <box
+              className="workspace_button_icons_container"
+              children={clients.map((client) => (
+                <icon
+                  icon={getClientIconName(client)}
+                  className="workspace_button_icon"
+                />
+              ))}
+            />
+          )
+        }
+      />
+    ));
+};
+
+const WorkspaceButton = (workspace: Hyprland.Workspace) => {
   return (
     <button
-      className={workspaceViewModel
+      className={workspacesViewModel
         .getFocusedWorkspace()
-        .as((focusedWorkspace: Hyprland.Workspace) => {
-          let workspaceClass = "workspace_button";
-          if (focusedWorkspace.get_id() === workspace.get_id()) {
-            workspaceClass += " focused";
-          }
-          return workspaceClass;
-        })}
-      child={
-        workspace.get_clients().length === 0 ? (
-          <label label={workspace.get_name()} />
-        ) : (
-          <box
-            children={bind(workspace, "clients").as((clients) =>
-              clients.map((client) => <icon icon={getClientIconName(client)} />)
-            )}
-          />
-        )
-      }
+        .as(
+          (focusedWorkspace: Hyprland.Workspace) =>
+            'workspace_button' +
+            (focusedWorkspace.get_id() === workspace.get_id()
+              ? ' focused'
+              : ''),
+        )}
+      child={WorkspaceButtonContent(workspace)}
       onClick={() => {
         logger.debug(
-          `Pressing button for workspace ${workspace.get_id()}, switching to it`
+          `Pressing button for workspace ${workspace.get_id()}, switching to it`,
         );
-        workspaceViewModel.switchToWorkspace(workspace.get_id());
+        workspacesViewModel.switchToWorkspace(workspace.get_id());
       }}
     />
   );
-}
+};
 
 export default function WorkspacesBar(props: WorkspacesBarProps) {
-  const workspaceViewModel: WorkspaceViewModel = new WorkspaceViewModel();
-  const logger = new Logger("WorkspacesBar");
   const gdkmonitor: Gdk.Monitor = props.gdkmonitor;
 
   logger.debug(
-    `WorkspacesBar created on monitor ${gdkmonitor.get_manufacturer()}`
+    `WorkspacesBar created on monitor ${gdkmonitor.get_manufacturer()}`,
   );
 
-  const workspacesBinding = gdkmonitor.get_model()
-    ? workspaceViewModel.getPerMonitorWorkspaces(gdkmonitor)
-    : workspaceViewModel.getWorkspaces();
+  const workspacesBinding =
+    workspacesViewModel.getPerMonitorWorkspaces(gdkmonitor);
 
   return (
     <box
@@ -81,17 +91,9 @@ export default function WorkspacesBar(props: WorkspacesBarProps) {
       className="workspaces_bar_container"
       child={
         <box
-          className={"workspaces_bar"}
+          className={'workspaces_bar'}
           child={workspacesBinding.as((workspaces: Hyprland.Workspace[]) => (
-            <box
-              children={workspaces.map((workspace: Hyprland.Workspace) => (
-                <WorkspaceButton
-                  workspace={workspace}
-                  workspaceViewModel={workspaceViewModel}
-                  logger={logger}
-                />
-              ))}
-            />
+            <box children={workspaces.map(WorkspaceButton)} />
           ))}
         />
       }

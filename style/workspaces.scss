@@ -13,6 +13,7 @@ $workspace_focused_width: $base-width + ($base-horizontal-padding * 4);
 .hyprnotch_bar_container {
   background-color: transparent;
 }
+
 .workspaces_bar_container {
   background-color: $surface;
   border-radius: 0px 0px $m3-shape-corner-large 0px;
@@ -29,7 +30,6 @@ $workspace_focused_width: $base-width + ($base-horizontal-padding * 4);
   margin: $base-margin;
   padding: 0px $base-horizontal-padding;
   font-size: $base-width;
-  padding: 0px $base_horizontal_padding;
 
   background-color: $primary;
   color: $on_primary;
@@ -41,6 +41,10 @@ $workspace_focused_width: $base-width + ($base-horizontal-padding * 4);
   &.focused {
     background-color: $tertiary;
     padding: 0px $workspace-focused-padding;
+  }
+  label {
+    font-size: $base-width;
+    padding: 0px;
   }
   icon {
     font-size: 20px;

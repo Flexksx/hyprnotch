@@ -31,6 +31,7 @@
           ags.packages.${system}.default
           pkgs.wrapGAppsHook
           pkgs.gobject-introspection
+          pkgs.sass
         ];
 
         buildInputs = with astal.packages.${system}; [

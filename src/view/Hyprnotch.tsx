@@ -4,12 +4,15 @@ import NormalNotch from "./notch/normal/NormalNotch";
 import Logger from "../logger/Logger";
 import NotchStateViewModel from "../notch/state/NotchStateViewModel";
 import { NotchState } from "../notch/state/NotchState";
-import NotifiedNotch from "./notch/notification/NotifiedNotch";
 import SoundSettingsNotch from "../sound/SoundSettingsNotch";
 
-export default function Hyprnotch(gdkmonitor: Gdk.Monitor) {
+export type HyprnotchProps = {
+  gdkmonitor: Gdk.Monitor;
+};
+
+export default function Hyprnotch(props: HyprnotchProps) {
   const notchStateViewModel = new NotchStateViewModel();
-  const logger: Logger = new Logger("Hyprnotch");
+  const { gdkmonitor } = props;
 
   return (
     <window
@@ -25,32 +28,17 @@ export default function Hyprnotch(gdkmonitor: Gdk.Monitor) {
             <button
               onButtonPressEvent={() => {
                 notchStateViewModel.getNotchState().get() === NotchState.NORMAL
-                  ? notchStateViewModel.setNotchState(NotchState.HOVERED)
+                  ? notchStateViewModel.setNotchState(NotchState.EXPANDED)
                   : notchStateViewModel.setNotchState(NotchState.NORMAL);
               }}
               className={notchStateViewModel
                 .getNotchState()
-                .as((notchState) => {
-                  let classes = "hyprnotch-button-area";
-                  switch (notchState) {
-                    case NotchState.HOVERED:
-                      classes += " expanded";
-                      break;
-                    case NotchState.SOUND_SETTINGS:
-                      classes += " sound_settings";
-                      break;
-                    case NotchState.NORMAL:
-                      classes += " normal";
-                      break;
-                  }
-
-                  return classes;
-                })}
+                .as((notchState) => "hyprnotch-button-area " + notchState)}
               child={notchStateViewModel.getNotchState().as((notchState) => {
                 switch (notchState) {
                   case NotchState.SOUND_SETTINGS:
                     return <SoundSettingsNotch />;
-                  case NotchState.HOVERED:
+                  case NotchState.EXPANDED:
                     return (
                       <ExpandedNotch
                         notchStateViewModel={notchStateViewModel}

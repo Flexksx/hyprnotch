@@ -5,15 +5,8 @@ import { SystemTray } from "../../tray/SystemTray";
 import { SystemTrayViewModel } from "../../tray/SystemTrayViewModel";
 import SystemDetailsBarModule from "../../system_stats/battery/SystemDetails";
 import { NotificationsPopup } from "../../notification/Notification";
+import Hyprnotch from "../Hyprnotch";
 
-// Componentize the bar layout structure
-type BarLayoutProps = {
-  startWidget?: JSX.Element;
-  centerWidget?: JSX.Element;
-  endWidget?: JSX.Element;
-};
-
-// Componentize the right side bar components
 type RightSideBarProps = {
   gdkmonitor: Gdk.Monitor;
   systemTrayViewModel: SystemTrayViewModel;
@@ -22,6 +15,7 @@ type RightSideBarProps = {
 function RightSideBar({ gdkmonitor, systemTrayViewModel }: RightSideBarProps) {
   return (
     <box
+      className={"hyprnotch_bar_side"}
       vertical={false}
       hexpand={true}
       halign={Gtk.Align.END}
@@ -34,7 +28,6 @@ function RightSideBar({ gdkmonitor, systemTrayViewModel }: RightSideBarProps) {
   );
 }
 
-// Componentize the left side bar components
 type LeftSideBarProps = {
   gdkmonitor: Gdk.Monitor;
 };
@@ -94,5 +87,3 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
     />
   );
 }
-
-// Export components for reuse
