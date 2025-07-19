@@ -1,8 +1,10 @@
-import Wp from "gi://AstalWp";
-import { bind, Binding, timeout } from "astal";
-import Logger from "../logger/Logger";
+import Wp from 'gi://AstalWp';
+import { bind, Binding, timeout } from 'astal';
+import Logger from '../logger/Logger';
 
 export default class WirePlumberViewModel {
+  private static instance: WirePlumberViewModel | null = null;
+
   private wireplumber: Wp.Wp | null;
   private lastDefaultSpeakerVolumeBeforeMute: number | null = null;
   private logger = new Logger(this.constructor.name);
@@ -11,24 +13,31 @@ export default class WirePlumberViewModel {
   private _defaultSpeaker: Binding<Wp.Endpoint>;
   private _speakers: Binding<Wp.Endpoint[]>;
 
-  constructor() {
+  private constructor() {
     this.wireplumber = Wp.get_default();
     if (!this.wireplumber) {
-      throw new Error("WirePlumber is not initialized.");
+      throw new Error('WirePlumber is not initialized.');
     }
 
-    this._audio = bind(this.wireplumber, "audio");
-    this._defaultSpeaker = this._audio.as((audio) =>
-      bind(audio, "defaultSpeaker").get()
+    this._audio = bind(this.wireplumber, 'audio');
+    this._defaultSpeaker = this._audio.as(audio =>
+      bind(audio, 'defaultSpeaker').get()
     );
     this._speakers = this._audio.as(
-      (audio) => bind(audio, "speakers").get() || []
+      audio => bind(audio, 'speakers').get() || []
     );
+  }
+
+  public static getInstance(): WirePlumberViewModel {
+    if (!this.instance) {
+      this.instance = new WirePlumberViewModel();
+    }
+    return this.instance;
   }
 
   public getWirePlumber(): Wp.Wp {
     if (!this.wireplumber) {
-      throw new Error("WirePlumber is not initialized.");
+      throw new Error('WirePlumber is not initialized.');
     }
     return this.wireplumber;
   }
@@ -38,7 +47,7 @@ export default class WirePlumberViewModel {
   }
 
   public getVideo(): Binding<Wp.Video> {
-    return bind(this.getWirePlumber(), "video");
+    return bind(this.getWirePlumber(), 'video');
   }
 
   public getSpeakers(): Binding<Wp.Endpoint[]> {
@@ -47,19 +56,19 @@ export default class WirePlumberViewModel {
 
   public getDefaultSpeaker(): Binding<Wp.Endpoint> {
     this.logger.debug(
-      "Getting default speaker which is: ",
+      'Getting default speaker which is: ',
       this._defaultSpeaker.get()?.get_description()
     );
     return this._defaultSpeaker;
   }
 
   public getDefaultSpeakerVolume(): Binding<number> {
-    return this._defaultSpeaker.as((speaker) => bind(speaker, "volume").get());
+    return this._defaultSpeaker.as(speaker => bind(speaker, 'volume').get());
   }
 
   public getDefaultSpeakerVolumeIcon(): Binding<string> {
-    return this._defaultSpeaker.as((speaker) =>
-      bind(speaker, "volumeIcon").get()
+    return this._defaultSpeaker.as(speaker =>
+      bind(speaker, 'volumeIcon').get()
     );
   }
 
@@ -89,11 +98,11 @@ export default class WirePlumberViewModel {
   public setDefaultSpeaker(speaker: Wp.Endpoint): void {
     speaker.set_is_default(true);
     this.logger.debug(
-      "Set default speaker to: ",
+      'Set default speaker to: ',
       speaker.get_description(),
-      " with ID: ",
+      ' with ID: ',
       speaker.get_id(),
-      " default speaker ID is: ",
+      ' default speaker ID is: ',
       this.getDefaultSpeaker().get()?.get_description()
     );
   }

@@ -1,10 +1,5 @@
-import { App, Astal, Gdk } from "astal/gtk3";
-import Logger from "../../logger/Logger";
-
+import { App, Astal, Gdk } from 'astal/gtk3';
 export default function BarContainerBackground(gdkmonitor: Gdk.Monitor) {
-  const logger = new Logger("BarContainerBackground");
-  logger.debug("BarContainerBackground window created");
-
   return (
     <window
       className="hyprnotch"

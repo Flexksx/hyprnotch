@@ -5,12 +5,21 @@ import { Gdk } from 'astal/gtk3';
 import HyprlandWorkspaceViewModel from './HyprlandWorkspaceViewModel';
 
 export class HyprlandWorkspacesViewModel {
+  private static instance: HyprlandWorkspacesViewModel | null = null;
+
   private hyprland = Hyprland.get_default();
   private logger: Logger = new Logger('WorkspaceViewModel');
 
-  constructor() {
+  private constructor() {
     this.logger = new Logger('WorkspaceViewModel');
     this.logger.debug('WorkspaceViewModel created');
+  }
+
+  public static getInstance(): HyprlandWorkspacesViewModel {
+    if (!this.instance) {
+      this.instance = new HyprlandWorkspacesViewModel();
+    }
+    return this.instance;
   }
 
   public getWorkspaces(): Binding<Hyprland.Workspace[]> {
@@ -26,7 +35,7 @@ export class HyprlandWorkspacesViewModel {
           .map((workspace: Hyprland.Workspace) => {
             return workspace.get_name();
           })
-          .toString(),
+          .toString()
       );
       if (workspaces.length === 0) {
         this.logger.warn('No workspaces found in Hyprland');
@@ -46,7 +55,7 @@ export class HyprlandWorkspacesViewModel {
     }
     if (this.hyprland.get_focused_workspace().get_id() === workspaceId) {
       this.logger.debug(
-        `Workspace ${workspaceId} is already focused, no action taken`,
+        `Workspace ${workspaceId} is already focused, no action taken`
       );
       return;
     }
@@ -55,11 +64,11 @@ export class HyprlandWorkspacesViewModel {
   }
 
   public getPerMonitorWorkspaces(
-    gdkMonitor: Gdk.Monitor,
+    gdkMonitor: Gdk.Monitor
   ): Binding<Hyprland.Workspace[]> {
     return this.getWorkspaces().as((workspaces: Hyprland.Workspace[]) => {
       const hyprlandMonitors = this.hyprland.get_monitors();
-      const targetHyprlandMonitor = hyprlandMonitors.find((monitor) => {
+      const targetHyprlandMonitor = hyprlandMonitors.find(monitor => {
         const gdkDisplayName = gdkMonitor.get_display()?.get_name() || '';
         const hyprlandDisplayName = monitor.get_name() || '';
 
@@ -81,21 +90,21 @@ export class HyprlandWorkspacesViewModel {
 
       if (!targetHyprlandMonitor) {
         this.logger.warn(
-          'Could not find matching Hyprland monitor for GDK monitor',
+          'Could not find matching Hyprland monitor for GDK monitor'
         );
         return [];
       }
 
       return workspaces.filter(
         (workspace: Hyprland.Workspace) =>
-          workspace.get_monitor().get_id() === targetHyprlandMonitor.get_id(),
+          workspace.get_monitor().get_id() === targetHyprlandMonitor.get_id()
       );
     });
   }
 
   public getWorkspaceViewModelById(
-    workspaceId: number,
+    workspaceId: number
   ): HyprlandWorkspaceViewModel {
-    return new HyprlandWorkspaceViewModel(workspaceId);
+    return HyprlandWorkspaceViewModel.getInstance(workspaceId);
   }
 }

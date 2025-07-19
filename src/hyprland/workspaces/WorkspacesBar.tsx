@@ -5,7 +5,7 @@ import { Gdk, Gtk } from 'astal/gtk3';
 import { bind, Binding } from 'astal';
 
 const workspacesViewModel: HyprlandWorkspacesViewModel =
-  new HyprlandWorkspacesViewModel();
+  HyprlandWorkspacesViewModel.getInstance();
 const logger = new Logger('WorkspacesBar');
 
 const clientIconSize = 24;
@@ -14,7 +14,7 @@ const getButtonWidth = (workspace: Hyprland.Workspace): Binding<number> => {
   return workspacesViewModel
     .getWorkspaceViewModelById(workspace.get_id())
     .getClients()
-    .as((clients) => {
+    .as(clients => {
       const clientCount = clients.length;
       const baseWidth =
         clientCount === 0 ? clientIconSize : clientCount * clientIconSize + 8;
@@ -25,7 +25,7 @@ const getButtonWidth = (workspace: Hyprland.Workspace): Binding<number> => {
 const getWorkspacesBarWidth = (gdkmonitor: Gdk.Monitor): Binding<number> => {
   return workspacesViewModel
     .getPerMonitorWorkspaces(gdkmonitor)
-    .as((workspaces) => {
+    .as(workspaces => {
       const focusedWorkspace = workspacesViewModel.getFocusedWorkspace();
       const width = workspaces.reduce((acc, workspace) => {
         return (
@@ -35,7 +35,7 @@ const getWorkspacesBarWidth = (gdkmonitor: Gdk.Monitor): Binding<number> => {
         );
       }, 0);
       logger.debug(
-        `Calculated workspaces bar width for monitor ${gdkmonitor.get_manufacturer()}: ${width}px`,
+        `Calculated workspaces bar width for monitor ${gdkmonitor.get_manufacturer()}: ${width}px`
       );
       return width;
     });
@@ -69,7 +69,7 @@ const WorkspaceButtonContent = (workspace: Hyprland.Workspace) => {
               halign={Gtk.Align.CENTER}
               valign={Gtk.Align.CENTER}
               className="workspace_button_icons_container"
-              children={clients.map((client) => (
+              children={clients.map(client => (
                 <icon
                   icon={getClientIconName(client)}
                   className="workspace_button_icon"
@@ -91,14 +91,12 @@ const WorkspaceButton = (workspace: Hyprland.Workspace) => {
         .as(
           (focusedWorkspace: Hyprland.Workspace) =>
             'workspace_button' +
-            (focusedWorkspace.get_id() === workspace.get_id()
-              ? ' focused'
-              : ''),
+            (focusedWorkspace.get_id() === workspace.get_id() ? ' focused' : '')
         )}
       child={WorkspaceButtonContent(workspace)}
       onClick={() => {
         logger.debug(
-          `Pressing button for workspace ${workspace.get_id()}, switching to it`,
+          `Pressing button for workspace ${workspace.get_id()}, switching to it`
         );
         workspacesViewModel.switchToWorkspace(workspace.get_id());
       }}
@@ -110,7 +108,7 @@ export default function WorkspacesBar(props: WorkspacesBarProps) {
   const gdkmonitor: Gdk.Monitor = props.gdkmonitor;
 
   logger.debug(
-    `WorkspacesBar created on monitor ${gdkmonitor.get_manufacturer()}`,
+    `WorkspacesBar created on monitor ${gdkmonitor.get_manufacturer()}`
   );
 
   return (
@@ -119,7 +117,7 @@ export default function WorkspacesBar(props: WorkspacesBarProps) {
       valign={Gtk.Align.START}
       className="workspaces_bar_container"
       css={getWorkspacesBarWidth(gdkmonitor).as(
-        (width: number) => `min-width: ${width}px;`,
+        (width: number) => `min-width: ${width}px;`
       )}
       child={workspacesViewModel
         .getPerMonitorWorkspaces(gdkmonitor)

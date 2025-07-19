@@ -1,10 +1,10 @@
 import { Astal, App, Gdk, Gtk } from 'astal/gtk3';
-import Logger from '../../logger/Logger';
-import WorkspacesBar from '../../hyprland/workspaces/WorkspacesBar';
-import { SystemTray } from '../../tray/SystemTray';
-import { SystemTrayViewModel } from '../../tray/SystemTrayViewModel';
-import SystemDetailsBarModule from '../../system_stats/battery/SystemDetails';
-import { NotificationsPopup } from '../../notification/Notification';
+import WorkspacesBar from '../hyprland/workspaces/WorkspacesBar';
+import Logger from '../logger/Logger';
+import { NotificationsPopup } from '../notification/Notification';
+import SystemDetailsBarModule from '../system_stats/battery/SystemDetails';
+import { SystemTray } from '../tray/SystemTray';
+import { SystemTrayViewModel } from '../tray/SystemTrayViewModel';
 
 function RightSideBar() {
   return (
@@ -16,7 +16,7 @@ function RightSideBar() {
       children={[
         <SystemDetailsBarModule />,
         <SystemTray />,
-        <NotificationsPopup />,
+        <NotificationsPopup />
       ]}
     />
   );

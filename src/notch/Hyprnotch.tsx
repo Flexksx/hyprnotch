@@ -1,10 +1,10 @@
-import { App, Astal, Gdk } from "astal/gtk3";
-import ExpandedNotch from "./notch/expanded/ExpandedNotch";
-import NormalNotch from "./notch/normal/NormalNotch";
-import Logger from "../logger/Logger";
-import NotchStateViewModel from "../notch/state/NotchStateViewModel";
-import { NotchState } from "../notch/state/NotchState";
-import SoundSettingsNotch from "../sound/SoundSettingsNotch";
+import { App, Astal, Gdk } from 'astal/gtk3';
+import NotchStateViewModel from './NotchStateViewModel';
+import { NotchState } from './NotchState';
+import SoundSettingsNotch from '../sound/SoundSettingsNotch';
+import ExpandedNotch from './expanded/ExpandedNotch';
+import NormalNotch from './normal/NormalNotch';
+import ThemeSelection from '../matugen/ThemeSelection';
 
 export type HyprnotchProps = {
   gdkmonitor: Gdk.Monitor;
@@ -33,11 +33,13 @@ export default function Hyprnotch(props: HyprnotchProps) {
               }}
               className={notchStateViewModel
                 .getNotchState()
-                .as((notchState) => "hyprnotch-button-area " + notchState)}
-              child={notchStateViewModel.getNotchState().as((notchState) => {
+                .as(notchState => 'hyprnotch-button-area ' + notchState)}
+              child={notchStateViewModel.getNotchState().as(notchState => {
                 switch (notchState) {
                   case NotchState.SOUND_SETTINGS:
                     return <SoundSettingsNotch />;
+                  case NotchState.THEME_SELECTION:
+                    return <ThemeSelection />;
                   case NotchState.EXPANDED:
                     return (
                       <ExpandedNotch

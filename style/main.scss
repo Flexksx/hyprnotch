@@ -10,6 +10,7 @@
 @use "./components/material.scss" as *;
 @use "./sound_settings.scss" as *;
 @use "./bar.scss" as *;
+@use "./cava.scss" as *;
 
 window.Bar {
   font-weight: bold;

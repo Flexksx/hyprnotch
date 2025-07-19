@@ -1,11 +1,11 @@
-import WirePlumberViewModel from "../WirePlumberViewModel";
-import SoundMuteButton from "./SoundMuteButtonProps";
+import WirePlumberViewModel from '../WirePlumberViewModel';
+import SoundMuteButton from './SoundMuteButtonProps';
 
 type SoundSliderProps = {
-  initialValue?: number;
-  wirePlumberViewModel: WirePlumberViewModel;
+  initialValue: number;
 };
-export default function SoundSlider(props: SoundSliderProps) {
+export default function SoundSlider({ initialValue }: SoundSliderProps) {
+  const wirePlumberViewModel = WirePlumberViewModel.getInstance();
   return (
     <box
       vertical={true}
@@ -16,13 +16,13 @@ export default function SoundSlider(props: SoundSliderProps) {
           inverted={true}
           min={0}
           max={100}
-          value={props.initialValue}
-          onDragged={(self) => {
+          value={initialValue}
+          onDragged={self => {
             const volumeToSet = self.get_value() / 100;
-            props.wirePlumberViewModel.setDefaultSpeakerVolume(volumeToSet);
+            wirePlumberViewModel.setDefaultSpeakerVolume(volumeToSet);
           }}
         />,
-        <SoundMuteButton wirePlumberViewModel={props.wirePlumberViewModel} />,
+        <SoundMuteButton wirePlumberViewModel={wirePlumberViewModel} />
       ]}
     />
   );

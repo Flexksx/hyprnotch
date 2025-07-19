@@ -1,11 +1,10 @@
-import { Variable } from "astal";
+import { Variable } from 'astal';
 
 export default class TimeService {
   private static instance: TimeService;
-  private timeVariable = Variable<string>("").poll(1000, "date");
+  private timeVariable = Variable<string>('').poll(1000, 'date');
 
-  private constructor() {} // Private constructor to prevent direct instantiation
-
+  private constructor() {}
   public static getInstance(): TimeService {
     if (!TimeService.instance) {
       TimeService.instance = new TimeService();
