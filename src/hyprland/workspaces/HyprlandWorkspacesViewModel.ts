@@ -1,8 +1,8 @@
-import { bind, Binding, Variable } from 'astal';
 import Hyprland from 'gi://AstalHyprland';
 import Logger from '../../logger/Logger';
-import { Gdk } from 'astal/gtk3';
 import HyprlandWorkspaceViewModel from './HyprlandWorkspaceViewModel';
+import { createBinding } from 'ags';
+import { Gdk } from 'ags/gtk4';
 
 export class HyprlandWorkspacesViewModel {
   private static instance: HyprlandWorkspacesViewModel | null = null;
@@ -22,30 +22,30 @@ export class HyprlandWorkspacesViewModel {
     return this.instance;
   }
 
-  public getWorkspaces(): Binding<Hyprland.Workspace[]> {
-    return bind(this.hyprland, 'workspaces').as(() => {
-      const workspaces = this.hyprland
-        .get_workspaces()
-        .sort((a: Hyprland.Workspace, b: Hyprland.Workspace) => {
+  public getWorkspaces() {
+    return createBinding(this.hyprland, 'workspaces').as(workspaces => {
+      const sortedWorkspaces = workspaces.sort(
+        (a: Hyprland.Workspace, b: Hyprland.Workspace) => {
           return a.get_id() - b.get_id();
-        });
+        }
+      );
       this.logger.debug(
         'Hyprland workspaces updated to: ',
-        workspaces
+        sortedWorkspaces
           .map((workspace: Hyprland.Workspace) => {
             return workspace.get_name();
           })
           .toString()
       );
-      if (workspaces.length === 0) {
+      if (sortedWorkspaces.length === 0) {
         this.logger.warn('No workspaces found in Hyprland');
       }
-      return workspaces;
+      return sortedWorkspaces;
     });
   }
 
-  public getFocusedWorkspace(): Binding<Hyprland.Workspace> {
-    return bind(this.hyprland, 'focused_workspace');
+  public getFocusedWorkspace() {
+    return createBinding(this.hyprland, 'focused_workspace');
   }
 
   public switchToWorkspace(workspaceId: number): void {
@@ -63,30 +63,10 @@ export class HyprlandWorkspacesViewModel {
     this.hyprland.get_workspace(workspaceId).focus();
   }
 
-  public getPerMonitorWorkspaces(
-    gdkMonitor: Gdk.Monitor
-  ): Binding<Hyprland.Workspace[]> {
+  public getPerMonitorWorkspaces(monitor: Gdk.Monitor) {
     return this.getWorkspaces().as((workspaces: Hyprland.Workspace[]) => {
-      const hyprlandMonitors = this.hyprland.get_monitors();
-      const targetHyprlandMonitor = hyprlandMonitors.find(monitor => {
-        const gdkDisplayName = gdkMonitor.get_display()?.get_name() || '';
-        const hyprlandDisplayName = monitor.get_name() || '';
-
-        if (
-          gdkDisplayName &&
-          hyprlandDisplayName &&
-          gdkDisplayName === hyprlandDisplayName
-        ) {
-          return true;
-        }
-
-        return (
-          monitor.get_make() === gdkMonitor.get_manufacturer() &&
-          monitor.get_model() === gdkMonitor.get_model() &&
-          monitor.get_x() === gdkMonitor.get_geometry().x &&
-          monitor.get_y() === gdkMonitor.get_geometry().y
-        );
-      });
+      const hyprlandMonitors = this.getHyprland().get_monitors();
+      const targetHyprlandMonitor = this.getHyprland().get_monitor(monitor);
 
       if (!targetHyprlandMonitor) {
         this.logger.warn(
@@ -106,5 +86,12 @@ export class HyprlandWorkspacesViewModel {
     workspaceId: number
   ): HyprlandWorkspaceViewModel {
     return HyprlandWorkspaceViewModel.getInstance(workspaceId);
+  }
+  private getHyprland(): Hyprland.Hyprland {
+    if (!this.hyprland) {
+      this.logger.error('Hyprland instance is not initialized');
+      throw new Error('Hyprland instance is not initialized');
+    }
+    return this.hyprland;
   }
 }

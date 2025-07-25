@@ -1,6 +1,3 @@
-import { Gtk } from 'astal/gtk3';
-import { Binding } from 'astal';
-
 type CavaBarProps = {
   value: number;
   width: number;
@@ -19,7 +16,7 @@ const CavaBar = ({
   const height = Math.max(value * maxBarHeight, minBarHeight);
   return (
     <box
-      className={'cava_bar ' + (valign === Gtk.Align.END ? 'top' : 'bottom')}
+      cssName={'cava_bar ' + (valign === Gtk.Align.END ? 'top' : 'bottom')}
       heightRequest={height}
       widthRequest={width}
       valign={valign}
@@ -49,7 +46,7 @@ export default function CavaBarSection({
 
   return (
     <box
-      className={`cava_${type}`}
+      cssName={`cava_${type}`}
       halign={Gtk.Align.CENTER}
       valign={isTop ? Gtk.Align.END : Gtk.Align.START}
       spacing={spacing}

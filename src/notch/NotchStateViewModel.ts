@@ -1,4 +1,3 @@
-import { bind, Binding, Variable } from 'astal';
 import { NotchState } from './NotchState';
 import Logger from '../logger/Logger';
 

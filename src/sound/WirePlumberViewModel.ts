@@ -1,5 +1,4 @@
 import Wp from 'gi://AstalWp';
-import { bind, Binding, timeout } from 'astal';
 import Logger from '../logger/Logger';
 
 export default class WirePlumberViewModel {

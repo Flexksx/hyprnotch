@@ -1,21 +1,19 @@
-import Battery from "gi://AstalBattery";
-import Logger from "../../logger/Logger";
-import { bind, Binding } from "astal";
+import Battery from 'gi://AstalBattery';
+import Logger from '../../logger/Logger';
 
 export default class BatteryViewModel {
-    private logger = new Logger(this.constructor.name);
-    private battery = Battery.get_default();
+  private logger = new Logger(this.constructor.name);
+  private battery = Battery.get_default();
 
-    public getBatteryPercentage(): Binding<number> {
-        return bind(this.battery, "percentage");
-    }
+  public getBatteryPercentage(): Binding<number> {
+    return bind(this.battery, 'percentage');
+  }
 
-    public getBatteryState(): Binding<Battery.State> {
-        return bind(this.battery, "state");
-    }
+  public getBatteryState(): Binding<Battery.State> {
+    return bind(this.battery, 'state');
+  }
 
-    public getBatteryIcon(): Binding<string> {
-        return bind(this.battery, "icon_name");
-    }
-
+  public getBatteryIcon(): Binding<string> {
+    return bind(this.battery, 'icon_name');
+  }
 }

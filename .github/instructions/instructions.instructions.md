@@ -1,5 +1,5 @@
 ---
-applyTo: "**"
+applyTo: '**'
 ---
 
 Coding standards, domain knowledge, and preferences that AI should follow.
@@ -30,7 +30,7 @@ Builtin intrinsic elements are GTK widgets that you can use as lowercase JSX tag
 **`Gtk.Button`**
 
 ```jsx
-<button onClicked={() => print("clicked")}>
+<button onClicked={() => print('clicked')}>
   <Child />
 </button>
 ```
@@ -54,7 +54,7 @@ Children are placed using the special `$type` prop.
 
 ```jsx
 <drawingarea
-  $={(self) =>
+  $={self =>
     self.set_draw_func((area, cr, width, height) => {
       // Drawing logic here
     })
@@ -145,7 +145,7 @@ The first child is the main content; subsequent children with `$type="overlay"` 
 <revealer
   transitionType={Gtk.RevealerTransitionType.SLIDE_RIGHT}
   revealChild={true}
-  onNotifyChildRevealed={() => print("animation finished")}
+  onNotifyChildRevealed={() => print('animation finished')}
 >
   <Child />
 </revealer>
@@ -180,7 +180,7 @@ The first child is the main content; subsequent children with `$type="overlay"` 
 Children must be named using the `$type="named"` prop.
 
 ```jsx
-<stack $={(self) => (self.visibleChildName = "child2")}>
+<stack $={self => (self.visibleChildName = 'child2')}>
   <Child $type="named" name="child1" />
   <Child $type="named" name="child2" />
 </stack>
@@ -211,7 +211,7 @@ Children must be named using the `$type="named"` prop.
   visible
   namespace="bar"
   class="Bar"
-  monitor={0}
+  gdkmonitor={0}
   exclusivity={Astal.Exclusivity.EXCLUSIVE}
   keymode={Astal.Keymode.ON_DEMAND}
   anchor={
@@ -239,7 +239,7 @@ Children must be named using the `$type="named"` prop.
 **`Gtk.Button`**
 
 ```jsx
-<button onClicked={() => print("clicked")}>
+<button onClicked={() => print('clicked')}>
   <Child />
 </button>
 ```
@@ -292,8 +292,8 @@ circularprogress {
 
 ```jsx
 <entry
-  onChanged={({ text }) => print("text changed", text)}
-  onActivate={({ text }) => print("enter", text)}
+  onChanged={({ text }) => print('text changed', text)}
+  onActivate={({ text }) => print('enter', text)}
 />
 ```
 
@@ -388,7 +388,7 @@ The first child is the main widget; subsequent children are overlays.
 Children must be named.
 
 ```jsx
-<stack $={(self) => (self.visibleChildName = "child2")}>
+<stack $={self => (self.visibleChildName = 'child2')}>
   <Child name="child1" />
   <Child name="child2" />
 </stack>
@@ -419,7 +419,7 @@ Children must be named.
 <window
   visible
   namespace="bar"
-  monitor={0}
+  gdkmonitor={0}
   exclusivity={Astal.Exclusivity.EXCLUSIVE}
 />
 ```
@@ -437,9 +437,9 @@ There are two primary ways to load CSS.
 Pass CSS as a string to the `app.start` configuration. You can import `.css` or `.scss` files, which will be treated as strings, or define CSS inline.
 
 ```javascript
-import app from "ags/gtk4/app";
-import css from "./style.css";
-import scss from "./style.scss";
+import app from 'ags/gtk4/app';
+import css from './style.css';
+import scss from './style.scss';
 
 const inlineCss = `
   window {
@@ -449,7 +449,7 @@ const inlineCss = `
 
 app.start({
   // Provide one or more stylesheets
-  css: [css, scss, inlineCss],
+  css: [css, scss, inlineCss]
 });
 ```
 
@@ -569,9 +569,9 @@ Import from `astal/time`. These functions return an `AstalIO.Time` instance with
 
 ```javascript
 // Example usage for interval, timeout, or idle
-const timer = interval(1000, () => console.log("optional callback"));
-timer.connect("now", () => console.log("tick"));
-timer.connect("cancelled", () => console.log("cancelled"));
+const timer = interval(1000, () => console.log('optional callback'));
+timer.connect('now', () => console.log('tick'));
+timer.connect('cancelled', () => console.log('cancelled'));
 
 timer.cancel(); // Stop the timer
 ```
@@ -611,15 +611,15 @@ Import from `ags/process`.
 - **`subprocess(cmd, onOut?, onErr?)`**: Starts a long-running process. Provides stdout and stderr through optional callbacks or signals (`stdout`, `stderr`).
 
   ```javascript
-  const proc = subprocess("some-command", (out) => console.log(out));
-  proc.connect("stdout", (_, out) => console.log(out));
+  const proc = subprocess('some-command', out => console.log(out));
+  proc.connect('stdout', (_, out) => console.log(out));
   ```
 
 - **`createSubprocess(init, exec, transform?)`**: Creates a signal that starts a subprocess when the first subscriber appears and kills it when the last subscriber disconnects.
 
   ```javascript
   function Log() {
-    const log = createSubprocess("", "journalctl -f");
+    const log = createSubprocess('', 'journalctl -f');
     return <label label={log} />;
   }
   ```
@@ -631,15 +631,15 @@ Import from `ags/process`.
 Import from `ags/fetch`. Uses a `fetch` API similar to the web standard.
 
 ```javascript
-import { fetch, URL } from "ags/fetch";
+import { fetch, URL } from 'ags/fetch';
 
-const url = new URL("https://some-site.com/api");
-url.searchParams.set("param", "value");
+const url = new URL('https://some-site.com/api');
+url.searchParams.set('param', 'value');
 
 const res = await fetch(url, {
-  method: "POST",
-  body: JSON.stringify({ hello: "world" }),
-  headers: { "Content-Type": "application/json" },
+  method: 'POST',
+  body: JSON.stringify({ hello: 'world' }),
+  headers: { 'Content-Type': 'application/json' }
 });
 
 const json = await res.json();
@@ -650,25 +650,25 @@ const json = await res.json();
 - **Entry Point**: Every `ags` application starts with `app.start()`. `app` is a singleton instance of `Astal.Application`.
 
   ```javascript
-  import app from "ags/gtk4/app";
+  import app from 'ags/gtk4/app';
 
   app.start({
     main() {
       // Instantiate root widgets here
       Bar(0);
       Bar(1); // e.g., for each monitor
-    },
+    }
   });
   ```
 
 - **Root Widget**: The top-level widget of any UI component must be a `<window>`.
 
   ```javascript
-  import Gtk from "gi://Gtk";
+  import Gtk from 'gi://Gtk';
 
   function Bar(monitor = 0) {
     return (
-      <window class="Bar" monitor={monitor}>
+      <window class="Bar" gdkmonitor={monitor}>
         <box>Content of the widget</box>
       </window>
     );
@@ -690,7 +690,7 @@ Widgets are JavaScript functions that return a `GObject.Object` (usually a `Gtk.
 // Define a custom widget
 function MyButton() {
   return (
-    <button onClicked={(self) => console.log(self, "clicked")}>
+    <button onClicked={self => console.log(self, 'clicked')}>
       <label label="Click me!" />
     </button>
   );
@@ -715,7 +715,7 @@ Use curly braces `{}` to embed JavaScript variables and expressions inside JSX m
 
 ```javascript
 function MyWidget() {
-  const label = "hello";
+  const label = 'hello';
   // Embed as content
   // return <button>{label}</button>
 
@@ -737,10 +737,10 @@ Use array methods like `.map()` to render a list of widgets.
 
 ```javascript
 function MyWidget() {
-  const labels = ["label1", "label2", "label3"];
+  const labels = ['label1', 'label2', 'label3'];
   return (
     <box>
-      {labels.map((label) => (
+      {labels.map(label => (
         <label label={label} />
       ))}
     </box>
@@ -757,11 +757,11 @@ function MyWidget() {
 Respond to events by defining handler functions and passing them as props.
 
 ```javascript
-import Gtk from "gi://Gtk";
+import Gtk from 'gi://Gtk';
 
 function MyButton() {
   function onClicked(self: Gtk.Button) {
-    console.log(self, "was clicked");
+    console.log(self, 'was clicked');
   }
   return <button onClicked={onClicked} />;
 }
@@ -774,7 +774,7 @@ A custom widget receives a single object as its parameter, containing all passed
 ```javascript
 type Props = {
   myprop: string,
-  children?: JSX.Element | Array<JSX.Element>, // JSX.Element is GObject.Object
+  children?: JSX.Element | Array<JSX.Element> // JSX.Element is GObject.Object
 };
 
 function MyWidget({ myprop, children }: Props) {
@@ -807,17 +807,17 @@ State is managed via signals from `ags`.
 Signals can be called as a function (`count((v) => ...)`) to transform their value for display.
 
 ```javascript
-import { createState } from "ags";
+import { createState } from 'ags';
 
 function Counter() {
   const [count, setCount] = createState(0);
 
   function increment() {
-    setCount((v) => v + 1);
+    setCount(v => v + 1);
   }
 
   // Transform the number signal into a string signal for the label
-  const label = count((num) => num.toString());
+  const label = count(num => num.toString());
 
   return (
     <box>
@@ -834,14 +834,12 @@ Renders content based on a signal's value.
 **Warning**: When the value changes, the old widget is destroyed and a new one is appended, not preserving order. Wrap in a container to avoid layout shifts. It is often better to render the component permanently and toggle its `visible` property.
 
 ```javascript
-import { With, Accessor } from "ags";
+import { With, Accessor } from 'ags';
 
 let value: Accessor<{ member: string } | null>;
 
 <box>
-  <With value={value}>
-    {(value) => value && <label label={value.member} />}
-  </With>
+  <With value={value}>{value => value && <label label={value.member} />}</With>
 </box>;
 ```
 
@@ -851,14 +849,14 @@ Renders a list of items from a signal array.
 **Warning**: New items are always appended to the end of the parent container, not inserted in order. Wrap in a container to manage layout.
 
 ```javascript
-import { For, Accessor, Binding } from "ags";
+import { For, Accessor, Binding } from 'ags';
 
 let list: Accessor<Array<any>>;
 
 <box>
   <For each={list}>
     {(item, index: Binding<number>) => (
-      <label label={index.as((i) => `${i}. ${item}`)} />
+      <label label={index.as(i => `${i}. ${item}`)} />
     )}
   </For>
 </box>;

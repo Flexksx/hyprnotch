@@ -1,5 +1,3 @@
-import { bind } from 'astal/binding';
-import { Gtk } from 'astal/gtk3';
 import Logger from '../../logger/Logger';
 import CavaViewModel from '../../media/cava/CavaViewModel';
 import CavaVisualizer from '../../media/cava/CavaVisualizer';
@@ -13,7 +11,7 @@ const cavaViewModel = CavaViewModel.getInstance(5); // Use singleton instance
 function MediaIndicator() {
   return (
     <box
-      className="normal_notch_media_icon"
+      cssName="normal_notch_media_icon"
       halign={Gtk.Align.CENTER}
       valign={Gtk.Align.CENTER}
       heightRequest={24}
@@ -31,7 +29,7 @@ function MediaIndicator() {
 function Time() {
   return (
     <box
-      className="normal_notch_time"
+      cssName="normal_notch_time"
       children={[
         <label
           label={bind(TimeService.getInstance().getTime()).as(time => {
@@ -46,15 +44,14 @@ function Time() {
 export default function NormalNotch() {
   return (
     <centerbox
-      className={'normal_notch'}
+      cssName={'normal_notch'}
       startWidget={<Time />}
-      centerWidget={<label label={'Hyprnotch'} />}
       endWidget={
         <box
           children={[
             <box vertical={true} />,
 
-            <box vertical={true} children={[<MediaIndicator />]} />
+            <box vertical={true} /* children={[<MediaIndicator />]} */ />
           ]}
         />
       }

@@ -1,6 +1,5 @@
+import Astal from 'gi://Astal?version=4.0';
 import AstalNotifd from 'gi://AstalNotifd?version=0.1';
-import Gtk from 'gi://Gtk?version=3.0';
-import { NoNewNotificationPopup } from './NoNewNotificationPopup';
 
 type NewNotificationPopupProps = {
   notification: AstalNotifd.Notification | null;
@@ -8,7 +7,7 @@ type NewNotificationPopupProps = {
 
 const NotificationImage = (notification: AstalNotifd.Notification) => {
   return (
-    <icon icon={notification.get_image()} className="notification_app_icon" />
+    <icon icon={notification.get_image()} cssName="notification_app_icon" />
   );
 };
 
@@ -19,7 +18,7 @@ export function NewNotificationPopup(props: NewNotificationPopupProps) {
   }
   return (
     <box
-      className={'new_notification_card_preview'}
+      cssName={'new_notification_card_preview'}
       vexpand={true}
       halign={Gtk.Align.CENTER}
       valign={Gtk.Align.CENTER}
@@ -32,7 +31,7 @@ export function NewNotificationPopup(props: NewNotificationPopupProps) {
             ) : (
               <icon icon={'notification'} />
             ),
-            <label label={notification.get_summary()} />,
+            <label label={notification.get_summary()} />
           ]}
         />
       }

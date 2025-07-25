@@ -1,6 +1,4 @@
 import Logger from '../logger/Logger';
-import { bind, Binding, Variable } from 'astal';
-import { exec } from 'astal/process';
 import { MatugenMaterialSchemas, MatugenMode } from './MatugenViewModel';
 
 export default class ThemeSelectionViewModel {

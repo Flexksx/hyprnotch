@@ -13,7 +13,7 @@ const ThemePaletteButton = ({
 }: ExpandedNotchButtonProps) => {
   return (
     <button
-      className="icon_button xsmall"
+      cssName="icon_button xsmall"
       label={nerdfonts.icons.pallette.outline}
       onClick={() => {
         const currentState = notchStateViewModel.getNotchState().get();
@@ -33,7 +33,7 @@ const SoundSettingsButton = ({
   const wirePlumberViewModel = WirePlumberViewModel.getInstance();
   return (
     <button
-      className="icon_button xsmall"
+      cssName="icon_button xsmall"
       child={<icon icon={wirePlumberViewModel.getDefaultSpeakerVolumeIcon()} />}
       onClick={() => {
         const currentState = notchStateViewModel.getNotchState().get();
@@ -52,7 +52,7 @@ type SettingsMenuProps = { notchStateViewModel: NotchStateViewModel };
 export default function SettingsMenu(props: SettingsMenuProps) {
   return (
     <box
-      className="settings_menu"
+      cssName="settings_menu"
       child={
         <box
           children={[
@@ -62,7 +62,7 @@ export default function SettingsMenu(props: SettingsMenuProps) {
             <ThemePaletteButton
               notchStateViewModel={props.notchStateViewModel}
             />,
-            <button className={'icon_button xsmall'} label={'Option 3'} />
+            <button cssName={'icon_button xsmall'} label={'Option 3'} />
           ]}
         ></box>
       }

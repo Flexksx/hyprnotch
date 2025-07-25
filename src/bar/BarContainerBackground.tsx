@@ -1,8 +1,17 @@
-import { App, Astal, Gdk } from 'astal/gtk3';
-export default function BarContainerBackground(gdkmonitor: Gdk.Monitor) {
+import { Astal, Gdk } from 'ags/gtk4';
+import Logger from '../logger/Logger';
+
+type BarContainerBackgroundProps = {
+  monitor: Gdk.Monitor;
+};
+const logger = new Logger('BarContainerBackground');
+export default function BarContainerBackground({
+  monitor
+}: BarContainerBackgroundProps) {
   return (
     <window
-      className="hyprnotch"
+      gdkmonitor={monitor}
+      cssName="hyprnotch"
       namespace="hyprnotch"
       anchor={
         Astal.WindowAnchor.TOP |
@@ -10,9 +19,8 @@ export default function BarContainerBackground(gdkmonitor: Gdk.Monitor) {
         Astal.WindowAnchor.RIGHT
       }
       exclusivity={Astal.Exclusivity.EXCLUSIVE}
-      application={App}
-      gdkmonitor={gdkmonitor}
-      child={<box className="hyprnotch_bar_container_background" />}
-    />
+    >
+      <box cssName="hyprnotch_bar_container_background" />
+    </window>
   );
 }

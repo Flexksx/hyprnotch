@@ -1,12 +1,11 @@
-import Hyprland from 'gi://AstalHyprland';
+import { Accessed, createBinding } from 'ags';
 import Logger from '../../logger/Logger';
-import { bind, Binding, Variable } from 'astal';
+import Hyprland from 'gi://AstalHyprland';
 
 export default class HyprlandWorkspaceViewModel {
   private static instances: Map<number, HyprlandWorkspaceViewModel> = new Map();
 
   private hyprland = Hyprland.get_default();
-  private workspaceVariable: Variable<Hyprland.Workspace> = new Variable(null!);
   private workspaceId: number = 0;
   private logger: Logger;
 
@@ -19,7 +18,6 @@ export default class HyprlandWorkspaceViewModel {
       this.logger.error(`Workspace with ID ${workspaceId} not found`);
       throw new Error(`Workspace with ID ${workspaceId} not found`);
     }
-    this.updateWorkspaceVariable();
     this.setupUpdateListenerForSignal('client_added');
     this.setupUpdateListenerForSignal('client_removed');
     this.setupUpdateListenerForSignal('client_moved');
@@ -39,30 +37,23 @@ export default class HyprlandWorkspaceViewModel {
     this.instances.delete(workspaceId);
   }
 
-  public getClients(): Binding<Hyprland.Client[]> {
-    return bind(this.workspaceVariable.get(), 'clients').as(clients => {
-      this.logger.debug(
-        `Clients for workspace ${this.workspaceId}: ${clients
-          .map(client => client.get_class())
-          .toString()}`
-      );
-      return clients;
-    });
-  }
-
-  private updateWorkspaceVariable(): void {
-    this.workspaceVariable.set(this.hyprland.get_workspace(this.workspaceId));
-    this.logger.debug(
-      `Updated workspace variable for workspace ${this.workspaceId}`
-    );
+  public getClients() {
+    return createBinding(this.getHyprland(), 'clients');
   }
 
   private setupUpdateListenerForSignal(signalName: string): void {
     this.hyprland.connect(signalName, () => {
-      this.updateWorkspaceVariable();
       this.logger.debug(
         `Workspace variable updated for workspace ${this.workspaceId} on signal ${signalName}`
       );
     });
+  }
+
+  private getHyprland(): Hyprland.Hyprland {
+    if (!this.hyprland) {
+      this.logger.error('Hyprland instance is not initialized');
+      throw new Error('Hyprland instance is not initialized');
+    }
+    return this.hyprland;
   }
 }

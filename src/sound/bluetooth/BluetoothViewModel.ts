@@ -1,4 +1,3 @@
-import { bind, Binding } from 'astal';
 import Bluetooth from 'gi://AstalBluetooth';
 import Logger from '../../logger/Logger';
 

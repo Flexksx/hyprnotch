@@ -1,7 +1,5 @@
 import ThemeSelectionViewModel from './ThemeSelectionViewModel';
 import MatugenViewModel from './MatugenViewModel';
-import { bind } from 'astal';
-
 export default function ThemeSelection() {
   const themeSelectionViewModel = ThemeSelectionViewModel.getInstance();
   const matugenViewModel = MatugenViewModel.getInstance();
@@ -10,7 +8,7 @@ export default function ThemeSelection() {
     <box
       child={
         <scrollable
-          className="theme_selection"
+          cssName="theme_selection"
           child={
             <box
               children={wallpapersBinding.as(wallpapers =>
@@ -18,7 +16,7 @@ export default function ThemeSelection() {
                   .slice(0, 5)
                   .map(wallpaper => (
                     <box
-                      className="wallpaper-item"
+                      cssName="wallpaper-item"
                       child={<icon icon={wallpaper} />}
                     />
                   ))

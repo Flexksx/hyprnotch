@@ -1,7 +1,6 @@
-import SystemTrayStateViewModel from "./SystemTrayStateViewModel";
-import Tray from "gi://AstalTray";
-import { SystemTrayViewModel } from "./SystemTrayViewModel";
-import { bind, Binding, timeout } from "astal";
+import SystemTrayStateViewModel from './SystemTrayStateViewModel';
+import Tray from 'gi://AstalTray';
+import { SystemTrayViewModel } from './SystemTrayViewModel';
 
 const SYSTEM_TRAY_ITEM_TIMEOUT = 10000; // 30 seconds
 
@@ -12,19 +11,19 @@ function getTrayItemClass(
   const existingTrayItems = viewModel
     .getTrayItems()
     .get()
-    .filter((item) => item.get_title());
-  return viewModel.getFocusedTrayItem().as((focused) => {
-    let classes = "system_tray_item";
+    .filter(item => item.get_title());
+  return viewModel.getFocusedTrayItem().as(focused => {
+    let classes = 'system_tray_item';
     if (focused && focused.get_title() === item.get_title()) {
-      classes += " active";
+      classes += ' active';
     } else {
-      classes += " notch";
+      classes += ' notch';
     }
     if (existingTrayItems.indexOf(item) === 0) {
-      classes += " first";
+      classes += ' first';
     }
     if (existingTrayItems.indexOf(item) === existingTrayItems.length - 1) {
-      classes += " last";
+      classes += ' last';
     }
 
     return classes;
@@ -54,27 +53,27 @@ type SystemTrayItemButtonProps = {
 export default function SystemTrayItemButton(props: SystemTrayItemButtonProps) {
   const { systemTrayViewModel, item } = props;
   const trayItemsIdNamesMap: Record<string, { icon: string }> = {};
-  trayItemsIdNamesMap["chrome_status_icon_1"] = {
-    icon: "slack",
+  trayItemsIdNamesMap['chrome_status_icon_1'] = {
+    icon: 'slack'
   };
-  trayItemsIdNamesMap["openrgb"] = {
-    icon: "openrgb",
+  trayItemsIdNamesMap['openrgb'] = {
+    icon: 'openrgb'
   };
 
   return (
     <button
-      cursor={"pointer"}
+      cursor={'pointer'}
       hexpand={true}
-      className={getTrayItemClass(systemTrayViewModel, item)}
+      cssName={getTrayItemClass(systemTrayViewModel, item)}
       onButtonPressEvent={() =>
         onSystemTrayItemClicked(systemTrayViewModel, item)
       }
       onHover={() => systemTrayViewModel.refreshTrayItem(item)}
       child={
         <icon
-          icon={bind(item, "iconName").as((iconName) => {
+          icon={bind(item, 'iconName').as(iconName => {
             if (!iconName) {
-              return trayItemsIdNamesMap[item.get_id()]?.icon || "unknown";
+              return trayItemsIdNamesMap[item.get_id()]?.icon || 'unknown';
             }
             return iconName;
           })}

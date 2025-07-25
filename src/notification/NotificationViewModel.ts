@@ -1,4 +1,3 @@
-import { bind, Binding, Variable } from 'astal';
 import Notifd from 'gi://AstalNotifd';
 
 export class NotificationViewModel {

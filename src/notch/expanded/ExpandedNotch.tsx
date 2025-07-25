@@ -1,4 +1,3 @@
-import { bind } from 'astal';
 import SettingsMenu from './SettingsMenu';
 import NotchStateViewModel from '../NotchStateViewModel';
 import TimeService from '../../time/TimeService';
@@ -9,7 +8,7 @@ type ExpandedNotchProps = {
 
 function Time() {
   return (
-    <box className="expanded_notch_time">
+    <box cssName="expanded_notch_time">
       <label>
         {bind(TimeService.getInstance().getTime()).as(time => {
           return time.slice(0, 10);
@@ -27,7 +26,7 @@ function Time() {
 export default function ExpandedNotch(props: ExpandedNotchProps) {
   return (
     <box
-      className={'expanded_notch'}
+      cssName={'expanded_notch'}
       child={
         <box
           children={[

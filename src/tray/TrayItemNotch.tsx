@@ -1,15 +1,13 @@
-import { bind, Gio, Variable } from "astal";
-import { TrayItemNotchProps } from "./SystemTray";
-import { Gdk, Gtk } from "astal/gtk3";
+import { TrayItemNotchProps } from './SystemTray';
 import {
   isMiddleClick,
   isPrimaryClick,
-  isSecondaryClick,
-} from "../lib/events/mouse";
-import AstalTray from "gi://AstalTray";
+  isSecondaryClick
+} from '../lib/events/mouse';
+import AstalTray from 'gi://AstalTray';
 
 function getTrayItemNotchClassName(focusedItem: any | null): string {
-  return "";
+  return '';
 }
 
 interface MenuEntryProps {
@@ -32,7 +30,7 @@ const MenuEntry = ({ item }: MenuEntryProps): JSX.Element => {
 
           if (menuModel && actionGroup) {
             const menu = Gtk.Menu.new_from_model(menuModel);
-            menu.insert_action_group("dbusmenu", actionGroup);
+            menu.insert_action_group('dbusmenu', actionGroup);
             menu.popup_at_widget(
               self,
               Gdk.Gravity.NORTH_WEST,
@@ -48,15 +46,15 @@ const MenuEntry = ({ item }: MenuEntryProps): JSX.Element => {
           vertical={true}
           children={[
             <label
-              label={bind(item, "title").as(
-                (title) => title || item.get_tooltip()?.title || ""
+              label={bind(item, 'title').as(
+                title => title || item.get_tooltip()?.title || ''
               )}
             />,
             <label
-              label={bind(item, "tooltip").as(
-                (tooltip) => tooltip?.description || ""
+              label={bind(item, 'tooltip').as(
+                tooltip => tooltip?.description || ''
               )}
-            />,
+            />
           ]}
         />
       }
@@ -70,9 +68,9 @@ export default function TrayItemNotch(props: TrayItemNotchProps) {
 
   return (
     <box
-      className={"system_tray_bar_notch focused"}
+      className={'system_tray_bar_notch focused'}
       vertical={true}
-      child={focusedItem.as((item) => {
+      child={focusedItem.as(item => {
         if (!item || !item.get_menu_model()) {
           return <box />;
         }

@@ -1,9 +1,8 @@
-import { Variable, timeout, Binding, bind } from "astal";
-import Gtk from "gi://Gtk?version=3.0";
-import Logger from "../logger/Logger";
-import { NewNotificationPopup } from "./NewNotificationPopup";
-import { NoNewNotificationPopup } from "./NoNewNotificationPopup";
-import { NotificationViewModel } from "./NotificationViewModel";
+import Gtk from 'gi://Gtk?';
+import Logger from '../logger/Logger';
+import { NewNotificationPopup } from './NewNotificationPopup';
+import { NoNewNotificationPopup } from './NoNewNotificationPopup';
+import { NotificationViewModel } from './NotificationViewModel';
 
 export class NewNotificationViewModel {
   private notificationViewModel = new NotificationViewModel();

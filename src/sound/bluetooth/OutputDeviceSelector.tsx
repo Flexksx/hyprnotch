@@ -1,8 +1,5 @@
-import { Astal, Gtk } from 'astal/gtk3';
 import WirePlumberViewModel from '../WirePlumberViewModel';
 import Wp from 'gi://AstalWp';
-import { Binding } from 'astal';
-
 const wirePlumberViewModel = WirePlumberViewModel.getInstance();
 
 export default function OutputDeviceSelector() {
@@ -15,7 +12,7 @@ export default function OutputDeviceSelector() {
           wirePlumberViewModel.getDefaultSpeaker();
         return speakers.map(speaker => (
           <button
-            className={defaultSpeakerBinding.as(defaultSpeaker => {
+            cssName={defaultSpeakerBinding.as(defaultSpeaker => {
               let className = 'icon_button large output_device_button';
               if (
                 defaultSpeaker &&

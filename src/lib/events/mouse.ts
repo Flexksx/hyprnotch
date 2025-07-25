@@ -1,4 +1,4 @@
-import { Astal, Gdk } from "astal/gtk3";
+import { Astal, Gdk } from 'ags/gtk4';
 
 /**
  * Checks if an event is a primary click

@@ -1,35 +1,39 @@
-import { Astal, App, Gdk, Gtk } from 'astal/gtk3';
+import { Astal, Gdk, Gtk } from 'ags/gtk4';
 import WorkspacesBar from '../hyprland/workspaces/WorkspacesBar';
 import Logger from '../logger/Logger';
-import { NotificationsPopup } from '../notification/Notification';
+// import { NotificationsPopup } from '../notification/Notification';
 import SystemDetailsBarModule from '../system_stats/battery/SystemDetails';
 import { SystemTray } from '../tray/SystemTray';
 import { SystemTrayViewModel } from '../tray/SystemTrayViewModel';
+import app from 'ags/gtk4/app';
 
-function RightSideBar() {
+export type RightSideBarProps = {
+  monitor: Gdk.Monitor;
+};
+function RightSideBar({ monitor }: RightSideBarProps) {
   return (
     <box
-      className={'hyprnotch_bar_side'}
-      vertical={false}
+      cssName={'hyprnotch_bar_side'}
+      orientation={Gtk.Orientation.VERTICAL}
       hexpand={true}
       halign={Gtk.Align.END}
-      children={[
-        <SystemDetailsBarModule />,
-        <SystemTray />,
-        <NotificationsPopup />
-      ]}
+      children={
+        [
+          // <SystemDetailsBarModule />,
+          // <SystemTray />
+          // <NotificationsPopup />
+        ]
+      }
     />
   );
 }
 
 type LeftSideBarProps = {
-  gdkmonitor: Gdk.Monitor;
+  monitor: Gdk.Monitor;
 };
 
-function LeftSideBar({ gdkmonitor }: LeftSideBarProps) {
-  return (
-    <box vexpand={true} child={<WorkspacesBar gdkmonitor={gdkmonitor} />} />
-  );
+function LeftSideBar({ monitor }: LeftSideBarProps) {
+  return <box children={[<WorkspacesBar monitor={monitor} />]} />;
 }
 
 export function SystemTrayWindow(gdkmonitor: Gdk.Monitor) {
@@ -39,39 +43,40 @@ export function SystemTrayWindow(gdkmonitor: Gdk.Monitor) {
   const systemTrayViewModel = new SystemTrayViewModel();
   return (
     <window
-      className="system_tray_window"
+      cssName="system_tray_window"
       gdkmonitor={gdkmonitor}
       anchor={Astal.WindowAnchor.TOP | Astal.WindowAnchor.RIGHT}
       exclusivity={Astal.Exclusivity.IGNORE}
-      child={<SystemTray systemTrayViewModel={systemTrayViewModel} />}
+      children={[<SystemTray systemTrayViewModel={systemTrayViewModel} />]}
     />
   );
 }
-
-export default function Bar(gdkmonitor: Gdk.Monitor) {
+export type BarProps = {
+  monitor: Gdk.Monitor;
+};
+export default function Bar({ monitor }: BarProps) {
   const logger = new Logger('Bar');
   logger.debug('Bar window created');
-
+  logger.debug('Monitor:', monitor.get_model());
   return (
     <window
-      className="hyprnotch_bar"
+      cssName="hyprnotch_bar"
       namespace="hyprnotch"
-      gdkmonitor={gdkmonitor}
+      gdkmonitor={monitor}
       anchor={
         Astal.WindowAnchor.TOP |
         Astal.WindowAnchor.LEFT |
         Astal.WindowAnchor.RIGHT
       }
       exclusivity={Astal.Exclusivity.IGNORE}
-      application={App}
-      child={
-        <centerbox
-          className={'hyprnotch_bar_container'}
-          startWidget={<LeftSideBar gdkmonitor={gdkmonitor} />}
-          centerWidget={<box />}
-          endWidget={<RightSideBar gdkmonitor={gdkmonitor} />}
-        />
-      }
+      application={app}
+      children={[
+        <centerbox cssName={'hyprnotch_bar_container'}>
+          <LeftSideBar $type="start" gdkmonitor={monitor} />
+          <box cssName={'hyprnotch_bar_center'} />,
+          <RightSideBar gdkmonitor={monitor} />
+        </centerbox>
+      ]}
     />
   );
 }

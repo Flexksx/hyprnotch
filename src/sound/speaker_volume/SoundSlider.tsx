@@ -9,7 +9,7 @@ export default function SoundSlider({ initialValue }: SoundSliderProps) {
   return (
     <box
       vertical={true}
-      className="sound_slider"
+      cssName="sound_slider"
       children={[
         <slider
           vertical={true}

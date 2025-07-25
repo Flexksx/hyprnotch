@@ -12,21 +12,7 @@
 @use "./bar.scss" as *;
 @use "./cava.scss" as *;
 
-window.Bar {
-  font-weight: bold;
-  min-height: 30px;
-  border-radius: 24px;
-  margin-left: 10px;
-  margin-right: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
-
-  > centerbox {
-    background: transparent;
-    border-radius: 0px 0px 24px 24px;
-  }
-}
-
 .hyprnotch_bar_container_background {
   min-height: 34px;
+  background-color: $primary;
 }

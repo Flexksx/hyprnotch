@@ -4,7 +4,7 @@ export default function SoundMuteButton() {
   const wirePlumberViewModel = WirePlumberViewModel.getInstance();
   return (
     <button
-      className={wirePlumberViewModel.getDefaultSpeakerVolume().as(volume => {
+      cssName={wirePlumberViewModel.getDefaultSpeakerVolume().as(volume => {
         let className = 'icon_button xsmall';
         return volume === 0
           ? (className += ' outlined')

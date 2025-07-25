@@ -1,5 +1,3 @@
-import { Variable } from 'astal';
-
 export default class TimeService {
   private static instance: TimeService;
   private timeVariable = Variable<string>('').poll(1000, 'date');

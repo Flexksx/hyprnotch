@@ -1,4 +1,3 @@
-import { Astal, Gdk, Gtk } from 'astal/gtk3';
 import BatteryViewModel from './BatteryViewModel';
 import Logger from '../../logger/Logger';
 import { IconSource } from '../../lib/icons/IconUtils';
@@ -8,9 +7,9 @@ function BatteryLevelCircularProgress() {
   const batteryViewModel = new BatteryViewModel();
   return (
     <circularprogress
-      className={'battery_level_circular_progress'}
+      cssName={'battery_level_circular_progress'}
       rounded={true}
-      value={batteryViewModel.getBatteryPercentage().as((percentage) => {
+      value={batteryViewModel.getBatteryPercentage().as(percentage => {
         logger.debug(`Battery percentage: ${percentage}`);
         return percentage;
       })}
@@ -29,7 +28,7 @@ export default function SystemDetailsBarModule() {
     <box
       valign={Gtk.Align.START}
       halign={Gtk.Align.END}
-      className="system_details_container"
+      cssName="system_details_container"
       children={[<BatteryLevelCircularProgress />]}
     />
   );

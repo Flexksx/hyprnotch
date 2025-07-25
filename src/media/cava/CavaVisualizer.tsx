@@ -1,4 +1,3 @@
-import { Gtk } from 'astal/gtk3';
 import CavaViewModel from './CavaViewModel';
 import { CAVA_CONSTANTS } from './constants';
 import CavaBarSection from './CavaBarSection';
@@ -21,7 +20,7 @@ export default function CavaVisualizer({
 
   return (
     <box
-      className="cava_visualizer"
+      cssName="cava_visualizer"
       orientation={Gtk.Orientation.VERTICAL}
       halign={Gtk.Align.CENTER}
       valign={Gtk.Align.CENTER}

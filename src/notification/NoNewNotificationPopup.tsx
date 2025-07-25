@@ -1,26 +1,26 @@
-import Gtk from "gi://Gtk?version=3.0";
-import { NotificationViewModel } from "./NotificationViewModel";
-import Logger from "../logger/Logger";
-const NOTIFICATIONS_READ_DND_ICON = "indicator-notification-read-dnd";
-const NOTIFICATIONS_UNREAD_DND_ICON = "indicator-notification-unread-dnd";
+import Gtk from 'gi://Gtk?';
+import { NotificationViewModel } from './NotificationViewModel';
+import Logger from '../logger/Logger';
+const NOTIFICATIONS_READ_DND_ICON = 'indicator-notification-read-dnd';
+const NOTIFICATIONS_UNREAD_DND_ICON = 'indicator-notification-unread-dnd';
 
-const NOTIFICATIONS_READ_ICON = "indicator-notification-read";
-const NOTIFICATIONS_UNREAD_ICON = "indicator-notification-unread";
+const NOTIFICATIONS_READ_ICON = 'indicator-notification-read';
+const NOTIFICATIONS_UNREAD_ICON = 'indicator-notification-unread';
 const notificationViewModel = new NotificationViewModel();
 
 export function NoNewNotificationPopup() {
-  const logger = new Logger("NoNewNotificationPopup");
+  const logger = new Logger('NoNewNotificationPopup');
   return (
     <box
-      className={"no_notification"}
+      cssName={'no_notification'}
       vexpand={true}
       halign={Gtk.Align.CENTER}
       valign={Gtk.Align.CENTER}
-      child={notificationViewModel.getIsDoNotDisturb().as((isDoNotDisturb) => {
+      child={notificationViewModel.getIsDoNotDisturb().as(isDoNotDisturb => {
         return (
           <button
-            cursor={"pointer"}
-            className="icon_button xsmall "
+            cursor={'pointer'}
+            cssName="icon_button xsmall "
             onButtonPressEvent={() => {
               const isDoNotDisturb = notificationViewModel
                 .getIsDoNotDisturb()
@@ -32,7 +32,7 @@ export function NoNewNotificationPopup() {
               <icon
                 icon={notificationViewModel
                   .getIsDoNotDisturb()
-                  .as((isDoNotDisturb) => {
+                  .as(isDoNotDisturb => {
                     const notificationsCount = notificationViewModel
                       .getNotifications()
                       .get().length;

@@ -1,7 +1,5 @@
 import AstalCava from 'gi://AstalCava';
 import Logger from '../../logger/Logger';
-import { bind, Binding } from 'astal';
-
 export default class CavaViewModel {
   private static instance: CavaViewModel | null = null;
   private cava!: AstalCava.Cava;

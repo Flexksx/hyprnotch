@@ -1,4 +1,3 @@
-import { exec } from 'astal';
 import Logger from '../logger/Logger';
 
 export enum MatugenMaterialSchemas {
