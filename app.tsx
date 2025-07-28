@@ -1,15 +1,26 @@
-import style from './style/main.scss';
-import BarContainerBackground from './src/bar/BarContainerBackground';
 import app from 'ags/gtk4/app';
-import Bar from './src/bar/Bar';
+import style from './stylev2/main.scss';
+import { initializeSingletons } from './src/di/initializeSingletons';
+import FlexShell from './widget/FlexShell';
+import { createBinding, For } from 'ags';
+import Bar from './widget/Bar';
+import BarContainerBackground from './src/bar/BarContainerBackground';
+import { Gtk } from 'ags/gtk4';
+
+initializeSingletons();
 
 app.start({
   css: style,
+  instanceName: 'flexshell',
   main() {
-    app.get_monitors().map(monitor => {
-      BarContainerBackground({ monitor });
-      Bar({ monitor });
-      // Hyprnotch({ gdkmonitor: monitor });
-    });
+    const monitors = createBinding(app, 'monitors');
+
+    return (
+      <For each={monitors} cleanup={win => (win as Gtk.Window).destroy()}>
+        {monitor => {
+          return <Bar gdkmonitor={monitor} />;
+        }}
+      </For>
+    );
   }
 });

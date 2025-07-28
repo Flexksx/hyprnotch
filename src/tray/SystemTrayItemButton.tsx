@@ -1,6 +1,6 @@
 import SystemTrayStateViewModel from './SystemTrayStateViewModel';
 import Tray from 'gi://AstalTray';
-import { SystemTrayViewModel } from './SystemTrayViewModel';
+import { SystemTrayViewModel } from '../../lib/tray/SystemTrayViewModel';
 
 const SYSTEM_TRAY_ITEM_TIMEOUT = 10000; // 30 seconds
 

@@ -1,5 +1,5 @@
 import Logger from '../logger/Logger';
-import { SystemTrayViewModel } from './SystemTrayViewModel';
+import { SystemTrayViewModel } from '../../lib/tray/SystemTrayViewModel';
 import TrayItemNotch from './TrayItemNotch';
 import SystemTrayItemButton from './SystemTrayItemButton';
 import animations from '../lib/material/animations';

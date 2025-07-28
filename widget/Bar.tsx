@@ -1,17 +1,19 @@
-import app from 'ags/gtk4/app';
-import { Astal, Gtk, Gdk } from 'ags/gtk4';
-import { execAsync } from 'ags/process';
-import { createPoll } from 'ags/time';
+import { Gdk } from 'gi://Gdk?version=4.0';
 import WorkspacesBar from '../src/hyprland/workspaces/WorkspacesBar';
+import Workspaces from './hyprland/Workspaces';
+import { Astal, Gtk } from 'ags/gtk4';
+import { createPoll } from 'ags/time';
+import app from 'ags/gtk4/app';
+import SystemTray from './tray/SystemTray';
 
-export default function Bar(gdkmonitor: Gdk.Monitor) {
+export default function Bar({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
   const time = createPoll('', 1000, 'date');
   const { TOP, LEFT, RIGHT } = Astal.WindowAnchor;
 
   return (
     <window
       visible
-      cssName="hyprnotch_bar"
+      class="hyprnotch-bar"
       name="HyprnotchBar"
       gdkmonitor={gdkmonitor}
       exclusivity={Astal.Exclusivity.EXCLUSIVE}
@@ -19,14 +21,12 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
       application={app}
     >
       <centerbox>
-        <WorkspacesBar monitor={gdkmonitor} /> <label label="Welcome to AGS!" />
-        <box $type="center" />
-        <menubutton $type="end" hexpand halign={Gtk.Align.CENTER}>
-          <label label={time} />
-          <popover>
-            <Gtk.Calendar />
-          </popover>
-        </menubutton>
+        <box $type="start">
+          <Workspaces monitor={gdkmonitor} />
+        </box>
+        <box $type="end">
+          <SystemTray />
+        </box>
       </centerbox>
     </window>
   );

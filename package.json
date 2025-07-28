@@ -1,5 +1,9 @@
 {
   "dependencies": {
     "ags": "*"
+  },
+  "scripts": {
+    "build:css": "sass style/main.scss style.css",
+    "watch:css": "sass --watch style/main.scss:style.css"
   }
 }

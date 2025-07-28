@@ -4,7 +4,7 @@ import Logger from '../logger/Logger';
 // import { NotificationsPopup } from '../notification/Notification';
 import SystemDetailsBarModule from '../system_stats/battery/SystemDetails';
 import { SystemTray } from '../tray/SystemTray';
-import { SystemTrayViewModel } from '../tray/SystemTrayViewModel';
+import { SystemTrayViewModel } from '../../lib/tray/SystemTrayViewModel';
 import app from 'ags/gtk4/app';
 
 export type RightSideBarProps = {

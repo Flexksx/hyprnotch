@@ -1,8 +1,8 @@
 import { Gdk, Gtk } from 'ags/gtk4';
 import { createBinding, For } from 'ags';
 import Logger from '../../logger/Logger';
-import { HyprlandWorkspacesViewModel } from './HyprlandWorkspacesViewModel';
 import Hyprland from 'gi://AstalHyprland';
+import HyprlandWorkspacesViewModel from '../../../lib/hyprland/HyprlandWorkspacesViewModel';
 
 const workspacesViewModel: HyprlandWorkspacesViewModel =
   HyprlandWorkspacesViewModel.getInstance();
