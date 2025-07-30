@@ -1,8 +1,18 @@
 @use "../style/colors.scss" as *;
 @use "../style/components/material.scss" as *;
 
+$regular_width: 30px;
+$focused_width: 40px;
+
 .workspace-button-list {
-    background-color: transparent;
+    background-color: $primary_container;
+    border-radius: $m3-shape-corner-full;
+    padding: 4px;
+
+    &.single {
+        background-color: $tertiary;
+        padding: 4px;
+    }
 }
 
 .workspace-button {
@@ -10,21 +20,22 @@
     background-color: $primary;
     color: $on_primary;
     border-radius: $m3-shape-corner-full;
-    min-width: 10px;
-    margin: 0px 2px;
+    min-width: $regular_width;
     font-size: 12px;
-    min-height: 10px;
+    padding: 0px;
 
     &:hover {
         @include fast-size-transition;
         background-color: $on_primary;
+        min-width: $focused_width;
         color: $primary;
     }
 
     &.focused {
         @include fast-size-transition;
         background-color: $tertiary;
+        border-radius: $m3-shape-corner-full;
         color: $on_tertiary;
-        min-width: 20px;
+        min-width: $focused_width;
     }
 }

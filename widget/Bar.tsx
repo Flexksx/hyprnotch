@@ -5,6 +5,7 @@ import { Astal, Gtk } from 'ags/gtk4';
 import { createPoll } from 'ags/time';
 import app from 'ags/gtk4/app';
 import SystemTray from './tray/SystemTray';
+import Time from './time/Time';
 
 export default function Bar({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
   const time = createPoll('', 1000, 'date');
@@ -26,6 +27,7 @@ export default function Bar({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
         </box>
         <box $type="end">
           <SystemTray />
+          <Time />
         </box>
       </centerbox>
     </window>

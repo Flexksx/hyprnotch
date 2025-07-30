@@ -1,11 +1,11 @@
-import { Astal, Gdk } from 'ags/gtk4';
+import { Astal, Gdk, Gtk } from 'ags/gtk4';
 
 /**
  * Checks if an event is a primary click
  * @param event - The click event to check
  * @returns True if the event is a primary click, false otherwise
  */
-export const isPrimaryClick = (event: Astal.ClickEvent): boolean =>
+export const isPrimaryClick = (event: Gtk.GestureClick): boolean =>
   event.button === Gdk.BUTTON_PRIMARY;
 
 /**

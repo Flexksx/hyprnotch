@@ -1,5 +1,5 @@
 import { Accessed, createBinding } from 'ags';
-import Logger from '../../logger/Logger';
+import Logger from '../../src/logger/Logger';
 import Hyprland from 'gi://AstalHyprland';
 
 export default class HyprlandWorkspaceViewModel {

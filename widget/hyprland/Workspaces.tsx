@@ -6,10 +6,6 @@ import { getInstance } from '../../lib/di';
 
 const workspacesViewModel = getInstance(HyprlandWorkspacesViewModel);
 
-const buttonDefaultWidth = 10;
-const focusedButtonWidth = 25;
-const buttonHorizontalMargin = 4;
-
 const WorkspaceButton = ({ workspace }: { workspace: Hyprland.Workspace }) => {
   const focusedWorkspace = workspacesViewModel.getFocusedWorkspace();
   let baseClassName = 'workspace-button';
@@ -31,10 +27,18 @@ const WorkspaceButton = ({ workspace }: { workspace: Hyprland.Workspace }) => {
 export default function Workspaces({ monitor }: { monitor: Gdk.Monitor }) {
   const workspaces = workspacesViewModel.getPerMonitorWorkspaces(monitor);
   return (
-    <box class="workspace-button-list">
+    <box class="workspace-button-list-container">
       <With value={workspaces}>
-        {(workspaces: Hyprland.Workspace[]) => (
-          <box>
+        {workspaces => (
+          <box
+            class={
+              'workspace-button-list' +
+              (workspaces.length === 1 ? ' single' : '')
+            }
+            halign={Gtk.Align.CENTER}
+            valign={Gtk.Align.CENTER}
+            spacing={4}
+          >
             {workspaces.map((workspace: Hyprland.Workspace) => (
               <WorkspaceButton workspace={workspace} />
             ))}

@@ -1,0 +1,29 @@
+@use "../style/colors.scss" as *;
+@use "../style/components/material.scss" as *;
+
+.system-tray-button-list {
+    background-color: $primary_container;
+    border-radius: $m3-shape-corner-full;
+    padding: 4px;
+}
+
+.system-tray-button {
+    @include slow-color-transition;
+
+    border-radius: $m3-shape-corner-full;
+    background-color: $primary;
+    color: $on_primary;
+    font-size: 8px;
+    min-width: 30px;
+    padding: 0px;
+
+    button {
+        padding: 1px;
+        &:hover {
+            @include slow-color-transition;
+            background-color: $primary_container;
+            color: $on_primary_container;
+            border: 0px solid $primary_container;
+        }
+    }
+}

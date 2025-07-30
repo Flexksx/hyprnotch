@@ -3,14 +3,11 @@
 @use "sass:color";
 
 @use "./workspaces.scss" as *;
+@use "./system_tray.scss" as *;
+@use "./time.scss" as *;
 
 .hyprnotch-bar {
-    background-color: color.change($surface, $alpha: 0.8);
-    padding: 4px;
-    margin-top: 4px;
-    margin-left: 8px;
-    margin-right: 8px;
+    padding: 0px;
+    margin: 8px;
     margin-bottom: 0px;
-    min-height: 20px;
-    border-radius: $m3-shape-corner-full;
 }

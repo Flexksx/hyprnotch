@@ -1,0 +1,13 @@
+@use "../style/components/material.scss" as *;
+
+.time-container {
+    padding: 0px 4px;
+}
+.time-button {
+    button {
+        border-radius: $m3-shape-corner-full;
+        background-color: $tertiary;
+        color: $on_tertiary;
+        font-size: 14px;
+    }
+}

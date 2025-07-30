@@ -1,6 +1,6 @@
 import Hyprland from 'gi://AstalHyprland';
 import Logger from '../../src/logger/Logger';
-import HyprlandWorkspaceViewModel from '../../src/hyprland/workspaces/HyprlandWorkspaceViewModel';
+import HyprlandWorkspaceViewModel from './HyprlandWorkspaceViewModel';
 import { Gdk } from 'ags/gtk4';
 import { Accessor, createBinding } from 'ags';
 import { SingletonViewModel } from '../di';

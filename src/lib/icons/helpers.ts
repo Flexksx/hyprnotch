@@ -1,4 +1,4 @@
-import { Gtk } gtk4;
+import { Gtk } from 'ags/gtk4';
 
 /**
  * Looks up an icon by name and size

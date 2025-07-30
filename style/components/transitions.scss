@@ -27,3 +27,21 @@
     min-height $expressive_default_spatial_duration $expressive_default_spatial,
     padding $expressive_default_spatial_duration $expressive_default_spatial;
 }
+
+@mixin fast-color-transition {
+  transition:
+    background-color $expressive_fast_effects_duration $expressive_fast_effects,
+    color $expressive_fast_effects_duration $expressive_fast_effects;
+}
+
+@mixin slow-color-transition {
+  transition:
+    background-color $expressive_slow_effects_duration $expressive_slow_effects,
+    color $expressive_slow_effects_duration $expressive_slow_effects;
+}
+
+@mixin default-color-transition {
+  transition:
+    background-color $expressive_default_effects_duration $expressive_default_effects,
+    color $expressive_default_effects_duration $expressive_default_effects;
+}
