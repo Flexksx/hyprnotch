@@ -8,8 +8,8 @@
 }
 
 .system-tray-button {
-    @include slow-color-transition;
-
+    @include fast-color-transition;
+    @include fast-size-transition;
     border-radius: $m3-shape-corner-full;
     background-color: $primary;
     color: $on_primary;
@@ -20,10 +20,10 @@
     button {
         padding: 1px;
         &:hover {
-            @include slow-color-transition;
-            background-color: $primary_container;
-            color: $on_primary_container;
-            border: 0px solid $primary_container;
+            @include fast-color-transition;
+            @include fast-size-transition;
+            background-color: $tertiary;
+            color: $on_tertiary;
         }
     }
 }

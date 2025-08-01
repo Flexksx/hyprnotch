@@ -1,11 +1,10 @@
 import { createBinding, With } from 'ags';
 import { getInstance } from '../../lib/di';
 import SystemTrayViewModel from '../../lib/tray/SystemTrayViewModel';
-import AstalTray from 'gi://AstalTray?version=0.1';
+
+import AstalTray from 'gi://AstalTray';
 import Logger from '../../src/logger/Logger';
-import { exec } from 'ags/process';
-import { lookUpIcon } from '../../src/lib/icons/helpers';
-import { Gdk, Gtk } from 'ags/gtk4';
+import { Astal, Gtk } from 'ags/gtk4';
 
 const systemTrayViewModel = getInstance(SystemTrayViewModel);
 const LOG = new Logger('SystemTray');
@@ -17,6 +16,7 @@ const initTrayItem = (btn: Gtk.MenuButton, item: AstalTray.TrayItem) => {
     btn.insert_action_group('dbusmenu', item.actionGroup);
   });
 };
+
 const SystemTrayButtonIcon = ({ item }: { item: AstalTray.TrayItem }) => {
   const gicon = item.get_gicon();
   if (gicon) {
@@ -59,15 +59,23 @@ const SystemTrayButton = ({ item }: { item: AstalTray.TrayItem }) => {
 export default function SystemTray() {
   return (
     <box>
-      <With value={systemTrayViewModel.getTrayItems()}>
-        {trayItems => (
+      <With
+        value={systemTrayViewModel
+          .getTrayItems()
+          .as(trayItems =>
+            trayItems.filter((item: AstalTray.TrayItem) =>
+              item.get_action_group()
+            )
+          )}
+      >
+        {(trayItems: AstalTray.TrayItem[]) => (
           <box
             class="system-tray-button-list"
             halign={Gtk.Align.CENTER}
             valign={Gtk.Align.CENTER}
             spacing={4}
           >
-            {trayItems.map(item => (
+            {trayItems.map((item: AstalTray.TrayItem) => (
               <SystemTrayButton item={item} />
             ))}
           </box>
