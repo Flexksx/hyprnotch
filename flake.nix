@@ -26,6 +26,7 @@
         io
         astal4
         hyprland
+        mpris
         apps
         notifd
         tray
@@ -68,6 +69,8 @@
         default = pkgs.mkShell {
           buildInputs = [
             pkgs.dart-sass
+            pkgs.material-symbols
+            pkgs.material-icons
             (ags.packages.${system}.default.override {
               inherit extraPackages;
             })

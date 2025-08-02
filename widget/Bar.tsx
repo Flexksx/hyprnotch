@@ -6,6 +6,7 @@ import { createPoll } from 'ags/time';
 import app from 'ags/gtk4/app';
 import SystemTray from './tray/SystemTray';
 import Time from './time/Time';
+import MediaPlayer from './player/MediaPlayer';
 
 export default function Bar({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
   const time = createPoll('', 1000, 'date');
@@ -24,6 +25,7 @@ export default function Bar({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
       <centerbox>
         <box $type="start">
           <Workspaces monitor={gdkmonitor} />
+          <MediaPlayer />
         </box>
         <box $type="end">
           <SystemTray />

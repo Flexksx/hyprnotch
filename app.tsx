@@ -1,5 +1,5 @@
 import app from 'ags/gtk4/app';
-import style from './stylev2/main.scss';
+import style from './styles/main.scss';
 import { initializeSingletons } from './src/di/initializeSingletons';
 import { createBinding, For } from 'ags';
 import Bar from './widget/Bar';

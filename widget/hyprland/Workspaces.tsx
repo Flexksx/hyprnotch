@@ -16,7 +16,6 @@ const WorkspaceButton = ({ workspace }: { workspace: Hyprland.Workspace }) => {
           ? `${baseClassName} focused`
           : baseClassName
       )}
-      label={workspace.get_name()}
       onClicked={() => {
         workspacesViewModel.switchToWorkspace(workspace.get_id());
       }}

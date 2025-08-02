@@ -1,5 +1,4 @@
-@use "../style/colors.scss" as *;
-@use "../style/components/material.scss" as *;
+@use "./lib/material.scss" as *;
 
 .system-tray-button-list {
     background-color: $primary_container;

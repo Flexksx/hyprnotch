@@ -1,7 +1,7 @@
-@use "../style/colors.scss" as *;
-@use "../style/components/material.scss" as *;
+@use "sass:color";
+@use "./lib/material.scss" as *;
 
-$regular_width: 30px;
+$regular_width: 20px;
 $focused_width: 40px;
 
 .workspace-button-list {
@@ -21,6 +21,7 @@ $focused_width: 40px;
     color: $on_primary;
     border-radius: $m3-shape-corner-full;
     min-width: $regular_width;
+    min-height: $regular_width;
     font-size: 12px;
     padding: 0px;
 

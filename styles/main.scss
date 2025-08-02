@@ -1,6 +1,6 @@
-@use "../style/colors.scss" as *;
-@use "../style/components/material.scss" as *;
 @use "sass:color";
+@use "./lib/colors.scss" as *;
+@use "./lib/material.scss" as *;
 
 @use "./workspaces.scss" as *;
 @use "./system_tray.scss" as *;
@@ -8,6 +8,6 @@
 
 .hyprnotch-bar {
     padding: 0px;
-    margin: 8px;
+    margin: 4px 9px;
     margin-bottom: 0px;
 }

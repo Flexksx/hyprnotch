@@ -1,0 +1,14 @@
+@use "./material/buttons.scss" as *;
+@use "./material/slider.scss" as *;
+@use "./material/circular_progress.scss" as *;
+@use "./material/border_rounding.scss" as *;
+@use "./material/transitions.scss" as *;
+@use "./colors.scss" as *;
+
+// Forward all mixins from transitions
+@forward "./material/transitions.scss";
+@forward "./material/buttons.scss";
+@forward "./material/slider.scss";
+@forward "./material/circular_progress.scss";
+@forward "./material/border_rounding.scss";
+@forward "./colors.scss";

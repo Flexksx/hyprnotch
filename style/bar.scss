@@ -1,6 +1,0 @@
-@use "./colors.scss" as *;
-@use "./components/material.scss" as *;
-
-.hyprnotch_bar_side {
-    @include slow-size-transition;
-}
