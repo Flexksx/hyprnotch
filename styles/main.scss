@@ -5,9 +5,20 @@
 @use "./workspaces.scss" as *;
 @use "./system_tray.scss" as *;
 @use "./time.scss" as *;
+@use "./notch.scss" as *;
 
-.hyprnotch-bar {
+.flexshell-bar {
     padding: 0px;
-    margin: 4px 9px;
+    margin: 4px 14px;
     margin-bottom: 0px;
+}
+
+.hyprnotch-bar-container-background {
+    margin: 3px 10px;
+    margin-bottom: 0px;
+    border-radius: $m3-shape-corner-full;
+    min-height: 36px;
+    background-color: color.change($surface, $alpha: 0.5);
+    color: transparent;
+    border: none;
 }

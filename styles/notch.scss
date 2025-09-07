@@ -1,0 +1,21 @@
+@use "./lib/material.scss" as *;
+
+.notch-container {
+    @include fast-size-transition;
+    background-color: $surface;
+    color: $primary;
+    border-radius: 0px 0px $m3-shape-corner-large $m3-shape-corner-large;
+    margin: 0px;
+    padding: 0px;
+
+    /* &.preview {
+        @include fast-size-transition;
+        min-height: 32px;
+        min-width: 200px;
+    }
+    &.dashboard {
+        @include fast-size-transition;
+        min-height: 64px;
+        min-width: 400px;
+    } */
+}

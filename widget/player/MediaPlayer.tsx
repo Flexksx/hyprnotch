@@ -1,80 +1,86 @@
-import { createBinding, createState, For, With } from 'ags';
+import { createBinding, createState, With } from 'ags';
 import MediaViewModel from '../../lib/media/MediaViewModel';
-import AstalMpris from 'gi://AstalMpris';
 import { Gtk } from 'ags/gtk4';
 import AstalApps from 'gi://AstalApps';
 import Mpris from 'gi://AstalMpris';
+import Logger from '../../src/logger/Logger';
 
 const mediaViewModel = new MediaViewModel();
 const apps = new AstalApps.Apps();
+const LOG = new Logger('MediaPlayer');
 
-enum PlayerState {
-  PREVIEW = 'preview',
-  REVEALED = 'revealed'
+enum MediaPlayerMode {
+  COMPACT = 'compact',
+  FULL = 'full'
 }
-const [currentState, setCurrentState] = createState<PlayerState>(
-  PlayerState.PREVIEW
+
+const [currentState, setCurrentState] = createState<MediaPlayerMode>(
+  MediaPlayerMode.COMPACT
 );
-const [currentPlayer, setCurrentPlayer] = createState<Mpris.Player | null>(
-  null
-);
-setCurrentPlayer(mediaViewModel.getPlayers().get()[0]);
-function CurrentPlayerButton() {
+
+function CompactMediaPlayer() {
   return (
     <button
-      heightRequest={20}
       onClicked={() => {
-        if (currentPlayer.get()) {
-          if (currentState.get() === PlayerState.PREVIEW) {
-            setCurrentState(PlayerState.REVEALED);
-          } else {
-            setCurrentState(PlayerState.PREVIEW);
-          }
-        }
+        setCurrentState(MediaPlayerMode.FULL);
       }}
     >
-      <box>
-        {' '}
-        <For each={mediaViewModel.getPlayers()}>
-          {player => {
-            const [app] = apps.exact_query(player.entry);
-            return <image visible={!!app.iconName} iconName={app?.iconName} />;
-          }}
-        </For>
-        <revealer
-          heightRequest={20}
-          revealChild={currentState.as(state => state === PlayerState.REVEALED)}
-          transitionType={Gtk.RevealerTransitionType.CROSSFADE}
-          onNotifyChildRevealed={() => {
-            print('Child revealed');
-          }}
-        >
-          <RevealedPlayer player={currentPlayer.get()!} />
-        </revealer>
-      </box>
+      <With value={mediaViewModel.getCurrentPlayer()}>
+        {player => {
+          if (!player) {
+            return (
+              <box>
+                <image iconName={'music-note-outline-symbolic'} />
+              </box>
+            );
+          }
+          const [app] = apps.exact_query(player.entry);
+          return (
+            <image
+              visible={!!app.iconName}
+              iconName={app?.iconName}
+              pixelSize={16}
+            />
+          );
+        }}
+      </With>
     </button>
   );
 }
-function RevealedPlayer({ player }: { player: Mpris.Player }) {
+function FullMediaPlayer() {
+  const player = mediaViewModel.getCurrentPlayer().get() || new Mpris.Player();
   return (
-    <box class="revealed-player">
-      <button
-        class="revealed-player-close"
-        onClicked={() => {
-          setCurrentState(PlayerState.PREVIEW);
-        }}
-      >
-        <image iconName="close" />
-      </button>
-      <image file={createBinding(player, 'coverArt')} pixelSize={64} />
-    </box>
+    <button
+      onClicked={() => {
+        setCurrentState(MediaPlayerMode.COMPACT);
+      }}
+    >
+      <label>{player.title || 'No Player Active'}</label>
+      {player.coverArt && (
+        <image file={createBinding(player, 'coverArt')} pixelSize={64} />
+      )}
+    </button>
   );
 }
 
 export default function MediaPlayer() {
   return (
-    <box class="media-player">
-      <CurrentPlayerButton />
-    </box>
+    <stack
+      visibleChildName={currentState}
+      vhomogeneous={false}
+      interpolateSize={true}
+      hhomogeneous={false}
+      class="media-player"
+      transitionType={Gtk.StackTransitionType.CROSSFADE}
+      transitionDuration={150}
+      valign={Gtk.Align.CENTER}
+    >
+      <box $type="named" name={MediaPlayerMode.COMPACT}>
+        <CompactMediaPlayer />
+      </box>
+      <box $type="named" name={MediaPlayerMode.FULL}>
+        <FullMediaPlayer />
+      </box>
+    </stack>
   );
 }

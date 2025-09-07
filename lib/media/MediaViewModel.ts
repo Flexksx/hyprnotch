@@ -16,4 +16,13 @@ export default class MediaViewModel {
   public getPlayers() {
     return createBinding(this.getMpris(), 'players');
   }
+  public getCurrentPlayer() {
+    return this.getPlayers().as(players => {
+      return (
+        players.find(
+          player => player.playbackStatus === Mpris.PlaybackStatus.PLAYING
+        ) || null
+      );
+    });
+  }
 }

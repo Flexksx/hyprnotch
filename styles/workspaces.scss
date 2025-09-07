@@ -5,7 +5,7 @@ $regular_width: 20px;
 $focused_width: 40px;
 
 .workspace-button-list {
-    background-color: $primary_container;
+    background-color: color.change($primary_container, $alpha: 0.5);
     border-radius: $m3-shape-corner-full;
     padding: 4px;
 
@@ -27,9 +27,9 @@ $focused_width: 40px;
 
     &:hover {
         @include fast-size-transition;
-        background-color: $on_primary;
+        background-color: $secondary;
         min-width: $focused_width;
-        color: $primary;
+        color: $on_secondary;
     }
 
     &.focused {

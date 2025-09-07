@@ -1,7 +1,8 @@
 @use "./lib/material.scss" as *;
+@use "sass:color";
 
 .system-tray-button-list {
-    background-color: $primary_container;
+    background-color: color.change($primary_container, $alpha: 0.5);
     border-radius: $m3-shape-corner-full;
     padding: 4px;
 }
