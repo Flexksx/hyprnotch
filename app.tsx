@@ -18,9 +18,11 @@ app.start({
       <For each={monitors} cleanup={win => (win as Gtk.Window).destroy()}>
         {monitor => <Bar gdkmonitor={monitor} />}
       </For>,
-      <For each={monitors} cleanup={win => (win as Gtk.Window).destroy()}>
+      {
+        /* <For each={monitors} cleanup={win => (win as Gtk.Window).destroy()}>
         {monitor => <Notch gdkmonitor={monitor} />}
-      </For>
+      </For> */
+      }
     ];
   }
 });

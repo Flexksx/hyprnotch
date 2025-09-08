@@ -23,7 +23,7 @@ const getButtonWidth = (workspace: Hyprland.Workspace) => {
 };
 
 const getWorkspacesBarWidth = (monitor: Gdk.Monitor) => {
-  return workspacesViewModel.getPerMonitorWorkspaces(monitor).as(workspaces => {
+  return workspacesViewModel.getWorkspacesOnMonitor(monitor).as(workspaces => {
     const focusedWorkspace = workspacesViewModel.getFocusedWorkspace();
     const width = workspaces.reduce((acc, workspace) => {
       return (
@@ -117,7 +117,7 @@ export default function WorkspacesBar({ monitor }: WorkspacesBarProps) {
         (width: number) => `min-width: ${width}px;`
       )}
     >
-      <For each={workspacesViewModel.getPerMonitorWorkspaces(monitor)}>
+      <For each={workspacesViewModel.getWorkspacesOnMonitor(monitor)}>
         {workspace => (
           <box
             cssName="workspace_button_container"

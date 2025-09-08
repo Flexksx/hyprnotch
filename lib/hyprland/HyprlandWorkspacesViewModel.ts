@@ -48,7 +48,7 @@ export default class HyprlandWorkspacesViewModel {
     this.hyprland.get_workspace(workspaceId).focus();
   }
 
-  public getPerMonitorWorkspaces(
+  public getWorkspacesOnMonitor(
     gdkMonitor: Gdk.Monitor
   ): Accessor<Hyprland.Workspace[]> {
     return this.getWorkspaces().as((workspaces: Hyprland.Workspace[]) => {

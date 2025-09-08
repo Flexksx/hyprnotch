@@ -15,6 +15,11 @@ $focused_width: 40px;
     }
 }
 
+.workspace-button-list-other-monitor {
+    // No background pill for non-focused monitors
+    padding: 4px;
+}
+
 .workspace-button {
     @include fast-size-transition;
     background-color: $primary;
@@ -38,5 +43,17 @@ $focused_width: 40px;
         border-radius: $m3-shape-corner-full;
         color: $on_tertiary;
         min-width: $focused_width;
+    }
+
+    &.other-monitor {
+        background-color: transparent;
+        color: $on_primary_container;
+        min-width: $regular_width;
+
+        &:hover {
+            background-color: color.change($on_primary_container, $alpha: 0.1);
+            color: $on_primary_container;
+            min-width: $regular_width;
+        }
     }
 }
