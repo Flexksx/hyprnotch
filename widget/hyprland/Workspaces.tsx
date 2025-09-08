@@ -45,35 +45,25 @@ const WorkspaceButton = ({ workspace }: { workspace: Hyprland.Workspace }) => {
 
 export default function Workspaces({ monitor }: { monitor: Gdk.Monitor }) {
   const workspaces = workspacesViewModel.getWorkspacesOnMonitor(monitor);
-  const monitors = createBinding(app, 'monitors');
   return (
-    <With value={monitors}>
-      {monitors => {
-        const sortedMonitors = sortMonitorsHorizontally(monitors);
-        return (
-          <box class="workspace-button-monitor-group">
-            <box class="workspace-button-list-container">
-              <With value={workspaces}>
-                {workspaces => (
-                  <box
-                    class={
-                      'workspace-button-list' +
-                      (workspaces.length === 1 ? ' single' : '')
-                    }
-                    halign={Gtk.Align.CENTER}
-                    valign={Gtk.Align.CENTER}
-                    spacing={4}
-                  >
-                    {workspaces.map((workspace: Hyprland.Workspace) => (
-                      <WorkspaceButton workspace={workspace} />
-                    ))}
-                  </box>
-                )}
-              </With>
-            </box>
+    <box class="workspace-button-list-container">
+      <With value={workspaces}>
+        {workspaces => (
+          <box
+            class={
+              'workspace-button-list' +
+              (workspaces.length === 1 ? ' single' : '')
+            }
+            halign={Gtk.Align.CENTER}
+            valign={Gtk.Align.CENTER}
+            spacing={4}
+          >
+            {workspaces.map((workspace: Hyprland.Workspace) => (
+              <WorkspaceButton workspace={workspace} />
+            ))}
           </box>
-        );
-      }}
-    </With>
+        )}
+      </With>
+    </box>
   );
 }
