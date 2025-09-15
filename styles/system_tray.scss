@@ -2,7 +2,7 @@
 @use "sass:color";
 
 .system-tray-button-list {
-    background-color: color.change($primary_container, $alpha: 0.5);
+    background-color: $primary_container;
     border-radius: $m3-shape-corner-full;
     padding: 4px;
 }

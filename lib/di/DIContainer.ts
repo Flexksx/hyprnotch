@@ -1,4 +1,4 @@
-import Logger from '../../src/logger/Logger';
+import Logger from '../Logger';
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 

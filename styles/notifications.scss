@@ -1,0 +1,40 @@
+@use "sass:color";
+@use "./lib/material.scss" as *;
+
+.notifications-popup {
+    window {
+        background-color: transparent;
+    }
+    font-family: "Varela Round";
+    padding: 10px;
+    font-size: 18px;
+}
+
+.notifications-popup-clickable {
+    @include fast-size-transition;
+    min-width: 100px;
+    background-color: $primary;
+    color: $on_primary;
+    border-radius: $m3-shape-corner-large;
+    &.large {
+        @include fast-size-transition;
+        min-width: 500px;
+        min-height: 150px;
+    }
+}
+
+.notifications-popup-small-summary {
+    font-weight: bold;
+    font-size: 16px;
+    padding-bottom: 2px;
+}
+
+.notifications-popup-small-body {
+    font-size: 14px;
+}
+
+.notifications-popup-large-body {
+    min-width: 300px;
+    min-height: 80px;
+    font-size: large;
+}

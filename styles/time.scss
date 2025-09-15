@@ -10,7 +10,7 @@
     padding: 0px 4px;
     margin: 0px;
     border-radius: $m3-shape-corner-full;
-    background-color: color.change($tertiary, $alpha: 0.8);
+    background-color: $tertiary;
     color: $on_tertiary;
     font-size: 14px;
 }

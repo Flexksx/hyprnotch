@@ -1,5 +1,5 @@
 import { Accessor, createBinding } from 'ags';
-import Logger from '../../src/logger/Logger';
+import Logger from '../Logger';
 import AstalTray from 'gi://AstalTray';
 import { SingletonViewModel } from '../di';
 

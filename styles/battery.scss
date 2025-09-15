@@ -1,0 +1,15 @@
+@use "sass:color";
+@use "./lib/material.scss" as *;
+
+.battery-box {
+    color: $on_primary;
+    background-color: $primary;
+    padding: 6px;
+    border-radius: $m3-shape-corner-full;
+}
+
+.battery-percentage {
+    font-size: 12px;
+    padding-left: 4px;
+    font-weight: bold;
+}

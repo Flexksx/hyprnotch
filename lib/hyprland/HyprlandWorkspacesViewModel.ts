@@ -1,5 +1,5 @@
 import Hyprland from 'gi://AstalHyprland';
-import Logger from '../../src/logger/Logger';
+import Logger from '../Logger';
 import HyprlandWorkspaceViewModel from './HyprlandWorkspaceViewModel';
 import { Gdk } from 'ags/gtk4';
 import { Accessor, createBinding } from 'ags';

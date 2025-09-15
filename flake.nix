@@ -30,6 +30,7 @@
         apps
         notifd
         tray
+        battery
       ];
 
       extraPackages = astalPackages ++ [

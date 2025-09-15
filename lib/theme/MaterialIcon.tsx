@@ -1,20 +1,21 @@
 const MATERIAL_ICONS_FONT_NAME = 'Material Symbols Rounded';
 export default function MaterialIcon({
+  className,
   iconName,
-  pixelSize = 16
+  iconSize = 18
 }: {
+  className: string;
   iconName: string;
-  pixelSize?: number;
+  iconSize?: number;
 }) {
   return (
     <label
-      class="material-symbols-outlined"
+      class={className}
       css={`
-        font-size: ${pixelSize}px;
         font-family: '${MATERIAL_ICONS_FONT_NAME}';
+        font-size: ${iconSize}px;
       `}
-    >
-      {iconName}
-    </label>
+      label={iconName}
+    />
   );
 }

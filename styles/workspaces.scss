@@ -5,7 +5,7 @@ $regular_width: 20px;
 $focused_width: 40px;
 
 .workspace-button-list {
-    background-color: color.change($primary_container, $alpha: 0.5);
+    background-color: $primary_container;
     border-radius: $m3-shape-corner-full;
     padding: 4px;
 
